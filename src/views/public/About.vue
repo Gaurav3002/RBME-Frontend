@@ -32,7 +32,7 @@
 
             <router-link
               to="/companies/1/products"
-              class="btn btn-primary hero-btn"
+              class="btn btn-primary public-button hero-btn"
             >
               Explore Our Machinery
               <i class="bi bi-arrow-right"></i>
@@ -40,7 +40,7 @@
 
             <router-link
               to="/contact"
-              class="btn hero-btn-outline"
+              class="btn public-button hero-btn-outline"
             >
               Discuss Your Requirement
               <i class="bi bi-chat-dots"></i>
@@ -710,7 +710,7 @@
 
             <router-link
               to="/companies/1/products"
-              class="btn btn-primary machinery-btn"
+              class="btn btn-primary public-button machinery-btn"
             >
               View Our Products
               <i class="bi bi-arrow-right"></i>
@@ -925,7 +925,7 @@
 
               <router-link
                 to="/contact"
-                class="btn btn-light btn-lg"
+                class="btn btn-light public-button btn-lg"
               >
                 Send an Enquiry
                 <i class="bi bi-arrow-right ms-2"></i>
@@ -960,37 +960,6 @@
 /* =========================================================
    COMMON SECTION TYPOGRAPHY
 ========================================================= */
-
-.section-label {
-    display: inline-block;
-
-    margin-bottom: 0;
-
-    color: var(--color-primary);
-
-    font-family: var(--font-primary);
-    font-size: 0.68rem;
-    font-weight: 800;
-
-    letter-spacing: 1.8px;
-    line-height: 1.4;
-
-    text-transform: uppercase;
-}
-
-.section-title {
-    margin-top: 10px;
-    margin-bottom: 15px;
-
-    color: var(--color-heading);
-
-    font-family: var(--font-heading);
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 800;
-
-    line-height: 1.15;
-    letter-spacing: -1px;
-}
 
 .section-title span {
     color: var(--color-primary);
