@@ -38,7 +38,7 @@
             <div class="hero-actions">
               <router-link
                 to="/companies/1"
-                class="btn btn-primary hero-btn"
+                class="btn btn-primary public-button hero-btn"
               >
                 Explore Our Brands
                 <i class="bi bi-arrow-right"></i>
@@ -46,7 +46,7 @@
 
               <router-link
                 to="/contact"
-                class="btn hero-btn-outline"
+                class="btn public-button hero-btn-outline"
               >
                 Discuss Your Requirement
                 <i class="bi bi-chat-dots"></i>
@@ -956,7 +956,7 @@
         <div class="text-center mt-5">
           <router-link
             to="/companies"
-            class="btn btn-outline-primary brands-button"
+                class="btn public-button btn-outline-primary brands-button"
           >
             View All Brands
             <i class="bi bi-arrow-right"></i>
@@ -1083,7 +1083,7 @@
 
           <router-link
             to="/contact"
-            class="btn btn-primary cta-button"
+                class="btn public-button btn-primary cta-button"
           >
             Send Your Enquiry
             <i class="bi bi-arrow-right"></i>
@@ -1395,22 +1395,6 @@ onMounted(() => {
 /* =========================================================
    COMMON SECTIONS
 ========================================================= */
-
-.section-title {
-  margin: 12px 0 0;
-  color: #101820;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 800;
-  line-height: 1.18;
-  letter-spacing: -1px;
-}
-
-.section-label {
-  color: var(--icon-primary);
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 2px;
-}
 
 .section-description {
   color: #717c86;

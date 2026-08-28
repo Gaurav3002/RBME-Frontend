@@ -33,7 +33,7 @@
 
             <router-link
               to="/companies/1/products"
-              class="btn btn-primary hero-btn"
+              class="btn btn-primary public-button hero-btn"
             >
               Explore Machinery
               <i class="bi bi-arrow-right"></i>
@@ -41,7 +41,7 @@
 
             <router-link
               to="/contact"
-              class="btn hero-btn-outline"
+              class="btn public-button hero-btn-outline"
             >
               Discuss Your Project
               <i class="bi bi-chat-dots"></i>
@@ -1776,7 +1776,7 @@
 
               <router-link
                 to="/contact"
-                class="btn btn-light btn-lg"
+                class="btn btn-light public-button btn-lg"
               >
                 Discuss Your Project
                 <i class="bi bi-arrow-right ms-2"></i>

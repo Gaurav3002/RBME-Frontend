@@ -153,7 +153,7 @@
 
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary public-button"
             @click="loadProducts"
           >
             Try Again
@@ -384,7 +384,7 @@
                 <article
                   v-for="product in category.products"
                   :key="product.id"
-                  class="product-card"
+                  class="product-card public-card"
                 >
 
                   <!-- IMAGE -->
@@ -2341,6 +2341,7 @@ onMounted(() => {
 
   line-height: 1.75;
 
+  line-clamp: 3;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
