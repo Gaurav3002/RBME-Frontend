@@ -204,6 +204,49 @@ table {
     -webkit-overflow-scrolling: touch;
 }
 
+/* =========================================================
+   ADMIN UI COMPONENTS
+========================================================= */
+
+.admin-card {
+    border: 0;
+    border-radius: 10px;
+    background: var(--color-surface);
+    box-shadow: 0 2px 8px var(--color-shadow);
+}
+
+.admin-table th {
+    background: #f8f9fa;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.admin-table td {
+    vertical-align: middle;
+}
+
+.admin-form-control,
+.admin-form-select {
+    border-radius: 8px;
+}
+
+.admin-form-control:focus,
+.admin-form-select:focus {
+    box-shadow: none;
+    border-color: var(--color-primary);
+}
+
+.admin-action-button {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border-radius: 6px;
+}
+
+.admin-action-button i {
+    font-size: 15px;
+}
+
 
 /* =========================================================
    BUTTONS / INPUTS

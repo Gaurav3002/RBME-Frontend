@@ -28,11 +28,11 @@
              SEARCH
         ====================================================== -->
 
-        <div class="card shadow-sm mb-3">
+        <div class="card admin-card shadow-sm mb-3">
 
             <div class="card-body">
 
-                <input type="text" class="form-control" placeholder="Search product..."  v-model="search">
+                <input type="text" class="form-control admin-form-control" placeholder="Search product..."  v-model="search">
             </div>
         </div>
 
@@ -41,9 +41,9 @@
              PRODUCT TABLE
         ====================================================== -->
 
-        <div class="card shadow-sm">
+        <div class="card admin-card shadow-sm">
             <div class="card-body table-responsive">
-                <table class="table table-hover align-middle">
+                <table class="table admin-table table-hover align-middle">
                     <thead>
                     <tr>
                         <th>Image</th>
@@ -96,10 +96,10 @@
 
                         <td>
 
-                            <button type="button"  class="btn btn-sm btn-warning me-2"  @click="editProduct(product)" title="Edit Product">
+                            <button type="button"  class="btn admin-action-button btn-warning me-2"  @click="editProduct(product)" title="Edit Product">
                                 <i class="bi bi-pencil"></i>
                             </button>
-                            <button type="button"   class="btn btn-sm btn-danger"  @click="deleteProductById(product.id)"  title="Delete Product" >
+                            <button type="button"   class="btn admin-action-button btn-danger"  @click="deleteProductById(product.id)"  title="Delete Product" >
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
@@ -264,7 +264,7 @@
                                 <img  :src="image.url"  class="product-preview-image" alt="Product Image">
                                 <button
                                     type="button"
-                                    class="btn btn-sm btn-danger remove-image-btn"
+                                    class="btn admin-action-button btn-danger remove-image-btn"
                                     @click="removeSelectedImage(index)"
                                     title="Remove Image"
                                 >
@@ -786,37 +786,6 @@ onMounted(async () => {
    CARD
 ============================================================ */
 
-.card {
-
-    border: none;
-
-    border-radius: 10px;
-
-}
-
-
-/* ============================================================
-   TABLE
-============================================================ */
-
-.table th {
-
-    background: #f8f9fa;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-}
-
-
-.table td {
-
-    vertical-align: middle;
-
-}
-
-
 /* ============================================================
    PRODUCT TABLE IMAGE
 ============================================================ */
@@ -878,26 +847,6 @@ onMounted(async () => {
    ACTION BUTTONS
 ============================================================ */
 
-.btn-sm {
-
-    width: 36px;
-
-    height: 36px;
-
-    padding: 0;
-
-    border-radius: 6px;
-
-}
-
-
-.btn-sm i {
-
-    font-size: 15px;
-
-}
-
-
 /* ============================================================
    FORM
 ============================================================ */
@@ -907,24 +856,6 @@ onMounted(async () => {
     font-weight: 600;
 
     margin-bottom: 6px;
-
-}
-
-
-.form-control,
-.form-select {
-
-    border-radius: 8px;
-
-}
-
-
-.form-control:focus,
-.form-select:focus {
-
-    box-shadow: none;
-
-    border-color: #0d6efd;
 
 }
 
