@@ -1,215 +1,356 @@
+```vue
 <template>
+  <nav class="public-navbar">
 
-  <nav class="navbar navbar-expand-lg public-navbar">
+    <div class="container navbar-container">
 
-    <div class="container">
+      <!-- BRAND -->
+      <router-link to="/" class="navbar-brand">
+        <div class="brand-wrapper">
+          <img
+            src="@/assets/logo/logos.png"
+            alt="Ram Bakery Machines & Engineers"
+            class="brand-logo"
+          />
 
-      <!-- =================================================
-           BRAND
-      ================================================== -->
+          <div class="brand-text">
+            <span class="brand-name">
+              Ram Bakery Machines
+            </span>
 
-      <router-link
-      class="navbar-brand"
-      to="/"
-    >
-      <div class="brand-wrapper">
-
-        <!-- Logo -->
-        <img
-          src="@/assets/logo/logos.png"
-          alt="RBME Engineers"
-          class="brand-logo"
-        />
-
-        <!-- Company Name -->
-        <div class="brand-text">
-          <span class="brand-name">
-            Ram Bakery Machines
-          </span>
-
-          <span class="brand-subtitle">
-            &amp; Engineers
-          </span>
+            <span class="brand-subtitle">
+              & Engineers
+            </span>
+          </div>
         </div>
-
-      </div>
       </router-link>
 
 
-      <!-- =================================================
-           MOBILE TOGGLER
-      ================================================== -->
+      <!-- DESKTOP MENU -->
+      <div class="desktop-menu">
 
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#publicNavbar"
-        aria-controls="publicNavbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+        <router-link
+          to="/"
+          class="desktop-link"
+          exact-active-class="active"
+        >
+          Home
+        </router-link>
 
 
-      <!-- =================================================
-           NAVIGATION
-      ================================================== -->
+        <!-- OUR BRANDS -->
+        <div
+          class="desktop-brands"
+          @mouseenter="openBrands = true"
+          @mouseleave="openBrands = false"
+        >
 
-      <div
-        class="collapse navbar-collapse"
-        id="publicNavbar"
-      >
+          <button
+            type="button"
+            class="desktop-link brands-button"
+            :class="{ active: openBrands }"
+          >
+            Our Brands
 
-        <ul class="navbar-nav ms-auto align-items-lg-center">
-
-          <!-- HOME -->
-
-          <li class="nav-item">
-
-            <router-link
-              class="nav-link"
-              to="/"
-              exact-active-class="active"
-            >
-              Home
-            </router-link>
-
-          </li>
+            <i
+              class="bi bi-chevron-down"
+              :class="{ rotate: openBrands }"
+            ></i>
+          </button>
 
 
-          <!-- =================================================
-               OUR BRANDS
-          ================================================== -->
-
-          <li
-            class="nav-item brands-menu-item"
-            @mouseenter="openBrands = true"
-            @mouseleave="openBrands = false"
+          <!-- DROPDOWN -->
+          <div
+            v-if="openBrands"
+            class="brands-dropdown"
           >
 
-            <a
-              href="#"
-              class="nav-link brands-trigger"
-              :class="{ active: openBrands }"
-              @click.prevent="toggleBrands"
-            >
+            <div class="brands-dropdown-header">
+              OUR BRANDS
+            </div>
 
-              Our Brands
-
-              <i class="bi bi-chevron-down brands-arrow"></i>
-
-            </a>
-
-
-            <!-- MEGA MENU -->
 
             <div
-              v-if="openBrands"
-              class="brands-mega-menu"
+              v-if="companies.length"
+              class="brands-list"
             >
 
-              <div class="brands-mega-container">
+              <router-link
+                v-for="company in companies"
+                :key="company.id"
+                :to="`/companies/${company.id}`"
+                class="brand-link"
+                @click="openBrands = false"
+              >
 
-                <div class="brands-title">
-                  OUR BRANDS
+                <div class="brand-icon">
+                  <i class="bi bi-building"></i>
                 </div>
 
+                <span>
+                  {{ company.name }}
+                </span>
 
-                <div class="brands-grid">
+                <i class="bi bi-arrow-right-short"></i>
 
-                  <router-link
-                    v-for="company in companies"
-                    :key="company.id"
-                    :to="`/companies/${company.id}`"
-                    class="brand-name-item"
-                    @click="openBrands = false"
-                  >
-
-                    {{ company.name }}
-
-                  </router-link>
-
-                </div>
-
-              </div>
+              </router-link>
 
             </div>
 
-          </li>
 
-
-          <!-- PROJECTS -->
-
-          <li class="nav-item">
-
-            <router-link
-              class="nav-link"
-              to="/projects"
-              active-class="active"
+            <div
+              v-else
+              class="no-brands"
             >
-              Projects / Automation
-            </router-link>
+              No brands available
+            </div>
 
-          </li>
+          </div>
 
-
-          <!-- ABOUT -->
-
-          <li class="nav-item">
-
-            <router-link
-              class="nav-link"
-              to="/about"
-              active-class="active"
-            >
-              About
-            </router-link>
-
-          </li>
+        </div>
 
 
-          <!-- CONTACT -->
+        <!-- PROJECTS -->
+        <router-link
+          to="/projects"
+          class="desktop-link"
+          active-class="active"
+        >
+          Projects / Automation
+        </router-link>
 
-          <li class="nav-item contact-nav-item">
 
-            <router-link
-              class="nav-link contact-button"
-              to="/contact"
-            >
+        <!-- ABOUT -->
+        <router-link
+          to="/about"
+          class="desktop-link"
+          active-class="active"
+        >
+          About
+        </router-link>
 
-              <span>
-                Contact / Enquiry
-              </span>
 
-              <i class="bi bi-arrow-right"></i>
-
-            </router-link>
-
-          </li>
-
-        </ul>
+        <!-- CONTACT -->
+        <router-link
+          to="/contact"
+          class="desktop-contact"
+        >
+          Contact / Enquiry
+          <i class="bi bi-arrow-right"></i>
+        </router-link>
 
       </div>
 
+
+      <!-- MOBILE MENU BUTTON -->
+      <button
+        type="button"
+        class="mobile-menu-button"
+        @click="openSidebar"
+        aria-label="Open menu"
+      >
+        <i class="bi bi-list"></i>
+      </button>
+
     </div>
 
-  </nav>
 
+    <!-- MOBILE OVERLAY -->
+    <transition name="fade">
+
+      <div
+        v-if="sidebarOpen"
+        class="mobile-overlay"
+        @click="closeSidebar"
+      ></div>
+
+    </transition>
+
+
+    <!-- MOBILE SIDEBAR -->
+    <transition name="sidebar">
+
+      <aside
+        v-if="sidebarOpen"
+        class="mobile-sidebar"
+      >
+
+        <!-- HEADER -->
+        <div class="mobile-sidebar-header">
+
+          <div class="mobile-brand">
+
+            <img
+              src="@/assets/logo/logos.png"
+              alt="RBME"
+            />
+
+            <div>
+              <strong>
+                Ram Bakery Machines
+              </strong>
+
+              <small>
+                & Engineers
+              </small>
+            </div>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="close-button"
+            @click="closeSidebar"
+            aria-label="Close menu"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+
+        </div>
+
+
+        <!-- BODY -->
+        <div class="mobile-sidebar-body">
+
+          <!-- HOME -->
+          <router-link
+            to="/"
+            class="mobile-link"
+            exact-active-class="active"
+            @click="closeSidebar"
+          >
+            <i class="bi bi-house"></i>
+            <span>Home</span>
+          </router-link>
+
+
+          <!-- BRANDS -->
+          <button
+            type="button"
+            class="mobile-link mobile-dropdown-button"
+            @click="mobileBrandsOpen = !mobileBrandsOpen"
+          >
+
+            <span>
+              <i class="bi bi-buildings"></i>
+              Our Brands
+            </span>
+
+            <i
+              class="bi bi-chevron-down"
+              :class="{ rotate: mobileBrandsOpen }"
+            ></i>
+
+          </button>
+
+
+          <!-- BRAND LIST -->
+          <div
+            v-if="mobileBrandsOpen"
+            class="mobile-brands-list"
+          >
+
+            <router-link
+              v-for="company in companies"
+              :key="company.id"
+              :to="`/companies/${company.id}`"
+              class="mobile-brand-link"
+              @click="closeSidebar"
+            >
+
+              <i class="bi bi-building"></i>
+
+              <span>
+                {{ company.name }}
+              </span>
+
+            </router-link>
+
+          </div>
+
+
+          <!-- PROJECTS -->
+          <router-link
+            to="/projects"
+            class="mobile-link"
+            active-class="active"
+            @click="closeSidebar"
+          >
+
+            <i class="bi bi-gear"></i>
+
+            <span>
+              Projects / Automation
+            </span>
+
+          </router-link>
+
+
+          <!-- ABOUT -->
+          <router-link
+            to="/about"
+            class="mobile-link"
+            active-class="active"
+            @click="closeSidebar"
+          >
+
+            <i class="bi bi-info-circle"></i>
+
+            <span>
+              About
+            </span>
+
+          </router-link>
+
+
+          <!-- CONTACT -->
+          <router-link
+            to="/contact"
+            class="mobile-contact"
+            @click="closeSidebar"
+          >
+
+            <span>
+              Contact / Enquiry
+            </span>
+
+            <i class="bi bi-arrow-right"></i>
+
+          </router-link>
+
+        </div>
+
+      </aside>
+
+    </transition>
+
+  </nav>
 </template>
 
 
 <script setup>
 
-import { ref, onMounted } from "vue";
-
+import { ref, onMounted, onBeforeUnmount } from "vue";
 import { getAllCompany } from "@/publicApis/company.api";
+
+
+/* =====================================================
+   STATE
+===================================================== */
 
 const companies = ref([]);
 
 const openBrands = ref(false);
 
+const sidebarOpen = ref(false);
+
+const mobileBrandsOpen = ref(false);
+
+
+/* =====================================================
+   LOAD COMPANIES
+===================================================== */
 
 const loadCompanies = async () => {
 
@@ -217,14 +358,11 @@ const loadCompanies = async () => {
 
     const response = await getAllCompany();
 
-    companies.value = response.data;
+    companies.value = response.data || [];
 
   } catch (error) {
 
-    console.error(
-      "Error loading companies:",
-      error
-    );
+    console.error("Error loading companies:", error);
 
     companies.value = [];
 
@@ -233,16 +371,67 @@ const loadCompanies = async () => {
 };
 
 
-const toggleBrands = () => {
+/* =====================================================
+   OPEN SIDEBAR
+===================================================== */
 
-  openBrands.value = !openBrands.value;
+const openSidebar = () => {
+
+  sidebarOpen.value = true;
+
+  document.body.classList.add("menu-open");
 
 };
 
 
+/* =====================================================
+   CLOSE SIDEBAR
+===================================================== */
+
+const closeSidebar = () => {
+
+  sidebarOpen.value = false;
+
+  mobileBrandsOpen.value = false;
+
+  document.body.classList.remove("menu-open");
+
+};
+
+
+/* =====================================================
+   ESC KEY
+===================================================== */
+
+const handleEscape = (event) => {
+
+  if (event.key === "Escape" && sidebarOpen.value) {
+
+    closeSidebar();
+
+  }
+
+};
+
+
+/* =====================================================
+   LIFECYCLE
+===================================================== */
+
 onMounted(() => {
 
   loadCompanies();
+
+  document.addEventListener("keydown", handleEscape);
+
+});
+
+
+onBeforeUnmount(() => {
+
+  document.removeEventListener("keydown", handleEscape);
+
+  document.body.classList.remove("menu-open");
 
 });
 
@@ -261,27 +450,30 @@ onMounted(() => {
 
   top: 0;
 
-  z-index: 1030;
+  z-index: 1000;
 
-  min-height: 82px;
+  width: 100%;
+
+  height: 82px;
 
   background: #ffffff;
 
-  border-bottom: 1px solid #edf0f3;
+  border-bottom: 1px solid #e5eaf0;
 
-  box-shadow:
-    0 4px 20px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 3px 15px rgba(15, 23, 42, 0.06);
 
 }
 
 
-/* =====================================================
-   NAVBAR CONTAINER
-===================================================== */
+.navbar-container {
 
-.public-navbar .container {
+  height: 100%;
 
-  position: relative;
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
 
 }
 
@@ -291,92 +483,89 @@ onMounted(() => {
 ===================================================== */
 
 .navbar-brand {
-  display: flex;
-  align-items: center;
-
-  padding: 0 !important;
-  margin: 0 45px 0 0;
 
   text-decoration: none;
+
 }
 
 
 .brand-wrapper {
+
   display: flex;
+
   align-items: center;
-  gap: 10px;
+
+  gap: 11px;
 
 }
 
-/* =====================================================
-   ACTUAL LOGO
-===================================================== */
-.brand-logo {
-  width: 52px;
-  height: 52px;
 
-  display: block;
+.brand-logo {
+
+  width: 55px;
+
+  height: 55px;
 
   object-fit: contain;
-  object-position: center;
 
-  border: none !important;
-  border-radius: 0 !important;
-
-  background: transparent !important;
-  box-shadow: none !important;
-
-  padding: 0;
-  margin: 0;
 }
+
+
 .brand-text {
+
   display: flex;
+
   flex-direction: column;
 
-  justify-content: center;
-
-  line-height: 1;
 }
+
+
 .brand-name {
-  display: block;
 
   color: #101820;
 
-  font-size: 1.15rem;
+  font-size: 18px;
+
   font-weight: 800;
 
-  letter-spacing: -0.2px;
+  line-height: 1.2;
 
   white-space: nowrap;
+
 }
+
+
 .brand-subtitle {
-  display: block;
 
-  margin-top: 5px;
+  margin-top: 4px;
 
-  color: #68737d;
+  color: #75808b;
 
-  font-size: 0.78rem;
+  font-size: 11px;
+
   font-weight: 700;
 
   letter-spacing: 2px;
 
-  white-space: nowrap;
 }
 
 
 /* =====================================================
-   NAVIGATION
+   DESKTOP MENU
 ===================================================== */
 
-.navbar-nav {
+.desktop-menu {
 
-  gap: 5px;
+  display: flex;
+
+  align-items: center;
+
+  gap: 3px;
 
 }
 
 
-.nav-link {
+.desktop-link {
 
   position: relative;
 
@@ -384,77 +573,66 @@ onMounted(() => {
 
   align-items: center;
 
-  padding: 29px 16px !important;
+  gap: 7px;
 
-  color: #4c5660 !important;
+  padding: 30px 14px;
 
-  font-size: 0.9rem;
+  border: 0;
+
+  background: transparent;
+
+  color: #4b5965;
+
+  font-size: 14px;
 
   font-weight: 600;
 
-  white-space: nowrap;
-
   text-decoration: none;
 
-  transition: all 0.25s ease;
+  cursor: pointer;
+
+  white-space: nowrap;
+
+  transition: color 0.2s ease;
 
 }
 
 
-/* =====================================================
-   NAV LINK HOVER
-===================================================== */
+.desktop-link:hover,
 
-.nav-link:hover {
+.desktop-link.active {
 
-  color: #0d6efd !important;
+  color: #1b5e8c;
 
 }
 
 
-/* =====================================================
-   NAV LINK ACTIVE
-===================================================== */
-
-.nav-link.active {
-
-  color: #0d6efd !important;
-
-}
-
-
-/* =====================================================
-   ACTIVE UNDERLINE
-===================================================== */
-
-.nav-link:not(.contact-button)::after {
+.desktop-link::after {
 
   content: "";
 
   position: absolute;
 
-  left: 16px;
+  left: 14px;
 
-  right: 16px;
+  right: 14px;
 
   bottom: 17px;
 
   height: 2px;
 
-  background: #0d6efd;
+  background: #1b5e8c;
 
   transform: scaleX(0);
 
-  transform-origin: center;
-
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 
 }
 
 
-.nav-link:not(.contact-button):hover::after,
+.desktop-link:hover::after,
 
-.nav-link:not(.contact-button).active::after {
+.desktop-link.active::after {
 
   transform: scaleX(1);
 
@@ -462,37 +640,26 @@ onMounted(() => {
 
 
 /* =====================================================
-   OUR BRANDS
+   BRANDS
 ===================================================== */
 
-.brands-menu-item {
+.desktop-brands {
 
-  position: static;
-
-}
-
-
-.brands-trigger {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 7px;
+  position: relative;
 
 }
 
 
-.brands-arrow {
+.brands-button i {
 
-  font-size: 0.65rem;
+  font-size: 10px;
 
-  transition: transform 0.25s ease;
+  transition: transform 0.2s ease;
 
 }
 
 
-.brands-trigger:hover .brands-arrow {
+.rotate {
 
   transform: rotate(180deg);
 
@@ -500,34 +667,35 @@ onMounted(() => {
 
 
 /* =====================================================
-   BRANDS MEGA MENU
+   DROPDOWN
 ===================================================== */
 
-.brands-mega-menu {
+.brands-dropdown {
 
   position: absolute;
 
-  top: 100%;
+  top: calc(100% - 1px);
 
-  left: 0;
+  right: 0;
 
-  width: 100%;
+  width: 360px;
 
   background: #ffffff;
 
-  border-top: 1px solid #edf0f3;
+  border: 1px solid #e1e7ed;
 
-  border-bottom: 1px solid #e5e9ed;
+  border-radius: 8px;
 
-  box-shadow:
-    0 15px 35px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 
-  animation: brandsMenuShow 0.2s ease;
+  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.14);
+
+  animation: dropdownShow 0.18s ease;
 
 }
 
 
-@keyframes brandsMenuShow {
+@keyframes dropdownShow {
 
   from {
 
@@ -548,104 +716,105 @@ onMounted(() => {
 }
 
 
-/* =====================================================
-   MEGA MENU CONTAINER
-===================================================== */
+.brands-dropdown-header {
 
-.brands-mega-container {
+  padding: 15px 18px;
 
-  max-width: 1140px;
+  background: #f7f9fb;
 
-  margin: 0 auto;
+  border-bottom: 1px solid #e7ecf1;
 
-  padding: 28px 15px 32px;
+  color: #162536;
 
-}
-
-
-/* =====================================================
-   MEGA MENU TITLE
-===================================================== */
-
-.brands-title {
-
-  margin-bottom: 20px;
-
-  color: #101820;
-
-  font-size: 0.72rem;
+  font-size: 10px;
 
   font-weight: 800;
 
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
 
 }
 
 
-/* =====================================================
-   COMPANY GRID
-===================================================== */
+.brands-list {
 
-.brands-grid {
+  max-height: 350px;
 
-  display: grid;
-
-  grid-template-columns:
-    repeat(3, minmax(0, 1fr));
-
-  column-gap: 50px;
-
-  row-gap: 4px;
+  overflow-y: auto;
 
 }
 
 
-/* =====================================================
-   COMPANY NAME
-===================================================== */
-
-.brand-name-item {
+.brand-link {
 
   display: flex;
 
   align-items: center;
 
-  min-height: 48px;
+  gap: 11px;
 
-  padding: 10px 5px;
+  padding: 13px 17px;
 
-  color: #4c5660;
-
-  font-size: 0.9rem;
-
-  font-weight: 600;
+  color: #526273;
 
   text-decoration: none;
 
-  border-bottom: 1px solid #f0f2f4;
+  font-size: 14px;
 
-  transition:
-    color 0.2s ease,
-    padding-left 0.2s ease,
-    background 0.2s ease;
+  font-weight: 600;
 
-}
-
-
-.brand-name-item:hover {
-
-  color: #0d6efd;
-
-  padding-left: 12px;
-
-  background: #f8faff;
+  transition: background 0.2s ease, color 0.2s ease;
 
 }
 
 
-.brand-name-item.router-link-active {
+.brand-link:hover {
 
-  color: #0d6efd;
+  background: #f5f9fc;
+
+  color: #1b5e8c;
+
+}
+
+
+.brand-icon {
+
+  width: 34px;
+
+  height: 34px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  border-radius: 7px;
+
+  background: #edf5fc;
+
+  color: #1b5e8c;
+
+}
+
+
+.brand-link > i {
+
+  margin-left: auto;
+
+  font-size: 18px;
+
+}
+
+
+.no-brands {
+
+  padding: 25px;
+
+  text-align: center;
+
+  color: #7b8794;
 
 }
 
@@ -654,16 +823,422 @@ onMounted(() => {
    CONTACT
 ===================================================== */
 
-.contact-nav-item {
+.desktop-contact {
 
-  margin-left: 12px;
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  margin-left: 10px;
+
+  padding: 12px 19px;
+
+  border-radius: 7px;
+
+  background: #1b5e8c;
+
+  color: #ffffff;
+
+  font-size: 13px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
 }
 
 
-.contact-button {
+.desktop-contact:hover {
 
-  display: inline-flex;
+  color: #ffffff;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 20px rgba(27, 94, 140, 0.25);
+
+}
+
+
+/* =====================================================
+   MOBILE BUTTON
+===================================================== */
+
+.mobile-menu-button {
+
+  display: none;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 44px;
+
+  height: 42px;
+
+  padding: 0;
+
+  border: 1px solid #dce3ea;
+
+  border-radius: 7px;
+
+  background: #ffffff;
+
+  color: #162536;
+
+  font-size: 23px;
+
+  cursor: pointer;
+
+}
+
+
+/* =====================================================
+   MOBILE OVERLAY
+===================================================== */
+
+.mobile-overlay {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 1090;
+
+  background: rgba(15, 23, 42, 0.35);
+
+}
+
+
+/* =====================================================
+   MOBILE SIDEBAR
+===================================================== */
+
+.mobile-sidebar {
+
+  position: fixed;
+
+  top: 0;
+
+  right: 0;
+
+  z-index: 1100;
+
+  width: 320px;
+
+  height: 100vh;
+
+  height: 100dvh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background: #ffffff;
+
+  box-shadow: -10px 0 35px rgba(15, 23, 42, 0.15);
+
+  overflow-y: auto;
+
+}
+
+
+/* =====================================================
+   SIDEBAR HEADER
+===================================================== */
+
+.mobile-sidebar-header {
+
+  min-height: 82px;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  padding: 16px 18px;
+
+  border-bottom: 1px solid #e8edf2;
+
+  background: #ffffff;
+
+}
+
+
+.mobile-brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 0;
+
+}
+
+
+.mobile-brand img {
+
+  width: 46px;
+
+  height: 46px;
+
+  object-fit: contain;
+
+}
+
+
+.mobile-brand div {
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+}
+
+
+.mobile-brand strong {
+
+  color: #162536;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  white-space: nowrap;
+
+}
+
+
+.mobile-brand small {
+
+  margin-top: 3px;
+
+  color: #7b8794;
+
+  font-size: 9px;
+
+  font-weight: 700;
+
+  letter-spacing: 1.2px;
+
+}
+
+
+.close-button {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 36px;
+
+  height: 36px;
+
+  flex-shrink: 0;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  background: #f3f6f9;
+
+  color: #162536;
+
+  cursor: pointer;
+
+}
+
+
+.close-button:hover {
+
+  background: #e9eef3;
+
+}
+
+
+/* =====================================================
+   SIDEBAR BODY
+===================================================== */
+
+.mobile-sidebar-body {
+
+  padding: 15px;
+
+}
+
+
+/* =====================================================
+   MOBILE LINKS
+===================================================== */
+
+.mobile-link {
+
+  width: 100%;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+  min-height: 50px;
+
+  margin-bottom: 4px;
+
+  padding: 13px 14px;
+
+  border: 0;
+
+  border-radius: 7px;
+
+  background: transparent;
+
+  color: #4e5d69;
+
+  font-family: inherit;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, color 0.2s ease;
+
+}
+
+
+.mobile-link i {
+
+  width: 21px;
+
+  flex-shrink: 0;
+
+  font-size: 17px;
+
+}
+
+
+.mobile-link:hover {
+
+  background: #f4f8fc;
+
+  color: #1b5e8c;
+
+}
+
+
+.mobile-link.active {
+
+  background: #edf5ff;
+
+  color: #1b5e8c;
+
+}
+
+
+/* =====================================================
+   MOBILE BRANDS
+===================================================== */
+
+.mobile-dropdown-button {
+
+  justify-content: space-between;
+
+}
+
+
+.mobile-dropdown-button span {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 13px;
+
+}
+
+
+.mobile-dropdown-button > i {
+
+  width: auto;
+
+  font-size: 11px;
+
+}
+
+
+.mobile-brands-list {
+
+  margin: 0 0 8px 10px;
+
+  padding: 5px 0 5px 15px;
+
+  border-left: 2px solid #e3eaf0;
+
+}
+
+
+.mobile-brand-link {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 11px 12px;
+
+  border-radius: 6px;
+
+  color: #687786;
+
+  font-size: 13px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+}
+
+
+.mobile-brand-link:hover {
+
+  background: #f5f9fc;
+
+  color: #1b5e8c;
+
+}
+
+
+.mobile-brand-link i {
+
+  font-size: 14px;
+
+}
+
+
+/* =====================================================
+   MOBILE CONTACT
+===================================================== */
+
+.mobile-contact {
+
+  display: flex;
 
   align-items: center;
 
@@ -671,159 +1246,203 @@ onMounted(() => {
 
   gap: 9px;
 
-  padding: 11px 19px !important;
+  margin-top: 20px;
 
-  border-radius: 6px;
+  padding: 14px;
 
-  background: #0d6efd;
+  border-radius: 7px;
 
-  color: #ffffff !important;
+  background: #1b5e8c;
 
-  font-size: 0.85rem;
+  color: #ffffff;
 
-  box-shadow:
-    0 5px 15px rgba(13, 110, 253, 0.18);
+  font-size: 14px;
 
-  transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  font-weight: 700;
+
+  text-decoration: none;
 
 }
 
 
-.contact-button:hover {
+.mobile-contact:hover {
 
-  background: #0b5ed7;
-
-  color: #ffffff !important;
-
-  transform: translateY(-1px);
-
-  box-shadow:
-    0 8px 20px rgba(13, 110, 253, 0.25);
-
-}
-
-
-.contact-button i {
-
-  font-size: 0.8rem;
-
-  transition: transform 0.2s ease;
-
-}
-
-
-.contact-button:hover i {
-
-  transform: translateX(3px);
+  color: #ffffff;
 
 }
 
 
 /* =====================================================
-   MOBILE TOGGLER
+   SIDEBAR ANIMATION
 ===================================================== */
 
-.navbar-toggler {
+.sidebar-enter-active,
 
-  padding: 8px 10px;
+.sidebar-leave-active {
 
-  border: 1px solid #dee2e6;
-
-  border-radius: 6px;
+  transition: transform 0.25s ease;
 
 }
 
 
-.navbar-toggler:focus {
+.sidebar-enter-from,
 
-  box-shadow:
-    0 0 0 3px rgba(13, 110, 253, 0.12);
+.sidebar-leave-to {
+
+  transform: translateX(100%);
 
 }
 
 
-/* =====================================================
-   TABLET
-===================================================== */
+.sidebar-enter-to,
 
-@media (max-width: 1199.98px) {
+.sidebar-leave-from {
 
-  .brands-mega-container {
-
-    max-width: 960px;
-
-  }
+  transform: translateX(0);
 
 }
 
 
 /* =====================================================
-   TABLET / MOBILE
+   OVERLAY ANIMATION
 ===================================================== */
+
+.fade-enter-active,
+
+.fade-leave-active {
+
+  transition: opacity 0.2s ease;
+
+}
+
+
+.fade-enter-from,
+
+.fade-leave-to {
+
+  opacity: 0;
+
+}
+
+
+.fade-enter-to,
+
+.fade-leave-from {
+
+  opacity: 1;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
 @media (max-width: 991.98px) {
 
   .public-navbar {
-    min-height: 70px;
+
+    height: 72px;
+
   }
 
-  .navbar-brand {
-    margin-right: 0;
+
+  .desktop-menu {
+
+    display: none;
+
   }
 
-  .brand-logo {
-    width: 48px;
-    height: 48px;
+
+  .mobile-menu-button {
+
+    display: flex;
+
   }
 
-  .brand-name {
-    font-size: 1rem;
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+
+  .desktop-menu {
+    gap: 0;
   }
 
-  .brand-subtitle {
-    font-size: 0.68rem;
-    letter-spacing: 1.5px;
+  .desktop-link {
+    padding-right: 8px;
+    padding-left: 8px;
+    font-size: 12px;
   }
 
-  .navbar-collapse {
-    margin-top: 15px;
-    padding: 10px 0 20px;
-    border-top: 1px solid #edf0f3;
+  .desktop-link::after {
+    right: 8px;
+    left: 8px;
+  }
+
+  .desktop-contact {
+    margin-left: 4px;
+    padding-right: 11px;
+    padding-left: 11px;
+    font-size: 11px;
   }
 
 }
 
 
-/* =====================================================
-   MOBILE
-===================================================== */
 @media (max-width: 575.98px) {
 
   .public-navbar {
-    min-height: 65px;
+
+    height: 66px;
+
   }
+
 
   .brand-logo {
-    width: 42px;
-    height: 42px;
+
+    width: 45px;
+
+    height: 45px;
+
   }
+
 
   .brand-name {
-    font-size: 0.9rem;
+
+    font-size: 14px;
+
   }
+
 
   .brand-subtitle {
-    margin-top: 4px;
-    font-size: 0.6rem;
-    letter-spacing: 1.2px;
+
+    font-size: 9px;
+
+    letter-spacing: 1.4px;
+
   }
 
-  .brand-wrapper {
-    gap: 8px;
+
+  .mobile-sidebar {
+
+    width: min(300px, 88vw);
+
+  }
+
+}
+
+
+@media (min-width: 992px) {
+
+  .mobile-overlay,
+
+  .mobile-sidebar {
+
+    display: none !important;
+
   }
 
 }
 
 </style>
+```

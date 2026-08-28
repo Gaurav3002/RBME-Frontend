@@ -3,7 +3,13 @@
 
         <!-- Left -->
         <div class="header-left">
-            <button class="btn btn-light d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#adminSidebar" aria-controls="adminSidebar">
+            <button
+                class="btn btn-light me-2"
+                type="button"
+                aria-controls="adminSidebar"
+                aria-label="Open sidebar"
+                @click="$emit('toggle-sidebar')"
+            >
                 <i class="bi bi-list"></i>
             </button>
             <h5 class="page-title">RBME Admin Dashboard</h5>
@@ -88,6 +94,7 @@ const logout = () => {
 .header-right{
     display:flex;
     align-items:center;
+    min-width:0;
 }
 
 .admin-info{
@@ -109,6 +116,28 @@ const logout = () => {
 
 .admin-details small{
     color:#6b7280;
+}
+
+@media (max-width: 575.98px) {
+    .header {
+        height: auto;
+        min-height: 70px;
+        gap: 12px;
+        padding: 12px 15px;
+    }
+
+    .page-title {
+        font-size: 1rem;
+    }
+
+    .admin-details {
+        display: none;
+    }
+
+    .header-right .btn {
+        margin-left: 0 !important;
+        white-space: nowrap;
+    }
 }
 
 </style>
