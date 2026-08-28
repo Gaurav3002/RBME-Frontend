@@ -1,0 +1,820 @@
+/* =========================================================
+   GLOBAL DESIGN SYSTEM
+========================================================= */
+
+:root {
+
+   /* =====================================================
+   PAGE / SURFACE COLORS
+===================================================== */
+
+--color-page-bg: #F2F5F8;
+
+--color-page-bg-soft: #F7F9FB;
+
+--color-surface: #FFFFFF;
+
+--color-surface-soft: #F8FAFC;
+
+--color-surface-dark: #102235;
+
+--color-surface-muted: #EEF2F6;
+
+    /* =====================================================
+       FONT SYSTEM
+    ===================================================== */
+
+    --font-primary:
+        "Inter",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+    --font-heading:
+        "Inter",
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+
+    /* =====================================================
+       GLOBAL COLORS
+       Industrial / Engineering Palette
+    ===================================================== */
+
+    --color-dark: #0B1726;
+
+    --color-heading: #162536;
+
+    --color-text: #526273;
+
+    --color-text-light: #718092;
+
+    --color-muted: #8C99A8;
+
+    --color-border: #DCE3EA;
+
+    --color-light-bg: #F4F7FA;
+
+    --color-white: #FFFFFF;
+
+
+    /* =====================================================
+       BRAND COLORS
+    ===================================================== */
+
+    --color-primary: #1B5E8C;
+
+    --color-primary-dark: #124568;
+
+    --color-primary-light: #EAF3F9;
+
+    --color-accent: #C58A24;
+
+    --color-accent-dark: #9F6D18;
+
+
+    /* =====================================================
+       STATUS COLORS
+    ===================================================== */
+
+    --color-success: #287A5A;
+
+    --color-danger: #B84A4A;
+
+
+    /* =====================================================
+       ICON COLORS
+    ===================================================== */
+
+    --icon-primary: #1B5E8C;
+
+    --icon-accent: #C58A24;
+
+    --icon-success: #287A5A;
+
+    --icon-danger: #B84A4A;
+
+    --icon-dark: #162536;
+
+    --icon-muted: #8C99A8;
+
+
+    /* =====================================================
+       ADDITIONAL UI COLORS
+    ===================================================== */
+
+    --color-surface: #FFFFFF;
+
+    --color-surface-soft: #F8FAFC;
+
+    --color-surface-dark: #102235;
+
+    --color-overlay: rgba(11, 23, 38, 0.78);
+
+    --color-shadow: rgba(11, 23, 38, 0.10);
+
+    --color-shadow-heavy: rgba(11, 23, 38, 0.18);
+}
+
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   HTML
+========================================================= */
+
+html {
+    margin: 0;
+    padding: 0;
+
+    scroll-behavior: smooth;
+
+    -webkit-text-size-adjust: 100%;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: var(--font-primary);
+
+    font-size: 16px;
+
+    font-weight: 400;
+
+    line-height: 1.6;
+
+    color: var(--color-text);
+
+    background: var(--color-page-bg);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* =========================================================
+   IMAGES
+========================================================= */
+
+img {
+    max-width: 100%;
+
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   BUTTONS / INPUTS
+========================================================= */
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+
+/* =========================================================
+   BUTTON
+========================================================= */
+
+button {
+    border: 0;
+
+    outline: none;
+
+    font-family: var(--font-primary);
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   GLOBAL HEADINGS
+========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+
+    font-family: var(--font-heading);
+
+    color: var(--color-heading);
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.35px;
+}
+
+
+/* =========================================================
+   HEADING SIZES
+========================================================= */
+
+h1 {
+    margin-bottom: 1rem;
+
+    font-size: 2.8rem;
+}
+
+h2 {
+    margin-bottom: 0.85rem;
+
+    font-size: 2.2rem;
+}
+
+h3 {
+    margin-bottom: 0.7rem;
+
+    font-size: 1.5rem;
+}
+
+h4 {
+    margin-bottom: 0.6rem;
+
+    font-size: 1.2rem;
+}
+
+h5 {
+    margin-bottom: 0.5rem;
+
+    font-size: 1rem;
+}
+
+h6 {
+    margin-bottom: 0.4rem;
+
+    font-size: 0.9rem;
+}
+
+
+/* =========================================================
+   PARAGRAPH
+========================================================= */
+
+p {
+    margin-top: 0;
+    margin-bottom: 1rem;
+
+    font-family: var(--font-primary);
+
+    color: var(--color-text);
+
+    font-size: 0.95rem;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   STRONG / BOLD
+========================================================= */
+
+strong,
+b {
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   SMALL
+========================================================= */
+
+small {
+    font-size: 0.8rem;
+
+    color: var(--color-muted);
+}
+
+
+/* =========================================================
+   LINKS
+========================================================= */
+
+a {
+    font-family: var(--font-primary);
+
+    color: var(--color-primary);
+
+    text-decoration: none;
+
+    transition:
+        color 0.25s ease,
+        opacity 0.25s ease;
+}
+
+a:hover {
+    color: var(--color-primary-dark);
+}
+
+
+/* =========================================================
+   BUTTON TYPOGRAPHY
+========================================================= */
+
+button,
+.btn {
+    font-family: var(--font-primary);
+
+    font-weight: 700;
+
+    letter-spacing: 0.1px;
+}
+
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
+
+input,
+textarea,
+select {
+    font-family: var(--font-primary);
+
+    color: var(--color-heading);
+}
+
+
+/* =========================================================
+   FORM PLACEHOLDER
+========================================================= */
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--color-muted);
+
+    opacity: 1;
+}
+
+
+/* =========================================================
+   FOCUS
+========================================================= */
+
+input:focus,
+textarea:focus,
+select:focus,
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid rgba(27, 94, 140, 0.35);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+    background: var(--color-primary);
+
+    color: var(--color-white);
+}
+
+
+/* =========================================================
+   GLOBAL TEXT UTILITIES
+========================================================= */
+
+.text-dark {
+    color: var(--color-dark) !important;
+}
+
+.text-heading {
+    color: var(--color-heading) !important;
+}
+
+.text-primary {
+    color: var(--color-primary) !important;
+}
+
+.text-primary-dark {
+    color: var(--color-primary-dark) !important;
+}
+
+.text-accent {
+    color: var(--color-accent) !important;
+}
+
+.text-success {
+    color: var(--color-success) !important;
+}
+
+.text-danger {
+    color: var(--color-danger) !important;
+}
+
+.text-muted {
+    color: var(--color-muted) !important;
+}
+
+.text-light {
+    color: var(--color-text-light) !important;
+}
+
+.text-white {
+    color: var(--color-white) !important;
+}
+
+
+/* =========================================================
+   GLOBAL BACKGROUND UTILITIES
+========================================================= */
+
+.bg-dark {
+    background-color: var(--color-dark) !important;
+}
+
+.bg-primary {
+    background-color: var(--color-primary) !important;
+}
+
+.bg-primary-light {
+    background-color: var(--color-primary-light) !important;
+}
+
+.bg-accent {
+    background-color: var(--color-accent) !important;
+}
+
+.bg-light {
+    background-color: var(--color-light-bg) !important;
+}
+
+.bg-white {
+    background-color: var(--color-white) !important;
+}
+
+
+/* =========================================================
+   GLOBAL BORDER UTILITIES
+========================================================= */
+
+.border-standard {
+    border: 1px solid var(--color-border) !important;
+}
+
+.border-primary {
+    border-color: var(--color-primary) !important;
+}
+
+.border-accent {
+    border-color: var(--color-accent) !important;
+}
+
+
+/* =========================================================
+   GLOBAL ICON UTILITIES
+========================================================= */
+
+.icon-primary {
+    color: var(--icon-primary) !important;
+}
+
+.icon-accent {
+    color: var(--icon-accent) !important;
+}
+
+.icon-success {
+    color: var(--icon-success) !important;
+}
+
+.icon-danger {
+    color: var(--icon-danger) !important;
+}
+
+.icon-dark {
+    color: var(--icon-dark) !important;
+}
+
+.icon-muted {
+    color: var(--icon-muted) !important;
+}
+
+
+/* =========================================================
+   COMMON LABEL
+========================================================= */
+
+.text-label {
+    display: inline-block;
+
+    color: var(--color-primary);
+
+    font-size: 0.68rem;
+
+    font-weight: 800;
+
+    letter-spacing: 1.8px;
+
+    line-height: 1.4;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   COMMON SECTION TITLE
+========================================================= */
+
+.section-title {
+    margin-bottom: 15px;
+
+    color: var(--color-heading);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+
+    font-weight: 800;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+
+/* =========================================================
+   COMMON SECTION DESCRIPTION
+========================================================= */
+
+.section-description {
+    max-width: 680px;
+
+    color: var(--color-text-light);
+
+    font-size: 0.93rem;
+
+    font-weight: 400;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   COMMON DIVIDER
+========================================================= */
+
+.section-divider {
+    width: 55px;
+
+    height: 3px;
+
+    margin: 18px 0;
+
+    border-radius: 3px;
+
+    background: var(--color-accent);
+}
+
+
+/* =========================================================
+   COMMON CONTAINER
+========================================================= */
+
+.container {
+    width: 100%;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    padding-right: 12px;
+    padding-left: 12px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-light-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #B7C2CD;
+
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+
+/* =========================================================
+   BOOTSTRAP COLOR OVERRIDE
+   Keeps Bootstrap components consistent with website theme
+========================================================= */
+
+:root {
+    --bs-primary: var(--color-primary);
+    --bs-primary-rgb: 27, 94, 140;
+
+    --bs-success: var(--color-success);
+    --bs-success-rgb: 40, 122, 90;
+
+    --bs-danger: var(--color-danger);
+    --bs-danger-rgb: 184, 74, 74;
+
+    --bs-warning: var(--color-accent);
+    --bs-warning-rgb: 197, 138, 36;
+
+    --bs-dark: var(--color-dark);
+    --bs-dark-rgb: 11, 23, 38;
+
+    --bs-body-font-family: var(--font-primary);
+
+    --bs-body-font-size: 16px;
+
+    --bs-body-font-weight: 400;
+
+    --bs-body-line-height: 1.6;
+
+    --bs-body-color: var(--color-text);
+
+    --bs-body-bg: var(--color-white);
+
+    --bs-heading-color: var(--color-heading);
+
+    --bs-border-color: var(--color-border);
+}
+
+
+/* =========================================================
+   BOOTSTRAP BUTTON OVERRIDE
+========================================================= */
+
+.btn-primary {
+    --bs-btn-color: #ffffff;
+
+    --bs-btn-bg: var(--color-primary);
+
+    --bs-btn-border-color: var(--color-primary);
+
+    --bs-btn-hover-color: #ffffff;
+
+    --bs-btn-hover-bg: var(--color-primary-dark);
+
+    --bs-btn-hover-border-color: var(--color-primary-dark);
+
+    --bs-btn-active-bg: var(--color-primary-dark);
+
+    --bs-btn-active-border-color: var(--color-primary-dark);
+}
+
+
+/* =========================================================
+   BOOTSTRAP LINK OVERRIDE
+========================================================= */
+
+.link-primary {
+    color: var(--color-primary) !important;
+}
+
+.link-primary:hover {
+    color: var(--color-primary-dark) !important;
+}
+
+
+/* =========================================================
+   MOBILE GLOBAL TYPOGRAPHY
+========================================================= */
+
+@media (max-width: 767.98px) {
+
+    body {
+        font-size: 15px;
+    }
+
+    h1 {
+        font-size: 2.3rem;
+    }
+
+    h2 {
+        font-size: 1.9rem;
+    }
+
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    h4 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+
+        letter-spacing: -0.7px;
+    }
+
+    .section-description {
+        font-size: 0.88rem;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 768px) {
+
+    .container {
+        max-width: 720px;
+    }
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 992px) {
+
+    .container {
+        max-width: 960px;
+    }
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1200px) {
+
+    .container {
+        max-width: 1140px;
+    }
+}
+
+
+/* =========================================================
+   EXTRA LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    .container {
+        max-width: 1320px;
+    }
+}
+
+
+/* =========================================================
+   SUBTLE PAGE TEXTURE
+========================================================= */
+
+.page-texture {
+    background-color: var(--color-page-bg);
+
+    background-image:
+        linear-gradient(
+            rgba(22, 37, 54, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(22, 37, 54, 0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 40px 40px;
+}
