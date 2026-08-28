@@ -19,20 +19,20 @@
 
         <!-- Search -->
 
-        <div class="card shadow-sm mb-3">
+        <div class="card admin-card shadow-sm mb-3">
 
             <div class="card-body">
-                <input type="text" class="form-control" placeholder="Search company..." v-model="search">
+                <input type="text" class="form-control admin-form-control" placeholder="Search company..." v-model="search">
             </div>
 
         </div>
 
         <!-- Table -->
-        <div class="card shadow-sm">
+        <div class="card admin-card shadow-sm">
 
             <div class="card-body table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table admin-table table-hover align-middle">
 
                     <thead>
 
@@ -72,12 +72,12 @@
                             </span>
                         </td>
                         <td>
-                            <button class="btn btn-sm btn-warning me-2" @click="editCompany(company)">
+                            <button class="btn admin-action-button btn-warning me-2" @click="editCompany(company)">
                                 <i class="bi bi-pencil"></i>
                             </button>
 
                             <button
-                                class="btn btn-sm btn-danger" @click="deleteCompany(company.id)">
+                                class="btn admin-action-button btn-danger" @click="deleteCompany(company.id)">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </td>
@@ -304,13 +304,6 @@ onMounted(async () => {
     object-fit:contain;
     border-radius:6px;
 
-}
-
-.card{
-    border:none;
-}
-.table th{
-    background:#f8f9fa;
 }
 
 </style>

@@ -41,13 +41,13 @@
              SEARCH
         ====================================================== -->
 
-        <div class="card shadow-sm mb-3">
+        <div class="card admin-card shadow-sm mb-3">
 
             <div class="card-body">
 
                 <input
                     type="text"
-                    class="form-control"
+                    class="form-control admin-form-control"
                     placeholder="Search product, specification name or value..."
                     v-model="search"
                 >
@@ -61,11 +61,11 @@
              SPECIFICATION TABLE
         ====================================================== -->
 
-        <div class="card shadow-sm">
+        <div class="card admin-card shadow-sm">
 
             <div class="card-body table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table admin-table table-hover align-middle">
 
                     <thead>
 
@@ -167,7 +167,7 @@
 
                             <button
                                 type="button"
-                                class="btn btn-sm btn-warning me-2"
+                                class="btn admin-action-button btn-warning me-2"
                                 title="Edit"
                                 @click="editSpecification(specification)"
                             >
@@ -179,7 +179,7 @@
 
                             <button
                                 type="button"
-                                class="btn btn-sm btn-danger"
+                                class="btn admin-action-button btn-danger"
                                 title="Delete"
                                 @click="
                                     deleteSpecificationById(
@@ -1061,37 +1061,6 @@ onMounted(async () => {
    CARD
 ========================================================= */
 
-.card {
-
-    border: none;
-
-    border-radius: 10px;
-
-}
-
-
-/* =========================================================
-   TABLE
-========================================================= */
-
-.table th {
-
-    background: #f8f9fa;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-}
-
-
-.table td {
-
-    vertical-align: middle;
-
-}
-
-
 .product-name {
 
     min-width: 250px;
@@ -1124,26 +1093,6 @@ onMounted(async () => {
    BUTTONS
 ========================================================= */
 
-.btn-sm {
-
-    width: 36px;
-
-    height: 36px;
-
-    padding: 0;
-
-    border-radius: 6px;
-
-}
-
-
-.btn-sm i {
-
-    font-size: 15px;
-
-}
-
-
 /* =========================================================
    FORM
 ========================================================= */
@@ -1153,24 +1102,6 @@ onMounted(async () => {
     font-weight: 600;
 
     margin-bottom: 6px;
-
-}
-
-
-.form-control,
-.form-select {
-
-    border-radius: 8px;
-
-}
-
-
-.form-control:focus,
-.form-select:focus {
-
-    box-shadow: none;
-
-    border-color: #0d6efd;
 
 }
 

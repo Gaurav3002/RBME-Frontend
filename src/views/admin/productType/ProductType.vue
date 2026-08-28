@@ -17,11 +17,11 @@
         </div>
 
         <!-- Search -->
-        <div class="card shadow-sm mb-3">
+        <div class="card admin-card shadow-sm mb-3">
             <div class="card-body">
                 <input
                     type="text"
-                    class="form-control"
+                    class="form-control admin-form-control"
                     placeholder="Search product type..."
                     v-model="search"
                 >
@@ -29,11 +29,11 @@
         </div>
 
         <!-- Table -->
-        <div class="card shadow-sm">
+        <div class="card admin-card shadow-sm">
 
             <div class="card-body table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table admin-table table-hover align-middle">
 
                     <thead>
                     <tr>
@@ -72,14 +72,14 @@
                         <td>
 
                             <button
-                                class="btn btn-sm btn-warning me-2"
+                                class="btn admin-action-button btn-warning me-2"
                                 @click="editProductType(productType)"
                             >
                                 <i class="bi bi-pencil"></i>
                             </button>
 
                             <button
-                                class="btn btn-sm btn-danger"
+                                class="btn admin-action-button btn-danger"
                                 @click="deleteProductTypeById(productType.id)"
                             >
                                 <i class="bi bi-trash"></i>
@@ -546,52 +546,15 @@ onMounted(async () => {
 
 <style scoped>
 
-.card {
-    border: none;
-    border-radius: 10px;
-}
-
-.table th {
-    background: #f8f9fa;
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.table td {
-    vertical-align: middle;
-}
-
 .badge {
     padding: 7px 12px;
     font-size: 12px;
     font-weight: 500;
 }
 
-.btn-sm {
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    border-radius: 6px;
-}
-
-.btn-sm i {
-    font-size: 15px;
-}
-
 .form-label {
     font-weight: 600;
     margin-bottom: 6px;
-}
-
-.form-control,
-.form-select {
-    border-radius: 8px;
-}
-
-.form-control:focus,
-.form-select:focus {
-    box-shadow: none;
-    border-color: #0d6efd;
 }
 
 .table-responsive {
