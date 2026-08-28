@@ -88,7 +88,8 @@ const loginUser = async () => {
 
 <style scoped>
 .login-card {
-    width: 400px;
+    width: min(400px, calc(100vw - 30px));
+    max-width: 100%;
     border-radius: 12px;
 }
 </style>

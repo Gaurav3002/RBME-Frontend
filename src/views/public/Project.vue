@@ -1822,7 +1822,7 @@
   align-items: center;
 
   background:
-    url("@/assets/images/about-hero.jpg")
+    url("@/assets/images/bakery-line.png")
     center / cover no-repeat;
 
   color: var(--color-white);

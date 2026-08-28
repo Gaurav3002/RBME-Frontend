@@ -38,4 +38,15 @@ const currentYear = new Date().getFullYear();
     font-weight:500;
 }
 
+@media (max-width: 575.98px) {
+    .footer {
+        height: auto;
+        min-height: 60px;
+        gap: 6px 16px;
+        padding: 12px 15px;
+        flex-wrap: wrap;
+        font-size: 12px;
+    }
+}
+
 </style>

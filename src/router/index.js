@@ -159,30 +159,24 @@ const router = createRouter({
 });
 
 
-
-router.beforeEach((to, from, next) => {
+router.beforeEach((to) => {
 
     const token = sessionStorage.getItem("adminToken");
 
-
     if (to.meta.requiresAuth && !token) {
 
-        next("/admin/login");
+        return "/admin/login";
 
-        return;
     }
 
     if (to.path === "/admin/login" && token) {
 
-        next("/admin/dashboard");
+        return "/admin/dashboard";
 
-        return;
     }
 
-
-    next();
+    return true;
 
 });
-
 
 export default router;
