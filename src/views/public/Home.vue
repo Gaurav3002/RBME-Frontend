@@ -212,10 +212,10 @@
                   results across commercial bakery production.
                 </p>
 
-                <span class="equipment-link">
+                <router-link to="/companies/1" class="equipment-link">
                   Explore mixers
                   <i class="bi bi-arrow-right"></i>
-                </span>
+                </router-link>
               </div>
 
             </div>
@@ -259,10 +259,10 @@
                   across different bakery applications.
                 </p>
 
-                <span class="equipment-link">
+                <router-link to="/companies/1" class="equipment-link">
                   Explore ovens
                   <i class="bi bi-arrow-right"></i>
-                </span>
+                </router-link>
               </div>
 
             </div>
@@ -306,10 +306,10 @@
                   helping improve speed, uniformity and efficiency.
                 </p>
 
-                <span class="equipment-link">
+                <router-link to="/companies/1" class="equipment-link">
                   Explore sheeters
                   <i class="bi bi-arrow-right"></i>
-                </span>
+                </router-link>
               </div>
 
             </div>
@@ -353,10 +353,10 @@
                   achieve consistent volume, texture and baking results.
                 </p>
 
-                <span class="equipment-link">
+                <router-link to="/companies/1" class="equipment-link">
                   Explore proofers
                   <i class="bi bi-arrow-right"></i>
-                </span>
+                </router-link>
               </div>
 
             </div>
@@ -400,10 +400,10 @@
                   workflow tailored to commercial requirements.
                 </p>
 
-                <span class="equipment-link">
+                <router-link to="/companies/1" class="equipment-link">
                   Explore production lines
                   <i class="bi bi-arrow-right"></i>
-                </span>
+                </router-link>
               </div>
 
             </div>
@@ -447,10 +447,10 @@
                   professional kitchens.
                 </p>
 
-                <span class="equipment-link">
+                <router-link to="/companies/1" class="equipment-link">
                   Explore mixers
                   <i class="bi bi-arrow-right"></i>
-                </span>
+                </router-link>
               </div>
 
             </div>
@@ -616,10 +616,10 @@
                 of bakery machine you are looking for.
               </p>
 
-              <div class="process-link">
+              <router-link to="/contact" class="process-link">
                 Discuss Requirement
                 <i class="bi bi-arrow-right"></i>
-              </div>
+              </router-link>
 
             </div>
           </div>
@@ -642,10 +642,10 @@
                 capacity, application, space and budget.
               </p>
 
-              <div class="process-link">
+              <router-link to="/companies/1" class="process-link">
                 Find Your Machine
                 <i class="bi bi-arrow-right"></i>
-              </div>
+              </router-link>
 
             </div>
           </div>
@@ -668,10 +668,10 @@
                 and helps you get your equipment ready for production.
               </p>
 
-              <div class="process-link">
+              <router-link to="/contact" class="process-link">
                 Setup & Commissioning
                 <i class="bi bi-arrow-right"></i>
-              </div>
+              </router-link>
 
             </div>
           </div>
@@ -694,10 +694,10 @@
                 to keep your bakery machines running smoothly.
               </p>
 
-              <div class="process-link">
+              <router-link to="/contact" class="process-link">
                 Get Support
                 <i class="bi bi-arrow-right"></i>
-              </div>
+              </router-link>
 
             </div>
           </div>

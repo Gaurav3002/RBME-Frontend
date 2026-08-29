@@ -741,7 +741,7 @@
               <div class="product-documents">
 
                 <a
-                  v-for="(document, index) in selectedProduct.documents"
+                  v-for="(document, index) in selectedProductDocuments"
                   :key="index"
                   :href="getDocumentUrl(document)"
                   target="_blank"
@@ -826,6 +826,12 @@ const selectedCategory = ref("all");
 const showProductModal = ref(false);
 const selectedProduct = ref(null);
 const selectedImageIndex = ref(0);
+
+const selectedProductDocuments = computed(() => {
+  return (selectedProduct.value?.documents || []).filter((document) => {
+    return Boolean(getDocumentUrl(document));
+  });
+});
 
 
 /* =========================================================
@@ -1155,7 +1161,7 @@ const getDocumentUrl = (document) => {
     document?.filePath;
 
   if (!path) {
-    return "#";
+    return null;
   }
 
   if (

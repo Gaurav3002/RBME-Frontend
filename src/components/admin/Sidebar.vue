@@ -1,3 +1,4 @@
+```vue
 <template>
   <aside class="sidebar">
 
@@ -31,7 +32,6 @@
     ========================== -->
     <nav class="menu">
 
-
       <!-- Dashboard -->
       <router-link
         to="/admin/dashboard"
@@ -45,10 +45,10 @@
       </router-link>
 
 
-     
+      <!-- =========================
+           WEBSITE MANAGEMENT
+      ========================== -->
 
-
-      <!-- Website Management -->
       <div
         class="menu-item menu-toggle"
         @click="catalogOpen = !catalogOpen"
@@ -64,7 +64,6 @@
 
         </div>
 
-
         <i
           class="bi toggle-icon"
           :class="
@@ -78,13 +77,13 @@
 
 
       <!-- =========================
-           SUBMENU
+           WEBSITE SUBMENU
       ========================== -->
+
       <div
         v-show="catalogOpen"
         class="submenu"
       >
-
 
         <!-- Companies -->
         <router-link
@@ -154,14 +153,46 @@
 
 
       <!-- =========================
-           ACCOUNT
+           STATIC MANAGEMENT ITEMS
       ========================== -->
-      <div class="menu-title">
-        Account
+
+      <div class="menu-item static-menu-item">
+
+        <i class="bi bi-boxes"></i>
+
+        <span>
+          Stock Management
+        </span>
+
+        <span class="coming-soon">
+          Soon
+        </span>
+
       </div>
 
 
+      <div class="menu-item static-menu-item">
 
+        <i class="bi bi-tools"></i>
+
+        <span>
+          Accessories Management
+        </span>
+
+        <span class="coming-soon">
+          Soon
+        </span>
+
+      </div>
+
+
+      <!-- =========================
+           ACCOUNT
+      ========================== -->
+
+      <div class="menu-title">
+        Account
+      </div>
 
     </nav>
 
@@ -170,9 +201,11 @@
 
 
 <script setup>
+
 import { ref } from "vue";
 
 const catalogOpen = ref(true);
+
 </script>
 
 
@@ -184,10 +217,8 @@ const catalogOpen = ref(true);
 
 .sidebar {
   position: relative;
-
   width: 100%;
   height: 100%;
-
   z-index: 1050;
 
   overflow-y: auto;
@@ -226,14 +257,17 @@ const catalogOpen = ref(true);
     rgba(255, 255, 255, 0.02);
 }
 
+
 .sidebar-close {
   display: none;
 }
+
 
 :global(.desktop-sidebar.collapsed) .logo {
   padding-right: 8px;
   padding-left: 8px;
 }
+
 
 :global(.desktop-sidebar.collapsed) .logo small,
 :global(.desktop-sidebar.collapsed) .menu-item span,
@@ -243,12 +277,14 @@ const catalogOpen = ref(true);
   display: none;
 }
 
+
 :global(.desktop-sidebar.collapsed) .menu-item,
 :global(.desktop-sidebar.collapsed) .menu-toggle {
   justify-content: center;
   padding-right: 10px;
   padding-left: 10px;
 }
+
 
 :global(.desktop-sidebar.collapsed) .submenu {
   display: none !important;
@@ -259,9 +295,7 @@ const catalogOpen = ref(true);
   margin: 0;
 
   font-size: 26px;
-
   font-weight: 800;
-
   letter-spacing: 1.5px;
 
   color: #ffffff;
@@ -274,11 +308,8 @@ const catalogOpen = ref(true);
   margin-top: 6px;
 
   font-size: 11px;
-
   font-weight: 500;
-
   letter-spacing: 1.2px;
-
   text-transform: uppercase;
 
   color: #8fa1b3;
@@ -291,7 +322,6 @@ const catalogOpen = ref(true);
 
 .menu {
   display: flex;
-
   flex-direction: column;
 
   padding: 16px 0 30px;
@@ -306,11 +336,9 @@ const catalogOpen = ref(true);
   padding: 28px 22px 10px;
 
   font-size: 10px;
-
   font-weight: 700;
 
   text-transform: uppercase;
-
   letter-spacing: 1.5px;
 
   color: #718096;
@@ -325,7 +353,6 @@ const catalogOpen = ref(true);
   position: relative;
 
   display: flex;
-
   align-items: center;
 
   gap: 13px;
@@ -339,7 +366,6 @@ const catalogOpen = ref(true);
   text-decoration: none;
 
   font-size: 14px;
-
   font-weight: 500;
 
   cursor: pointer;
@@ -416,6 +442,50 @@ const catalogOpen = ref(true);
 
 
 /* =========================================
+   STATIC MENU ITEMS
+========================================= */
+
+.static-menu-item {
+  cursor: default;
+}
+
+
+.static-menu-item:hover {
+  background:
+    rgba(255, 255, 255, 0.04);
+
+  color: #d5dde5;
+}
+
+
+/* =========================================
+   COMING SOON BADGE
+========================================= */
+
+.coming-soon {
+  margin-left: auto;
+
+  padding: 3px 7px;
+
+  border:
+    1px solid rgba(197, 138, 36, 0.25);
+
+  border-radius: 4px;
+
+  background:
+    rgba(197, 138, 36, 0.10);
+
+  color: #c58a24;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+/* =========================================
    TOGGLE
 ========================================= */
 
@@ -428,7 +498,6 @@ const catalogOpen = ref(true);
 
 .menu-toggle-left {
   display: flex;
-
   align-items: center;
 
   gap: 13px;
@@ -472,7 +541,6 @@ const catalogOpen = ref(true);
   position: relative;
 
   display: flex;
-
   align-items: center;
 
   gap: 12px;
@@ -490,7 +558,6 @@ const catalogOpen = ref(true);
   text-decoration: none;
 
   font-size: 13px;
-
   font-weight: 500;
 
   transition:
@@ -586,21 +653,51 @@ const catalogOpen = ref(true);
     width: 250px;
   }
 
+
   .sidebar-close {
     position: absolute;
+
     top: 12px;
     right: 12px;
+
     display: flex;
+
     align-items: center;
     justify-content: center;
+
     width: 32px;
     height: 32px;
+
     border: 0;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.1);
+
+    background:
+      rgba(255, 255, 255, 0.1);
+
     color: #ffffff;
+
+    cursor: pointer;
+  }
+
+
+  .coming-soon {
+    font-size: 8px;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .coming-soon {
+    display: none;
   }
 
 }
 
 </style>
+```

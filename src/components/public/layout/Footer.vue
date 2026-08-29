@@ -62,7 +62,7 @@
               </a>
 
               <a
-                href="#"
+                href="https://wa.me/919461220842"
                 class="social-link"
                 aria-label="WhatsApp"
               >
@@ -115,23 +115,9 @@
                   Home
                 </router-link>
               </li>
-
+              
               <li>
-                <router-link to="/companies">
-                  <i class="bi bi-chevron-right"></i>
-                  Companies
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/categories">
-                  <i class="bi bi-chevron-right"></i>
-                  Categories
-                </router-link>
-              </li>
-
-              <li>
-                <router-link to="/products">
+                <router-link to="/companies/1">
                   <i class="bi bi-chevron-right"></i>
                   Products
                 </router-link>
@@ -180,8 +166,12 @@
                   <i class="bi bi-telephone"></i>
                 </span>
 
-                <a href="tel:+919999999999">
-                  +91 99999 99999
+                <a href="tel:+919017137794">
+                  +919017137794
+                </a>
+                  <br>
+                <a href="tel:+919461220842">
+                  +919461220842
                 </a>
               </li>
 
@@ -190,8 +180,8 @@
                   <i class="bi bi-envelope"></i>
                 </span>
 
-                <a href="mailto:info@rbmeengineers.com">
-                  info@rbmeengineers.com
+                <a href="mailto:info.rambakerymachinesengineer@gmail.com">
+                  info.rambakerymachinesengineer@gmail.com
                 </a>
               </li>
 
@@ -201,7 +191,7 @@
                 </span>
 
                 <span>
-                  Mon – Sat : 9:00 AM – 6:00 PM
+                  Mon – Sat : 10:00 AM – 6:30 PM
                 </span>
               </li>
 
@@ -237,13 +227,13 @@
 
             <div class="footer-bottom-links">
 
-              <router-link to="/privacy-policy">
+              <router-link to="/about">
                 Privacy Policy
               </router-link>
 
               <span>|</span>
 
-              <router-link to="/terms">
+              <router-link to="/contact">
                 Terms & Conditions
               </router-link>
 
@@ -273,24 +263,9 @@ const currentYear = new Date().getFullYear();
 const companies = [
   {
     id: 1,
-    name: "RBME Engineering Solutions"
+    name: "Ram Bakery Machines & Enginners"
   },
-  {
-    id: 2,
-    name: "RBME Industrial Products"
-  },
-  {
-    id: 3,
-    name: "RBME Technologies"
-  },
-  {
-    id: 4,
-    name: "RBME Projects & Services"
-  },
-  {
-    id: 5,
-    name: "RBME Manufacturing"
-  }
+  
 ];
 
 </script>
