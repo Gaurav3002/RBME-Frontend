@@ -32,7 +32,7 @@
           <div class="hero-actions">
 
             <router-link
-              to="/companies/1/products"
+              to="/companies/1"
               class="btn btn-primary public-button hero-btn"
             >
               Explore Machinery
