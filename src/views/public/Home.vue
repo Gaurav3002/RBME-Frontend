@@ -6,11 +6,14 @@
     ========================================================== -->
     <section class="hero-section">
       <div class="hero-banner">
-        <img
-          :src="RamBanner"
-          alt="RBME Engineers Bakery Equipment"
-          class="hero-banner-image"
-        />
+        <Transition name="fade" mode="out-in">
+          <img
+            :key="currentSlide"
+            :src="slides[currentSlide]"
+            alt="RBME Engineers Equipment"
+            class="hero-banner-image"
+          />
+        </Transition>
         <div class="hero-banner-overlay"></div>
       </div>
 
@@ -721,7 +724,7 @@
                 PAN-INDIA SUPPORT
               </span>
 
-              <h2>
+              <h2 style="color: white;">
                 Supporting customers
                 beyond one city.
               </h2>
@@ -959,7 +962,7 @@
                 class="btn public-button btn-outline-primary brands-button"
           >
             View All Brands
-            <i class="bi bi-arrow-right"></i>
+            <i class="bi bi-box-seam"></i>
           </router-link>
         </div>
 
@@ -1099,9 +1102,17 @@
 
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import { getAllCompany } from "@/publicApis/company.api";
-import RamBanner from "@/assets/images/RamBanner3.png";
+import Slide1 from "@/assets/images/Slider1.png";
+import Slide2 from "@/assets/images/Slider2.png";
+import Slide3 from "@/assets/images/Slider3.png";
+import Slide4 from "@/assets/images/Slider4.png";
+
+const slides = [Slide1, Slide2, Slide3, Slide4];
+const currentSlide = ref(0);
+let sliderInterval;
+
 
 const companies = ref([]);
 
@@ -1114,21 +1125,40 @@ const loadCompanies = async () => {
     companies.value = [];
   }
 };
+const API_BASE_URL = import.meta.env.VITE_IMAGE_URL;
 
 const getImageUrl = (path) => {
   if (!path) {
     return "";
   }
 
-  if (path.startsWith("http")) {
+  if (
+    path.startsWith("http://") ||
+    path.startsWith("https://")
+  ) {
     return path;
   }
 
-  return `http://localhost:9292/${path}`;
+  const cleanPath = path.replace(/^\/+/, "");
+
+  const imageUrl = `${API_BASE_URL}/${cleanPath}`;
+
+  console.log("Company Logo:", path);
+  console.log("Image URL:", imageUrl);
+
+  return imageUrl;
 };
 
 onMounted(() => {
+  sliderInterval = setInterval(() => {
+    currentSlide.value =
+      (currentSlide.value + 1) % slides.length;
+  }, 5000);
   loadCompanies();
+});
+
+onUnmounted(() => {
+  clearInterval(sliderInterval);
 });
 </script>
 
@@ -1200,21 +1230,30 @@ onMounted(() => {
   width: 100%;
   height: 100%;
   display: block;
+
   object-fit: cover;
   object-position: center;
+
+  /* Keep image sharp */
+  image-rendering: auto;
+
+  /* Optional subtle enhancement */
+  filter: brightness(1.05) contrast(1.05);
 }
 
 .hero-banner-overlay {
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(
-      90deg,
-      rgba(7, 15, 24, 0.97) 0%,
-      rgba(7, 15, 24, 0.91) 34%,
-      rgba(7, 15, 24, 0.65) 62%,
-      rgba(7, 15, 24, 0.25) 100%
-    );
+
+  background: linear-gradient(
+    90deg,
+    rgba(7, 15, 24, 0.78) 0%,
+    rgba(7, 15, 24, 0.62) 35%,
+    rgba(7, 15, 24, 0.28) 65%,
+    rgba(7, 15, 24, 0.08) 100%
+  );
+
+  pointer-events: none;
 }
 
 .hero-container {
@@ -2143,27 +2182,74 @@ onMounted(() => {
   box-shadow:
     0 15px 35px rgba(16,24,32,0.07);
 }
+/* =========================================================
+   BRAND CARD IMAGE
+========================================================= */
 
 .brand-card-logo {
-  height: 125px;
+  position: relative;
+
+  height: 220px;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  background: #f4f6f8;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
-  background: #f8fafc;
 }
+
+
+/* FULL IMAGE */
 
 .brand-card-logo img {
-  max-width: 100%;
-  max-height: 75px;
-  object-fit: contain;
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transition: transform 0.5s ease;
 }
 
+
+/* HOVER ZOOM */
+
+.brand-card:hover .brand-card-logo img {
+  transform: scale(1.06);
+}
+
+
+/* FALLBACK TEXT */
+
 .brand-card-logo span {
-  color: var(--icon-dark);
-  font-size: 0.85rem;
-  font-weight: 750;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 25px;
+
+  color: var(--color-heading);
+
+  font-size: 1rem;
+  font-weight: 700;
+
   text-align: center;
+
+  background: linear-gradient(
+    135deg,
+    #f8fafc,
+    #eef2f6
+  );
 }
 
 .brand-card-content {
@@ -2358,24 +2444,28 @@ onMounted(() => {
 
 @media (max-width: 767.98px) {
 
-  .hero-section {
-    min-height: auto;
+   .hero-section {
+    min-height: 600px;
   }
 
   .hero-container {
-    min-height: auto;
+    min-height: 600px;
     padding-top: 75px;
     padding-bottom: 75px;
   }
 
+  .hero-banner-image {
+    object-fit: cover;
+    object-position: center;
+  }
+
   .hero-banner-overlay {
-    background:
-      linear-gradient(
-        180deg,
-        rgba(7,15,24,0.96) 0%,
-        rgba(7,15,24,0.82) 60%,
-        rgba(7,15,24,0.95) 100%
-      );
+    background: linear-gradient(
+      180deg,
+      rgba(7, 15, 24, 0.72) 0%,
+      rgba(7, 15, 24, 0.50) 55%,
+      rgba(7, 15, 24, 0.78) 100%
+    );
   }
 
   .hero-title {
@@ -2483,13 +2573,46 @@ onMounted(() => {
 /* =========================================================
    SMALL MOBILE
 ========================================================= */
-
 @media (max-width: 575.98px) {
 
+  /* =========================================================
+     HERO
+  ========================================================= */
+
+  .hero-section {
+    min-height: 540px;
+  }
+
   .hero-container {
+    min-height: 540px;
     padding-top: 55px;
     padding-bottom: 55px;
   }
+
+  .hero-banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    /* Adjust this depending on where the important
+       part of your image is */
+    object-position: center;
+  }
+
+  /* Lighter overlay so image remains visible */
+  .hero-banner-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(7, 15, 24, 0.76) 0%,
+      rgba(7, 15, 24, 0.48) 48%,
+      rgba(7, 15, 24, 0.80) 100%
+    );
+  }
+
+
+  /* =========================================================
+     HERO CONTENT
+  ========================================================= */
 
   .hero-badge {
     font-size: 0.68rem;
@@ -2504,6 +2627,11 @@ onMounted(() => {
     grid-template-columns: 1fr 1fr;
     gap: 18px;
   }
+
+
+  /* =========================================================
+     EQUIPMENT
+  ========================================================= */
 
   .equipment-image {
     height: 165px;
@@ -2534,9 +2662,19 @@ onMounted(() => {
     font-size: 0.8rem;
   }
 
+
+  /* =========================================================
+     BRANDS
+  ========================================================= */
+
   .brands-grid {
     grid-template-columns: 1fr;
   }
+
+
+  /* =========================================================
+     CUSTOMERS
+  ========================================================= */
 
   .customer-row {
     grid-template-columns: 45px 1fr;
@@ -2550,6 +2688,6 @@ onMounted(() => {
     width: 42px;
     height: 42px;
   }
-}
 
+}
 </style>

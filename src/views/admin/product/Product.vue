@@ -1,13 +1,11 @@
+```vue
 <template>
-
     <div class="container-fluid">
 
         <!-- =====================================================
              HEADER
         ====================================================== -->
-
         <div class="d-flex justify-content-between align-items-center mb-4">
-
             <div>
                 <h3 class="mb-1">
                     Product Management
@@ -17,267 +15,439 @@
                 </p>
             </div>
 
-            <button type="button"  class="btn btn-primary" @click="openCreateModal">
+            <button
+                type="button"
+                class="btn btn-primary"
+                @click="openCreateModal"
+            >
                 <i class="bi bi-plus-circle me-1"></i>
                 Add Product
             </button>
         </div>
 
-
         <!-- =====================================================
              SEARCH
         ====================================================== -->
-
         <div class="card admin-card shadow-sm mb-3">
-
             <div class="card-body">
-
-                <input type="text" class="form-control admin-form-control" placeholder="Search product..."  v-model="search">
+                <input
+                    type="text"
+                    class="form-control admin-form-control"
+                    placeholder="Search product..."
+                    v-model="search"
+                />
             </div>
         </div>
-
 
         <!-- =====================================================
              PRODUCT TABLE
         ====================================================== -->
-
         <div class="card admin-card shadow-sm">
             <div class="card-body table-responsive">
+
                 <table class="table admin-table table-hover align-middle">
+
                     <thead>
-                    <tr>
-                        <th>Image</th>
-                        <th> Company </th>
-                        <th> Category </th>
-                        <th>  Product Type </th>
-                        <th>  Model No </th>
-                        <th> Title </th>
-                        <th> Featured</th>
-                        <th>  Status</th>
-                        <th width="170">  Action </th>
-                    </tr>
+                        <tr>
+                            <th>Image</th>
+                            <th>Company</th>
+                            <th>Category</th>
+                            <th>Product Type</th>
+                            <th>Model No</th>
+                            <th>Title</th>
+                            <th>Featured</th>
+                            <th>Status</th>
+                            <th width="170">Action</th>
+                        </tr>
                     </thead>
+
                     <tbody>
 
-                    <tr v-for="product in filteredProducts" :key="product.id">
-                        <td>
-                            <img v-if="getProductImage(product)" :src="getImageUrl(getProductImage(product))" class="product-table-image"  alt="Product" >
-                            <div  v-else class="no-product-image" >
-                                <i class="bi bi-image"></i>
-                            </div>
-                        </td>
+                        <!-- PRODUCTS -->
+                        <tr
+                            v-for="product in filteredProducts"
+                            :key="product.id"
+                        >
 
+                            <!-- IMAGE -->
+                            <td>
+                                <img
+                                    v-if="getProductImage(product)"
+                                    :src="getImageUrl(getProductImage(product))"
+                                    class="product-table-image"
+                                    alt="Product"
+                                    @error="handleImageError"
+                                />
 
-                        <!-- Company -->
+                                <div
+                                    v-else
+                                    class="no-product-image"
+                                >
+                                    <i class="bi bi-image"></i>
+                                </div>
+                            </td>
 
-                        <td>  {{ product.companyName || "-" }} </td>
-                        <!-- Category -->
-                        <td> {{ product.categoryName || "-" }} </td>
-                        <!-- Product Type -->
-                        <td> {{ product.productTypeName || "-" }}</td>
-                        <!-- Model -->
-                        <td>  {{ product.modelNo || "-" }}</td>
-                        <!-- Title -->
-                        <td>  {{ product.title || "-" }} </td>
-                        <!-- Featured -->
-                        <td>
-                            <span class="badge"  :class="  product.featured ? 'bg-success' : 'bg-secondary' ">
-                                {{ product.featured ? "Yes" : "No" }}
-                            </span>
-                        </td>
+                            <!-- COMPANY -->
+                            <td>
+                                {{ product.companyName || "-" }}
+                            </td>
 
+                            <!-- CATEGORY -->
+                            <td>
+                                {{ product.categoryName || "-" }}
+                            </td>
 
-                        <td>
-                            <span class="badge" :class="  product.active  ? 'bg-success' : 'bg-danger'  ">
-                                {{ product.active ? "Active" : "Inactive" }}
-                            </span>
-                        </td>
-                        <!-- Actions -->
+                            <!-- PRODUCT TYPE -->
+                            <td>
+                                {{ product.productTypeName || "-" }}
+                            </td>
 
-                        <td>
+                            <!-- MODEL -->
+                            <td>
+                                {{ product.modelNo || "-" }}
+                            </td>
 
-                            <button type="button"  class="btn admin-action-button btn-warning me-2"  @click="editProduct(product)" title="Edit Product">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button type="button"   class="btn admin-action-button btn-danger"  @click="deleteProductById(product.id)"  title="Delete Product" >
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                            <!-- TITLE -->
+                            <td>
+                                {{ product.title || "-" }}
+                            </td>
 
-                    <!-- Empty -->
-                    <tr v-if="filteredProducts.length === 0">
-                        <td colspan="9" class="text-center text-muted py-4">
-                            <i class="bi bi-box-seam fs-3 d-block mb-2"></i>
-                            No Product Found
-                        </td>
-                    </tr>
+                            <!-- FEATURED -->
+                            <td>
+                                <span
+                                    class="badge"
+                                    :class="
+                                        product.featured
+                                            ? 'bg-success'
+                                            : 'bg-secondary'
+                                    "
+                                >
+                                    {{ product.featured ? "Yes" : "No" }}
+                                </span>
+                            </td>
+
+                            <!-- STATUS -->
+                            <td>
+                                <span
+                                    class="badge"
+                                    :class="
+                                        product.active
+                                            ? 'bg-success'
+                                            : 'bg-danger'
+                                    "
+                                >
+                                    {{ product.active ? "Active" : "Inactive" }}
+                                </span>
+                            </td>
+
+                            <!-- ACTIONS -->
+                            <td>
+                                <button
+                                    type="button"
+                                    class="btn admin-action-button btn-warning me-2"
+                                    @click="editProduct(product)"
+                                    title="Edit Product"
+                                >
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn admin-action-button btn-danger"
+                                    @click="deleteProductById(product.id)"
+                                    title="Delete Product"
+                                >
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <!-- EMPTY -->
+                        <tr v-if="filteredProducts.length === 0">
+                            <td
+                                colspan="9"
+                                class="text-center text-muted py-4"
+                            >
+                                <i class="bi bi-box-seam fs-3 d-block mb-2"></i>
+                                No Product Found
+                            </td>
+                        </tr>
+
                     </tbody>
+
                 </table>
+
             </div>
         </div>
-
 
         <!-- =====================================================
              PRODUCT MODAL
         ====================================================== -->
+        <BaseModal
+            ref="modalRef"
+            id="productModal"
+            :title="editMode ? 'Edit Product' : 'Add Product'"
+            size="lg"
+            :draggable="true"
+        >
 
-        <BaseModal ref="modalRef" id="productModal" :title=" editMode  ? 'Edit Product' : 'Add Product' "  size="lg" :draggable="true" >
             <div class="row">
+
+                <!-- COMPANY -->
                 <div class="col-md-4 mb-3">
                     <label class="form-label">
                         Company
-                        <span class="text-danger">
-                            *
-                        </span>
+                        <span class="text-danger">*</span>
                     </label>
-                    <select class="form-select" v-model="form.companyId"  @change="onCompanyChange" >
+
+                    <select
+                        class="form-select"
+                        v-model="form.companyId"
+                        @change="onCompanyChange"
+                    >
                         <option :value="null">
                             Select Company
                         </option>
-                        <option v-for="company in companies" :key="company.id" :value="company.id">
+
+                        <option
+                            v-for="company in companies"
+                            :key="company.id"
+                            :value="company.id"
+                        >
                             {{ company.name }}
                         </option>
                     </select>
                 </div>
+
+                <!-- CATEGORY -->
                 <div class="col-md-4 mb-3">
                     <label class="form-label">
                         Category
-                        <span class="text-danger">
-                            *
-                        </span>
+                        <span class="text-danger">*</span>
                     </label>
-                    <select class="form-select"   v-model="form.categoryId"  @change="onCategoryChange">
+
+                    <select
+                        class="form-select"
+                        v-model="form.categoryId"
+                        @change="onCategoryChange"
+                    >
                         <option :value="null">
                             Select Category
                         </option>
-                        <option v-for="category in categories" :key="category.id" :value="category.id" >
+
+                        <option
+                            v-for="category in categories"
+                            :key="category.id"
+                            :value="category.id"
+                        >
                             {{ category.name }}
                         </option>
                     </select>
                 </div>
 
+                <!-- PRODUCT TYPE -->
                 <div class="col-md-4 mb-3">
                     <label class="form-label">
                         Product Type
-                        <span class="text-danger">
-                            *
-                        </span>
+                        <span class="text-danger">*</span>
                     </label>
-                    <select  class="form-select"  v-model="form.productTypeId" >
+
+                    <select
+                        class="form-select"
+                        v-model="form.productTypeId"
+                    >
                         <option :value="null">
                             Select Product Type
                         </option>
 
-                        <option v-for="productType in productTypes" :key="productType.id" :value="productType.id" >
+                        <option
+                            v-for="productType in productTypes"
+                            :key="productType.id"
+                            :value="productType.id"
+                        >
                             {{ productType.productTypeName }}
                         </option>
                     </select>
                 </div>
 
+                <!-- MODEL NUMBER -->
                 <div class="col-md-6 mb-3">
                     <label class="form-label">
                         Model No
-                        <span class="text-danger">
-                            *
-                        </span>
+                        <span class="text-danger">*</span>
                     </label>
 
-                    <input  type="text"  class="form-control" placeholder="Enter Model No" v-model="form.modelNo">
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Model No"
+                        v-model="form.modelNo"
+                    />
                 </div>
 
+                <!-- PRODUCT TITLE -->
                 <div class="col-md-6 mb-3">
                     <label class="form-label">
                         Product Title
-                        <span class="text-danger">
-                            *
-                        </span>
+                        <span class="text-danger">*</span>
                     </label>
-                    <input  type="text" class="form-control" placeholder="Enter Product Title"  v-model="form.title">
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Product Title"
+                        v-model="form.title"
+                    />
                 </div>
 
+                <!-- DESCRIPTION -->
                 <div class="col-12 mb-3">
                     <label class="form-label">
                         Description
                     </label>
-                    <textarea class="form-control" rows="4"   placeholder="Enter Product Description"  v-model="form.description"></textarea>
+
+                    <textarea
+                        class="form-control"
+                        rows="4"
+                        placeholder="Enter Product Description"
+                        v-model="form.description"
+                    ></textarea>
                 </div>
 
-
+                <!-- THUMBNAIL -->
                 <div class="col-md-6 mb-3">
                     <label class="form-label">
                         Thumbnail URL
                     </label>
 
-                    <input  type="text"  class="form-control"  placeholder="Enter Thumbnail URL"  v-model="form.thumbnail" >
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter Thumbnail URL"
+                        v-model="form.thumbnail"
+                    />
                 </div>
 
+                <!-- YOUTUBE -->
                 <div class="col-md-6 mb-3">
                     <label class="form-label">
                         YouTube URL
                     </label>
-                    <input   type="text"  class="form-control"  placeholder="Enter YouTube URL"  v-model="form.youtubeUrl" >
+
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter YouTube URL"
+                        v-model="form.youtubeUrl"
+                    />
                 </div>
 
                 <!-- =================================================
                      EXISTING IMAGES
                 ================================================== -->
-                <div v-if=" editMode && existingImages.length > 0 " class="col-12 mb-3">
+                <div
+                    v-if="editMode && existingImages.length > 0"
+                    class="col-12 mb-3"
+                >
+
                     <label class="form-label">
                         Existing Product Images
                     </label>
-                    <div class="row"> 
-                         <div v-for="image in existingImages" :key="image.id" class="col-md-3 col-sm-4 col-6 mb-3" >
+
+                    <div class="row">
+
+                        <div
+                            v-for="image in existingImages"
+                            :key="image.id"
+                            class="col-md-3 col-sm-4 col-6 mb-3"
+                        >
+
                             <div class="existing-image-card">
-                                <img :src="getImageUrl(image.imageUrl)" class="existing-product-image"  alt="Product Image">
+
+                                <img
+                                    :src="getImageUrl(image.imageUrl)"
+                                    class="existing-product-image"
+                                    alt="Product Image"
+                                    @error="handleImageError"
+                                />
+
                                 <div class="existing-image-order">
                                     Image
                                     {{ (image.sortOrder ?? 0) + 1 }}
                                 </div>
+
                             </div>
+
                         </div>
+
                     </div>
+
                     <small class="text-muted">
                         Existing images will remain unchanged if you
                         don't select new images.
                     </small>
+
                 </div>
+
+                <!-- =================================================
+                     PRODUCT IMAGES
+                ================================================== -->
                 <div class="col-12 mb-3">
+
                     <label class="form-label">
                         Product Images
                     </label>
-                    <input ref="imageInputRef"  type="file"  class="form-control"  multiple  accept="image/*" @change="handleImageChange">
+
+                    <input
+                        ref="imageInputRef"
+                        type="file"
+                        class="form-control"
+                        multiple
+                        accept="image/*"
+                        @change="handleImageChange"
+                    />
+
                     <small class="text-muted">
                         You can select multiple product images.
+
                         <span v-if="editMode">
                             Selecting new images will replace the
                             existing product images.
                         </span>
                     </small>
 
-                    <div v-if="imagePreviews.length > 0" class="row mt-3" >
+                    <!-- IMAGE PREVIEWS -->
+                    <div
+                        v-if="imagePreviews.length > 0"
+                        class="row mt-3"
+                    >
+
                         <div
                             v-for="(image, index) in imagePreviews"
                             :key="index"
-                            class="col-md-3 col-sm-4 col-6 mb-3" >
+                            class="col-md-3 col-sm-4 col-6 mb-3"
+                        >
+
                             <div class="image-preview-card">
-                                <img  :src="image.url"  class="product-preview-image" alt="Product Image">
+
+                                <img
+                                    :src="image.url"
+                                    class="product-preview-image"
+                                    alt="Product Image"
+                                />
+
                                 <button
                                     type="button"
                                     class="btn admin-action-button btn-danger remove-image-btn"
                                     @click="removeSelectedImage(index)"
                                     title="Remove Image"
                                 >
-
                                     <i class="bi bi-x"></i>
-
                                 </button>
 
-
                                 <div class="preview-image-name">
-
                                     {{ image.file.name }}
-
                                 </div>
 
                             </div>
@@ -288,503 +458,1038 @@
 
                 </div>
 
-
-                <!-- =================================================
-                     FEATURED
-                ================================================== -->
-
+                <!-- FEATURED -->
                 <div class="col-md-6 d-flex align-items-center mb-3">
 
                     <div class="form-check">
 
-                        <input class="form-check-input" type="checkbox" id="featured" v-model="form.featured" >
-                        <label  class="form-check-label"  for="featured">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="featured"
+                            v-model="form.featured"
+                        />
+
+                        <label
+                            class="form-check-label"
+                            for="featured"
+                        >
                             Featured
                         </label>
+
                     </div>
+
                 </div>
 
+                <!-- ACTIVE -->
                 <div class="col-md-6 d-flex align-items-center mb-3">
+
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="active" v-model="form.active">
-                        <label class="form-check-label"  for="active" >  Active  </label>
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="active"
+                            v-model="form.active"
+                        />
+
+                        <label
+                            class="form-check-label"
+                            for="active"
+                        >
+                            Active
+                        </label>
+
                     </div>
+
                 </div>
+
             </div>
 
+            <!-- =====================================================
+                 MODAL FOOTER
+            ====================================================== -->
             <template #footer>
 
-                <button  type="button"  class="btn btn-secondary" @click="closeModal" >
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    @click="closeModal"
+                >
                     Cancel
                 </button>
-                <button type="button" class="btn btn-primary" :disabled="saving" @click="saveProduct">
-                    <span  v-if="saving"
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    :disabled="saving"
+                    @click="saveProduct"
+                >
+
+                    <span
+                        v-if="saving"
                         class="spinner-border spinner-border-sm me-1"
                     ></span>
-                    <i v-else class="bi bi-check-circle me-1"></i>
+
+                    <i
+                        v-else
+                        class="bi bi-check-circle me-1"
+                    ></i>
+
                     {{
-                        saving  ? "Saving...": editMode  ? "Update Product"   : "Save Product"
+                        saving
+                            ? "Saving..."
+                            : editMode
+                                ? "Update Product"
+                                : "Save Product"
                     }}
+
                 </button>
+
             </template>
+
         </BaseModal>
+
     </div>
 </template>
 
+
 <script setup>
 
-import { ref, computed, onMounted} from "vue";
+import {
+    ref,
+    computed,
+    onMounted
+} from "vue";
+
 import BaseModal from "@/components/admin/common/BaseModal.vue";
-import { createProduct, updateProduct, getProducts, deleteProduct} from "@/api/product.api";
-import { getCompanies} from "@/api/company.api";
-import { getCategoriesByCompany} from "@/api/category.api";
 
-import { getProductTypesByCategory} from "@/api/productType.api";
+import {
+    createProduct,
+    updateProduct,
+    getProducts,
+    deleteProduct
+} from "@/api/product.api";
 
-/* ============================================================
-   STATE
-============================================================ */
+import {
+    getCompanies
+} from "@/api/company.api";
+
+import {
+    getCategoriesByCompany
+} from "@/api/category.api";
+
+import {
+    getProductTypesByCategory
+} from "@/api/productType.api";
+
+
+// ============================================================
+// STATE
+// ============================================================
 
 const companies = ref([]);
 const categories = ref([]);
 const productTypes = ref([]);
 const products = ref([]);
+
 const search = ref("");
+
 const editMode = ref(false);
 const saving = ref(false);
+
 const modalRef = ref(null);
 const imageInputRef = ref(null);
+
 const imagePreviews = ref([]);
 const existingImages = ref([]);
 
-/* ============================================================
-   FORM
-============================================================ */
 
-const form = ref({
-    id: null,
-    companyId: null,
-    categoryId: null,
-    productTypeId: null,
-    modelNo: "",
-    title: "",
-    description: "",
-    thumbnail: "",
-    youtubeUrl: "",
-    featured: false,
-    active: true,
-    images: []
-});
-/* ============================================================
-   FILTER PRODUCTS
-============================================================ */
+// ============================================================
+// IMAGE BASE URL
+// ============================================================
+
+const API_BASE_URL = (
+    import.meta.env.VITE_IMAGE_URL ||
+    ""
+).replace(/\/+$/, "");
+
+
+// ============================================================
+// FORM
+// ============================================================
+
+const form = ref(getEmptyForm());
+
+
+// ============================================================
+// FILTER PRODUCTS
+// ============================================================
+
 const filteredProducts = computed(() => {
-    const keyword = search.value .toLowerCase() .trim();
+
+    const keyword = search.value
+        .toLowerCase()
+        .trim();
+
     if (!keyword) {
         return products.value;
     }
+
     return products.value.filter(product => {
+
         return (
-            (product.title || "")  .toLowerCase() .includes(keyword)  ||
-            (product.modelNo || "") .toLowerCase() .includes(keyword) ||
-            (product.companyName || "").toLowerCase() .includes(keyword) ||
-            (product.categoryName || "") .toLowerCase() .includes(keyword)||
-            (product.productTypeName || "")  .toLowerCase().includes(keyword)
+            (product.title || "")
+                .toLowerCase()
+                .includes(keyword)
+
+            ||
+
+            (product.modelNo || "")
+                .toLowerCase()
+                .includes(keyword)
+
+            ||
+
+            (product.companyName || "")
+                .toLowerCase()
+                .includes(keyword)
+
+            ||
+
+            (product.categoryName || "")
+                .toLowerCase()
+                .includes(keyword)
+
+            ||
+
+            (product.productTypeName || "")
+                .toLowerCase()
+                .includes(keyword)
         );
+
     });
+
 });
 
-/* ============================================================
-   LOAD COMPANIES
-============================================================ */
+
+// ============================================================
+// LOAD COMPANIES
+// ============================================================
 
 async function loadCompanies() {
+
     try {
+
         const response = await getCompanies();
+
         companies.value = response.data || [];
+
     } catch (error) {
+
         console.error(
             "LOAD COMPANIES ERROR:",
             error
         );
+
     }
+
 }
 
-/* ============================================================
-   LOAD PRODUCTS
-============================================================ */
+
+// ============================================================
+// LOAD PRODUCTS
+// ============================================================
 
 async function loadProducts() {
+
     try {
+
         const response = await getProducts();
+
         products.value = response.data || [];
+
     } catch (error) {
+
         console.error(
             "LOAD PRODUCTS ERROR:",
             error
         );
+
     }
+
 }
 
-/* ============================================================
-   COMPANY CHANGE
-============================================================ */
+
+// ============================================================
+// COMPANY CHANGE
+// ============================================================
 
 async function onCompanyChange() {
+
     form.value.categoryId = null;
     form.value.productTypeId = null;
+
     categories.value = [];
     productTypes.value = [];
+
     if (!form.value.companyId) {
         return;
     }
+
     try {
-        const response = await getCategoriesByCompany(form.value.companyId);
-        categories.value = response.data || [];
+
+        const response =
+            await getCategoriesByCompany(
+                form.value.companyId
+            );
+
+        categories.value =
+            response.data || [];
+
     } catch (error) {
-        console.error("LOAD CATEGORIES ERROR:", error );
+
+        console.error(
+            "LOAD CATEGORIES ERROR:",
+            error
+        );
+
     }
+
 }
 
-/* ============================================================
-   CATEGORY CHANGE
-============================================================ */
+
+// ============================================================
+// CATEGORY CHANGE
+// ============================================================
 
 async function onCategoryChange() {
+
     form.value.productTypeId = null;
+
     productTypes.value = [];
+
     if (!form.value.categoryId) {
         return;
     }
+
     try {
-        const response = await getProductTypesByCategory( form.value.categoryId);
-        productTypes.value = response.data || [];
+
+        const response =
+            await getProductTypesByCategory(
+                form.value.categoryId
+            );
+
+        productTypes.value =
+            response.data || [];
+
     } catch (error) {
-        console.error( "LOAD PRODUCT TYPES ERROR:", error);
+
+        console.error(
+            "LOAD PRODUCT TYPES ERROR:",
+            error
+        );
+
     }
+
 }
 
-/* ============================================================
-   EMPTY FORM
-============================================================ */
+
+// ============================================================
+// EMPTY FORM
+// ============================================================
+
 function getEmptyForm() {
+
     return {
+
         id: null,
+
         companyId: null,
+
         categoryId: null,
+
         productTypeId: null,
+
         modelNo: "",
+
         title: "",
+
         description: "",
+
         thumbnail: "",
+
         youtubeUrl: "",
+
         featured: false,
+
         active: true,
+
         images: []
+
     };
+
 }
 
-/* ============================================================
-   OPEN CREATE MODAL
-============================================================ */
+
+// ============================================================
+// OPEN CREATE MODAL
+// ============================================================
 
 function openCreateModal() {
+
     clearPreviewUrls();
+
     editMode.value = false;
+
     existingImages.value = [];
+
     categories.value = [];
     productTypes.value = [];
+
     form.value = getEmptyForm();
+
     if (imageInputRef.value) {
         imageInputRef.value.value = "";
     }
-    modalRef.value.show();
+
+    modalRef.value?.show();
+
 }
 
-/* ============================================================
-   EDIT PRODUCT
-============================================================ */
+
+// ============================================================
+// EDIT PRODUCT
+// ============================================================
 
 async function editProduct(product) {
+
     try {
+
         clearPreviewUrls();
+
         editMode.value = true;
+
         imagePreviews.value = [];
-        existingImages.value =    product.images ? [...product.images].sort( (a, b) =>(a.sortOrder ?? 0) -(b.sortOrder ?? 0)  ) : [];
+
+        existingImages.value =
+            product.images
+                ? [...product.images].sort(
+                    (a, b) =>
+                        (a.sortOrder ?? 0) -
+                        (b.sortOrder ?? 0)
+                )
+                : [];
+
         form.value = {
+
             id: product.id,
+
             companyId: product.companyId,
+
             categoryId: null,
+
             productTypeId: null,
+
             modelNo: product.modelNo || "",
+
             title: product.title || "",
+
             description: product.description || "",
+
             thumbnail: product.thumbnail || "",
+
             youtubeUrl: product.youtubeUrl || "",
+
             featured: product.featured ?? false,
+
             active: product.active ?? true,
+
             images: []
+
         };
-        /* -----------------------------------------------
-           Load Categories
-        ------------------------------------------------ */
-        const categoryResponse = await getCategoriesByCompany(product.companyId);
-        categories.value = categoryResponse.data || [];
-        form.value.categoryId = product.categoryId;
+
+
+        // --------------------------------------------------------
+        // LOAD CATEGORIES
+        // --------------------------------------------------------
+
+        const categoryResponse =
+            await getCategoriesByCompany(
+                product.companyId
+            );
+
+        categories.value =
+            categoryResponse.data || [];
+
+        form.value.categoryId =
+            product.categoryId;
+
+
+        // --------------------------------------------------------
+        // LOAD PRODUCT TYPES
+        // --------------------------------------------------------
+
         if (product.categoryId) {
-            const typeResponse = await getProductTypesByCategory(  product.categoryId );
-            productTypes.value = typeResponse.data || [];
+
+            const typeResponse =
+                await getProductTypesByCategory(
+                    product.categoryId
+                );
+
+            productTypes.value =
+                typeResponse.data || [];
+
         }
-        form.value.productTypeId = product.productTypeId;
+
+        form.value.productTypeId =
+            product.productTypeId;
+
+
+        // --------------------------------------------------------
+        // CLEAR FILE INPUT
+        // --------------------------------------------------------
+
         if (imageInputRef.value) {
             imageInputRef.value.value = "";
         }
-        modalRef.value.show();
+
+
+        // --------------------------------------------------------
+        // OPEN MODAL
+        // --------------------------------------------------------
+
+        modalRef.value?.show();
+
     } catch (error) {
-        console.error( "EDIT PRODUCT ERROR:", error);
-        alert( error.response?.data?.message || "Failed to load product." );
+
+        console.error(
+            "EDIT PRODUCT ERROR:",
+            error
+        );
+
+        alert(
+            error.response?.data?.message ||
+            "Failed to load product."
+        );
+
     }
+
 }
 
-/* ============================================================
-   IMAGE CHANGE
-============================================================ */
+
+// ============================================================
+// IMAGE CHANGE
+// ============================================================
+
 function handleImageChange(event) {
-    const files = Array.from( event.target.files || []);
+
+    const files =
+        Array.from(
+            event.target.files || []
+        );
+
     clearPreviewUrls();
+
     form.value.images = files;
-    imagePreviews.value = files.map(file => ({
+
+    imagePreviews.value =
+        files.map(file => ({
+
             file: file,
+
             url: URL.createObjectURL(file)
+
         }));
+
 }
 
+
+// ============================================================
+// REMOVE SELECTED IMAGE
+// ============================================================
 
 function removeSelectedImage(index) {
-    const image = imagePreviews.value[index];
+
+    const image =
+        imagePreviews.value[index];
+
     if (image?.url) {
-        URL.revokeObjectURL(  image.url );
-    }
-    form.value.images.splice( index,1);
-    imagePreviews.value.splice(index, 1);
 
-    /*
-     * Rebuild the file input so the browser
-     * stays synchronized with selected files.
-     */
-    if (imageInputRef.value) {
-        const dataTransfer = new DataTransfer();
-        form.value.images.forEach(file => {
-            dataTransfer.items.add(file);
-        });
-        imageInputRef.value.files = dataTransfer.files;
-    }
-}
+        URL.revokeObjectURL(
+            image.url
+        );
 
-/* ============================================================
-   CLEAR PREVIEW URLS
-============================================================ */
-function clearPreviewUrls() {
-    imagePreviews.value.forEach(
-        image => {
-            if (image?.url) {
-                URL.revokeObjectURL(  image.url);
-            }
-        }
+    }
+
+    form.value.images.splice(
+        index,
+        1
     );
-    imagePreviews.value = [];
+
+    imagePreviews.value.splice(
+        index,
+        1
+    );
+
+
+    // --------------------------------------------------------
+    // REBUILD FILE INPUT
+    // --------------------------------------------------------
+
+    if (imageInputRef.value) {
+
+        const dataTransfer =
+            new DataTransfer();
+
+        form.value.images.forEach(file => {
+
+            dataTransfer.items.add(file);
+
+        });
+
+        imageInputRef.value.files =
+            dataTransfer.files;
+
+    }
+
 }
 
-/* ============================================================
-   GET PRODUCT FIRST IMAGE
-============================================================ */
+
+// ============================================================
+// CLEAR PREVIEW URLS
+// ============================================================
+
+function clearPreviewUrls() {
+
+    imagePreviews.value.forEach(image => {
+
+        if (image?.url) {
+
+            URL.revokeObjectURL(
+                image.url
+            );
+
+        }
+
+    });
+
+    imagePreviews.value = [];
+
+}
+
+
+// ============================================================
+// GET PRODUCT FIRST IMAGE
+// ============================================================
 
 function getProductImage(product) {
 
-    if ( !product || !product.images || product.images.length === 0) {
+    if (
+        !product ||
+        !Array.isArray(product.images) ||
+        product.images.length === 0
+    ) {
+
         return null;
+
     }
-    const sortedImages = [...product.images] .sort(
-                (a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
-    return (sortedImages[0]?.imageUrl || null);
+
+    const sortedImages =
+        [...product.images].sort(
+            (a, b) =>
+                (a.sortOrder ?? 0) -
+                (b.sortOrder ?? 0)
+        );
+
+    return (
+        sortedImages[0]?.imageUrl ||
+        null
+    );
+
 }
 
 
-/* ============================================================
-   IMAGE URL
-============================================================ */
+// ============================================================
+// GET IMAGE URL
+// ============================================================
 
-/*
- * IMPORTANT:
- *
- * There must be ONLY ONE getImageUrl()
- * function in this component.
- */
 function getImageUrl(imagePath) {
+
     if (!imagePath) {
         return "";
     }
-    /*
-     * Already a complete URL
-     */
-    if ( imagePath.startsWith("http://") ||imagePath.startsWith("https://")) {
+
+    // Already complete URL
+    if (
+        imagePath.startsWith("http://") ||
+        imagePath.startsWith("https://") ||
+        imagePath.startsWith("data:")
+    ) {
         return imagePath;
     }
-    /*
-     * Example:
-     *
-     * VITE_API_URL=http://localhost:9292/api
-     *
-     * We remove /api and get:
-     *
-     * http://localhost:9292
-     */
 
-    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:9292/api";
-    const serverUrl =apiUrl.replace( /\/api\/?$/, "");
-    return `${serverUrl}/${imagePath.replace(/^\/+/, "")}`;
+    // Remove leading slash
+    const cleanPath =
+        String(imagePath)
+            .replace(/^\/+/, "");
+
+    // If VITE_IMAGE_URL is not configured
+    if (!API_BASE_URL) {
+
+        console.warn(
+            "VITE_IMAGE_URL is not configured."
+        );
+
+        return `/${cleanPath}`;
+
+    }
+
+    return `${API_BASE_URL}/${cleanPath}`;
+
 }
 
-/* ============================================================
-   SAVE PRODUCT
-============================================================ */
+
+// ============================================================
+// IMAGE ERROR
+// ============================================================
+
+function handleImageError(event) {
+
+    event.target.style.display = "none";
+
+}
+
+
+// ============================================================
+// SAVE PRODUCT
+// ============================================================
 
 async function saveProduct() {
+
     if (saving.value) {
         return;
     }
 
     try {
-        /* -----------------------------------------------
-           VALIDATION
-        ------------------------------------------------ */
+
+        // --------------------------------------------------------
+        // VALIDATION
+        // --------------------------------------------------------
+
         if (!form.value.companyId) {
+
             alert(
                 "Please select company."
             );
+
             return;
+
         }
+
+
         if (!form.value.categoryId) {
+
             alert(
                 "Please select category."
             );
+
             return;
+
         }
+
+
         if (!form.value.productTypeId) {
+
             alert(
                 "Please select product type."
             );
-            return;
-        }
-        if ( !form.value.modelNo ||!form.value.modelNo.trim()) {
 
-            alert( "Model No is required.");
             return;
-        }
-        if ( !form.value.title || !form.value.title.trim()) {
-            alert( "Product title is required.");
-            return;
-        }
-        saving.value = true;
-        /* -----------------------------------------------
-           CREATE FORMDATA
-        ------------------------------------------------ */
-        const formData =new FormData();
-        /* -----------------------------------------------
-           PRODUCT DATA
-        ------------------------------------------------ */
-        formData.append( "companyId", String(form.value.companyId));
-        formData.append("categoryId",String(form.value.categoryId));
-        formData.append("productTypeId", String(form.value.productTypeId));
-        formData.append("modelNo", form.value.modelNo.trim());
 
-        formData.append( "title", form.value.title.trim());
-        formData.append( "description",form.value.description || "" );
-        formData.append( "thumbnail", form.value.thumbnail || "");
-        formData.append( "youtubeUrl",form.value.youtubeUrl || "");
-        formData.append( "featured", String(form.value.featured));
-        formData.append("active", String(form.value.active));
-        /* -----------------------------------------------
-           PRODUCT IMAGES
-        ------------------------------------------------ */
-        if ( form.value.images && form.value.images.length > 0) {
-            form.value.images.forEach(
-                file => {formData.append( "images", file);
-                }
+        }
+
+
+        if (
+            !form.value.modelNo ||
+            !form.value.modelNo.trim()
+        ) {
+
+            alert(
+                "Model No is required."
             );
+
+            return;
+
         }
+
+
+        if (
+            !form.value.title ||
+            !form.value.title.trim()
+        ) {
+
+            alert(
+                "Product title is required."
+            );
+
+            return;
+
+        }
+
+
+        saving.value = true;
+
+
+        // --------------------------------------------------------
+        // CREATE FORM DATA
+        // --------------------------------------------------------
+
+        const formData =
+            new FormData();
+
+
+        // --------------------------------------------------------
+        // PRODUCT DATA
+        // --------------------------------------------------------
+
+        formData.append(
+            "companyId",
+            String(form.value.companyId)
+        );
+
+        formData.append(
+            "categoryId",
+            String(form.value.categoryId)
+        );
+
+        formData.append(
+            "productTypeId",
+            String(form.value.productTypeId)
+        );
+
+        formData.append(
+            "modelNo",
+            form.value.modelNo.trim()
+        );
+
+        formData.append(
+            "title",
+            form.value.title.trim()
+        );
+
+        formData.append(
+            "description",
+            form.value.description || ""
+        );
+
+        formData.append(
+            "thumbnail",
+            form.value.thumbnail || ""
+        );
+
+        formData.append(
+            "youtubeUrl",
+            form.value.youtubeUrl || ""
+        );
+
+        formData.append(
+            "featured",
+            String(form.value.featured)
+        );
+
+        formData.append(
+            "active",
+            String(form.value.active)
+        );
+
+
+        // --------------------------------------------------------
+        // PRODUCT IMAGES
+        // --------------------------------------------------------
+
+        if (
+            form.value.images &&
+            form.value.images.length > 0
+        ) {
+
+            form.value.images.forEach(file => {
+
+                formData.append(
+                    "images",
+                    file
+                );
+
+            });
+
+        }
+
+
+        // --------------------------------------------------------
+        // CREATE / UPDATE
+        // --------------------------------------------------------
+
         if (!editMode.value) {
-            await createProduct( formData);
+
+            await createProduct(
+                formData
+            );
+
             alert(
                 "Product created successfully."
             );
+
+        } else {
+
+            await updateProduct(
+                form.value.id,
+                formData
+            );
+
+            alert(
+                "Product updated successfully."
+            );
+
         }
-        else {
-            await updateProduct(form.value.id, formData);
-            alert("Product updated successfully.");
-        }
+
+
+        // --------------------------------------------------------
+        // RELOAD PRODUCTS
+        // --------------------------------------------------------
+
         await loadProducts();
-        modalRef.value.hide();
+
+
+        // --------------------------------------------------------
+        // CLOSE MODAL
+        // --------------------------------------------------------
+
+        modalRef.value?.hide();
+
         resetForm();
+
     } catch (error) {
-        console.error("PRODUCT SAVE ERROR:", error);
-        console.error("SERVER RESPONSE:", error.response?.data);
-        alert( error.response?.data?.message ||"Failed to save Product.");
+
+        console.error(
+            "PRODUCT SAVE ERROR:",
+            error
+        );
+
+        console.error(
+            "SERVER RESPONSE:",
+            error.response?.data
+        );
+
+        alert(
+            error.response?.data?.message ||
+            "Failed to save Product."
+        );
 
     } finally {
+
         saving.value = false;
+
     }
+
 }
+
+
+// ============================================================
+// DELETE PRODUCT
+// ============================================================
+
 async function deleteProductById(id) {
-    const confirmed =confirm( "Delete this Product?");
+
+    const confirmed =
+        confirm(
+            "Delete this Product?"
+        );
+
     if (!confirmed) {
         return;
     }
+
     try {
+
         await deleteProduct(id);
-        alert( "Product deleted successfully.");
+
+        alert(
+            "Product deleted successfully."
+        );
+
         await loadProducts();
+
     } catch (error) {
-        console.error("DELETE PRODUCT ERROR:",error);
-        alert( error.response?.data?.message || "Failed to delete Product.");
+
+        console.error(
+            "DELETE PRODUCT ERROR:",
+            error
+        );
+
+        alert(
+            error.response?.data?.message ||
+            "Failed to delete Product."
+        );
+
     }
+
 }
+
+
+// ============================================================
+// CLOSE MODAL
+// ============================================================
 
 function closeModal() {
-    modalRef.value.hide();
+
+    modalRef.value?.hide();
+
     resetForm();
+
 }
 
-/* ============================================================
-   RESET FORM
-============================================================ */
+
+// ============================================================
+// RESET FORM
+// ============================================================
+
 function resetForm() {
+
     clearPreviewUrls();
+
     existingImages.value = [];
+
     if (imageInputRef.value) {
         imageInputRef.value.value = "";
     }
 
-    form.value =getEmptyForm();
+    form.value =
+        getEmptyForm();
+
     categories.value = [];
     productTypes.value = [];
+
     editMode.value = false;
+
 }
 
-/* ============================================================
-   COMPONENT MOUNT
-============================================================ */
+
+// ============================================================
+// COMPONENT MOUNT
+// ============================================================
 
 onMounted(async () => {
+
     await loadCompanies();
+
     await loadProducts();
+
 });
+
 </script>
 
+
 <style scoped>
-/* ============================================================
-   CARD
-============================================================ */
 
 /* ============================================================
    PRODUCT TABLE IMAGE
@@ -802,8 +1507,14 @@ onMounted(async () => {
 
     border: 1px solid #dee2e6;
 
+    background: #f8f9fa;
+
 }
 
+
+/* ============================================================
+   NO PRODUCT IMAGE
+============================================================ */
 
 .no-product-image {
 
@@ -844,10 +1555,6 @@ onMounted(async () => {
 
 
 /* ============================================================
-   ACTION BUTTONS
-============================================================ */
-
-/* ============================================================
    FORM
 ============================================================ */
 
@@ -861,7 +1568,7 @@ onMounted(async () => {
 
 
 /* ============================================================
-   SELECTED IMAGE PREVIEW
+   IMAGE PREVIEW CARD
 ============================================================ */
 
 .image-preview-card {
@@ -881,6 +1588,10 @@ onMounted(async () => {
 }
 
 
+/* ============================================================
+   PRODUCT PREVIEW
+============================================================ */
+
 .product-preview-image {
 
     width: 100%;
@@ -895,6 +1606,10 @@ onMounted(async () => {
 
 }
 
+
+/* ============================================================
+   REMOVE IMAGE BUTTON
+============================================================ */
 
 .remove-image-btn {
 
@@ -921,6 +1636,10 @@ onMounted(async () => {
 }
 
 
+/* ============================================================
+   PREVIEW IMAGE NAME
+============================================================ */
+
 .preview-image-name {
 
     font-size: 11px;
@@ -939,7 +1658,7 @@ onMounted(async () => {
 
 
 /* ============================================================
-   EXISTING IMAGES
+   EXISTING IMAGE CARD
 ============================================================ */
 
 .existing-image-card {
@@ -959,6 +1678,10 @@ onMounted(async () => {
 }
 
 
+/* ============================================================
+   EXISTING PRODUCT IMAGE
+============================================================ */
+
 .existing-product-image {
 
     width: 100%;
@@ -974,6 +1697,10 @@ onMounted(async () => {
 }
 
 
+/* ============================================================
+   EXISTING IMAGE ORDER
+============================================================ */
+
 .existing-image-order {
 
     font-size: 11px;
@@ -988,7 +1715,7 @@ onMounted(async () => {
 
 
 /* ============================================================
-   EMPTY TABLE
+   TABLE
 ============================================================ */
 
 .table-responsive {
@@ -1053,3 +1780,4 @@ onMounted(async () => {
 }
 
 </style>
+```

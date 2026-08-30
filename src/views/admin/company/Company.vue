@@ -51,17 +51,28 @@
                     <tr v-for="company in filteredCompanies" :key="company.id">
 
                         <td>
-                            <img v-if="company.logo" :src="company.logo" class="logo"/>
-                            <span v-else class="text-muted">
-                                No Logo
-                            </span>
-                        </td>
-                        <td>
-                            <img v-if="company.banner" :src="company.banner" class="logo"/>
-                            <span v-else class="text-muted">
-                                No Banner
-                            </span>
-                        </td>
+    <img
+        v-if="company.logo"
+        :src="getImageUrl(company.logo)"
+        class="logo"
+        :alt="company.name"
+    />
+    <span v-else class="text-muted">
+        No Logo
+    </span>
+</td>
+
+<td>
+    <img
+        v-if="company.banner"
+        :src="getImageUrl(company.banner)"
+        class="logo"
+        :alt="company.name"
+    />
+    <span v-else class="text-muted">
+        No Banner
+    </span>
+</td>
 
                         <td>{{ company.name }}</td>
 
@@ -159,6 +170,8 @@ import {
     deleteCompany as deleteCompanyApi
 } from "@/api/company.api";
 import BaseModal from "@/components/admin/common/BaseModal.vue";
+const API_BASE_URL = import.meta.env.VITE_IMAGE_URL;
+
 
 
 import {computed, ref} from "vue";
@@ -181,6 +194,21 @@ const form = ref({
     logo: null,
     banner: null
 });
+
+const getImageUrl = (path) => {
+    if (!path) {
+        return "";
+    }
+
+    if (
+        path.startsWith("http://") ||
+        path.startsWith("https://")
+    ) {
+        return path;
+    }
+
+    return `${API_BASE_URL}/${path.replace(/^\/+/, "")}`;
+};
 
 const filteredCompanies = computed(()=>{
     return companies.value.filter(c=> c.name.toLowerCase() .includes(search.value.toLowerCase()));
