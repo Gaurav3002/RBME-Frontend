@@ -23,7 +23,7 @@
             <span>Bakery Production Systems.</span>
           </h1>
 
-          <p>
+          <p class="hero-description">
             From individual bakery machines to complete production lines,
             we help businesses understand, plan, select, install, and
             operate the right equipment for their production requirements.
@@ -1812,6 +1812,13 @@
 /* =========================================================
    HERO
 ========================================================= */
+.hero-description{
+   max-width: 660px;
+  margin: 0 0 31px;
+  color: rgba(255,255,255,0.76);
+  font-size: 1rem;
+  line-height: 1.85;
+}
 
 .projects-hero {
   min-height: 610px;

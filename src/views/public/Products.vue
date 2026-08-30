@@ -837,7 +837,6 @@ const selectedProductDocuments = computed(() => {
 /* =========================================================
    LOAD PRODUCTS
 ========================================================= */
-
 const loadProducts = async () => {
   loading.value = true;
   error.value = "";
@@ -849,38 +848,47 @@ const loadProducts = async () => {
       throw new Error("Company ID is missing.");
     }
 
-    const response =
-      await getPublicProductsByCompany(companyId);
+    const response = await getPublicProductsByCompany(companyId);
 
-    products.value = response.data || [];
+    const data = response.data || [];
 
-    if (products.value.length > 0) {
+    console.log("================================");
+    console.log("Company ID:", companyId);
+    console.log("Products API Response:", data);
+    console.log("Company Banner:", data[0]?.companyBanner);
+    console.log("================================");
+
+    products.value = data;
+
+    if (data.length > 0) {
       companyName.value =
-        products.value[0].companyName ||
-        "Our Products";
+        data[0].companyName || "Our Products";
 
-      companyBanner.value =
-        products.value[0].companyBanner
-          ? getImageUrl(
-              products.value[0].companyBanner
-            )
-          : "";
+      if (data[0].companyBanner) {
+        companyBanner.value =
+          getImageUrl(data[0].companyBanner);
+      } else {
+        companyBanner.value = "";
+      }
+
+      console.log(
+        "Final Banner URL:",
+        companyBanner.value
+      );
     } else {
       companyName.value = "Our Products";
       companyBanner.value = "";
     }
 
   } catch (err) {
-    console.error(
-      "Error loading products:",
-      err
-    );
+    console.error("Error loading products:", err);
 
     error.value =
       err?.response?.data?.message ||
       err?.message ||
       "Unable to load products.";
 
+    companyBanner.value = "";
   } finally {
     loading.value = false;
   }
@@ -981,9 +989,9 @@ const filteredCategories = computed(() => {
 /* =========================================================
    IMAGE URL
 ========================================================= */
+const API_BASE_URL = import.meta.env.VITE_IMAGE_URL;
 
 const getImageUrl = (path) => {
-
   if (!path) {
     return "/images/product-placeholder.jpg";
   }
@@ -995,38 +1003,36 @@ const getImageUrl = (path) => {
     return path;
   }
 
-  return `http://localhost:9292/${path}`;
+  return `${API_BASE_URL}/${path.replace(/^\/+/, "")}`;
 };
 
 
 /* =========================================================
    PRODUCT IMAGE
 ========================================================= */
-
 const getProductImage = (product) => {
 
-  if (
-    product.thumbnail &&
-    product.thumbnail.trim() !== ""
-  ) {
-    return getImageUrl(
-      product.thumbnail
-    );
+
+  if (product?.thumbnail?.trim()) {
+    const url = getImageUrl(product.thumbnail);
+   
+    return url;
   }
 
-  if (
-    product.images &&
-    product.images.length > 0
-  ) {
-    const firstImage =
-      product.images[0];
+  if (product?.images?.length > 0) {
+    const firstImage = product.images[0];
+
+    
 
     if (firstImage?.imageUrl) {
-      return getImageUrl(
-        firstImage.imageUrl
-      );
+      const url = getImageUrl(firstImage.imageUrl);
+
+      
+
+      return url;
     }
   }
+
 
   return "/images/product-placeholder.jpg";
 };
@@ -1222,34 +1228,43 @@ onMounted(() => {
 /* =========================================================
    HEADER
 ========================================================= */
-
 .products-header {
-  position: relative;
-  min-height: 390px;
+    position: relative;
+    min-height: 390px;
+    display: flex;
+    align-items: center;
+    padding: 90px 0 80px;
 
-  display: flex;
-  align-items: center;
+    /* Fallback background */
+    background-color: #0b1726;
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(7, 15, 24, 0.88) 0%,
+            rgba(7, 15, 24, 0.65) 50%,
+            rgba(7, 15, 24, 0.35) 100%
+        );
 
-  padding: 90px 0 80px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-  background-color: #0b1726;
-  background-size: cover;
-  background-position: center;
-
-  overflow: hidden;
+    overflow: hidden;
 }
-
 .products-header-overlay {
-  position: absolute;
-  inset: 0;
+    position: absolute;
+    inset: 0;
 
-  background:
-    linear-gradient(
-      90deg,
-      rgba(7, 15, 24, 0.97) 0%,
-      rgba(7, 15, 24, 0.90) 48%,
-      rgba(7, 15, 24, 0.58) 100%
-    );
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7, 15, 24, 0.60) 0%,
+            rgba(7, 15, 24, 0.35) 45%,
+            rgba(7, 15, 24, 0.12) 100%
+        );
+
+    z-index: 1;
+    pointer-events: none;
 }
 
 .products-header .container {
