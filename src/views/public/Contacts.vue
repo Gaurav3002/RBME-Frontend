@@ -2059,6 +2059,8 @@ const companies = ref([]);
 const loadCompanies = async () => {
   try {
     const response = await getAllCompany();
+    console.log("Companies API response:", response);
+    console.log("Companies data:", response.data);
 
     companies.value = response.data || [];
   } catch (err) {

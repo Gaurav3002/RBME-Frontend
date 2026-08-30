@@ -300,8 +300,8 @@ async function saveCompany() {
         editMode.value = false;
 
     } catch (error) {
-        // console.error(error);
-        alert("Something went wrong.");
+        console.error(error);
+        // alert("Something went wrong.");
     }
 
 }

@@ -852,11 +852,6 @@ const loadProducts = async () => {
 
     const data = response.data || [];
 
-    console.log("================================");
-    console.log("Company ID:", companyId);
-    console.log("Products API Response:", data);
-    console.log("Company Banner:", data[0]?.companyBanner);
-    console.log("================================");
 
     products.value = data;
 
@@ -871,10 +866,6 @@ const loadProducts = async () => {
         companyBanner.value = "";
       }
 
-      console.log(
-        "Final Banner URL:",
-        companyBanner.value
-      );
     } else {
       companyName.value = "Our Products";
       companyBanner.value = "";
@@ -1176,8 +1167,8 @@ const getDocumentUrl = (document) => {
   ) {
     return path;
   }
-
-  return `http://localhost:9292/${path}`;
+ const baseUrl = import.meta.env.VITE_IMAGE_URL;
+  return `${baseUrl}/${path.replace(/^\/+/, "")}`;
 };
 
 
