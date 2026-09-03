@@ -313,7 +313,7 @@
               </span>
 
               <h2>
-                Connecting With the
+                Connecting With the 
                 <span>Bakery Industry</span>
               </h2>
 
@@ -1044,7 +1044,7 @@
 .hero-label {
     display: inline-block;
 
-    color: var(--color-accent);
+  color: #ffffff;
 
     font-family: var(--font-primary);
     font-size: 0.68rem;
@@ -1075,7 +1075,7 @@
 .hero-content h1 span {
     display: block;
 
-    color: var(--color-accent);
+  color: var(--icon-primary);
 }
 
 .hero-content p {

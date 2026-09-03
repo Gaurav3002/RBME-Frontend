@@ -1857,7 +1857,7 @@
 }
 
 .hero-label {
-  color: var(--color-accent);
+  color: #ffffff;
 
   font-size: 0.76rem;
   font-weight: 800;
@@ -1881,7 +1881,7 @@
 .projects-hero h1 span {
   display: block;
 
-  color: var(--color-accent);
+  color: var(--icon-primary);
 }
 
 .projects-hero p {
