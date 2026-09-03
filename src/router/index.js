@@ -15,7 +15,7 @@ import ProductSpecification from "@/views/admin/product/ProductSpecification.vue
 
 // Public Views
 import Home from "@/views/public/Home.vue";
-import PCategory from "@/views/public/Category.vue";
+// import PCategory from "@/views/public/Category.vue";
 import Projects from "@/views/public/Project.vue";
 import About from "@/views/public/About.vue";
 import Contact from "@/views/public/Contacts.vue";
@@ -35,11 +35,11 @@ const routes = [
                 name: "Home",
                 component: Home,
             },
-            {
-                path: "companies",
-                name: "Companies",
-                component: PCategory,
-            },
+            // {
+            //     path: "companies",
+            //     name: "Companies",
+            //     component: PCategory,
+            // },
             {
                 path: "projects",
                 name: "Projects",
@@ -150,7 +150,17 @@ const router = createRouter({
 
     routes,
 
-    scrollBehavior() {
+    scrollBehavior(to, from, savedPosition) {
+         if (to.hash) {
+            return {
+                el: to.hash,
+                behavior: "smooth",
+            };
+        }
+        if (savedPosition) {
+            return savedPosition;
+        }
+
         return {
             top: 0,
         };

@@ -1,56 +1,56 @@
-```vue
 <template>
   <nav class="public-navbar">
 
-    <div class="container navbar-container">
+    <!-- =========================
+         NAVBAR INNER
+    ========================== -->
+    <div class="navbar-inner">
 
-      <!-- BRAND -->
-      <router-link to="/" class="navbar-brand">
-        <div class="brand-wrapper">
-          <img
-            src="@/assets/logo/logos.png"
-            alt="Ram Bakery Machines & Engineers"
-            class="brand-logo"
-          />
-
-          <div class="brand-text">
-            <span class="brand-name">
-              Ram Bakery Machines
-            </span>
-
-            <span class="brand-subtitle">
-              & Engineers
-            </span>
-          </div>
-        </div>
+      <!-- =========================
+           LOGO
+      ========================== -->
+      <router-link
+        to="/"
+        class="navbar-brand"
+      >
+        <img
+          src="@/assets/logo/logos.png"
+          alt="RBME Engineers"
+          class="brand-logo"
+        />
       </router-link>
 
 
-      <!-- DESKTOP MENU -->
-      <div class="desktop-menu">
+      <!-- =========================
+           DESKTOP NAVIGATION
+      ========================== -->
+      <div class="desktop-navigation">
 
+        <!-- HOME -->
         <router-link
           to="/"
-          class="desktop-link"
+          class="nav-link"
           exact-active-class="active"
         >
           Home
         </router-link>
 
 
-        <!-- OUR BRANDS -->
+        <!-- =========================
+             OUR BRANDS
+        ========================== -->
         <div
-          class="desktop-brands"
+          class="brands-wrapper"
           @mouseenter="openBrands = true"
           @mouseleave="openBrands = false"
         >
 
           <button
             type="button"
-            class="desktop-link brands-button"
+            class="nav-link brands-button"
             :class="{ active: openBrands }"
           >
-            Our Brands
+            <span>Our Brands</span>
 
             <i
               class="bi bi-chevron-down"
@@ -59,14 +59,22 @@
           </button>
 
 
-          <!-- DROPDOWN -->
+          <!-- BRANDS DROPDOWN -->
           <div
             v-if="openBrands"
             class="brands-dropdown"
           >
 
-            <div class="brands-dropdown-header">
-              OUR BRANDS
+            <div class="dropdown-top">
+
+              <span class="dropdown-label">
+                OUR BRANDS
+              </span>
+
+              <span class="dropdown-description">
+                Explore our engineering solutions
+              </span>
+
             </div>
 
 
@@ -79,19 +87,27 @@
                 v-for="company in companies"
                 :key="company.id"
                 :to="`/companies/${company.id}`"
-                class="brand-link"
+                class="brand-item"
                 @click="openBrands = false"
               >
 
-                <div class="brand-icon">
-                  <i class="bi bi-building"></i>
+                <div class="brand-item-icon">
+                  <i class="bi bi-buildings"></i>
                 </div>
 
-                <span>
-                  {{ company.name }}
-                </span>
+                <div class="brand-item-content">
 
-                <i class="bi bi-arrow-right-short"></i>
+                  <span>
+                    {{ company.name }}
+                  </span>
+
+                  <small>
+                    View products & solutions
+                  </small>
+
+                </div>
+
+                <i class="bi bi-arrow-up-right"></i>
 
               </router-link>
 
@@ -113,7 +129,7 @@
         <!-- PROJECTS -->
         <router-link
           to="/projects"
-          class="desktop-link"
+          class="nav-link"
           active-class="active"
         >
           Projects / Automation
@@ -123,7 +139,7 @@
         <!-- ABOUT -->
         <router-link
           to="/about"
-          class="desktop-link"
+          class="nav-link"
           active-class="active"
         >
           About
@@ -132,30 +148,38 @@
 
         <!-- CONTACT -->
         <router-link
-          to="/contact"
-          class="desktop-contact"
+          to="/contact#contact-form"
+          class="nav-cta"
         >
-          Contact / Enquiry
-          <i class="bi bi-arrow-right"></i>
+          <span>
+            Discuss Your Requirement
+          </span>
+
+          <i class="bi bi-arrow-up-right"></i>
         </router-link>
 
       </div>
 
 
-      <!-- MOBILE MENU BUTTON -->
+      <!-- =========================
+           MOBILE MENU BUTTON
+      ========================== -->
       <button
         type="button"
         class="mobile-menu-button"
         @click="openSidebar"
         aria-label="Open menu"
       >
-        <i class="bi bi-list"></i>
+        <span></span>
+        <span></span>
       </button>
 
     </div>
 
 
-    <!-- MOBILE OVERLAY -->
+    <!-- =========================
+         MOBILE OVERLAY
+    ========================== -->
     <transition name="fade">
 
       <div
@@ -167,7 +191,9 @@
     </transition>
 
 
-    <!-- MOBILE SIDEBAR -->
+    <!-- =========================
+         MOBILE SIDEBAR
+    ========================== -->
     <transition name="sidebar">
 
       <aside
@@ -175,32 +201,28 @@
         class="mobile-sidebar"
       >
 
-        <!-- HEADER -->
+        <!-- =========================
+             SIDEBAR HEADER
+        ========================== -->
         <div class="mobile-sidebar-header">
 
-          <div class="mobile-brand">
-
+          <!-- ONLY LOGO -->
+          <router-link
+            to="/"
+            class="mobile-brand"
+            @click="closeSidebar"
+          >
             <img
               src="@/assets/logo/logos.png"
-              alt="RBME"
+              alt="RBME Engineers"
             />
-
-            <div>
-              <strong>
-                Ram Bakery Machines
-              </strong>
-
-              <small>
-                & Engineers
-              </small>
-            </div>
-
-          </div>
+          </router-link>
 
 
+          <!-- CLOSE -->
           <button
             type="button"
-            class="close-button"
+            class="mobile-close"
             @click="closeSidebar"
             aria-label="Close menu"
           >
@@ -210,31 +232,55 @@
         </div>
 
 
-        <!-- BODY -->
-        <div class="mobile-sidebar-body">
+        <!-- =========================
+             SIDEBAR CONTENT
+        ========================== -->
+        <div class="mobile-sidebar-content">
 
           <!-- HOME -->
           <router-link
             to="/"
-            class="mobile-link"
+            class="mobile-nav-link"
             exact-active-class="active"
             @click="closeSidebar"
           >
-            <i class="bi bi-house"></i>
-            <span>Home</span>
+
+            <span class="mobile-left">
+
+              <span class="mobile-icon">
+                <i class="bi bi-house"></i>
+              </span>
+
+              <span>
+                Home
+              </span>
+
+            </span>
+
+            <i class="bi bi-arrow-right"></i>
+
           </router-link>
 
 
-          <!-- BRANDS -->
+          <!-- =========================
+               OUR BRANDS
+          ========================== -->
           <button
             type="button"
-            class="mobile-link mobile-dropdown-button"
+            class="mobile-nav-link"
             @click="mobileBrandsOpen = !mobileBrandsOpen"
           >
 
-            <span>
-              <i class="bi bi-buildings"></i>
-              Our Brands
+            <span class="mobile-left">
+
+              <span class="mobile-icon">
+                <i class="bi bi-buildings"></i>
+              </span>
+
+              <span>
+                Our Brands
+              </span>
+
             </span>
 
             <i
@@ -245,21 +291,21 @@
           </button>
 
 
-          <!-- BRAND LIST -->
+          <!-- MOBILE BRANDS -->
           <div
             v-if="mobileBrandsOpen"
-            class="mobile-brands-list"
+            class="mobile-brands"
           >
 
             <router-link
               v-for="company in companies"
               :key="company.id"
               :to="`/companies/${company.id}`"
-              class="mobile-brand-link"
+              class="mobile-brand-item"
               @click="closeSidebar"
             >
 
-              <i class="bi bi-building"></i>
+              <i class="bi bi-arrow-up-right"></i>
 
               <span>
                 {{ company.name }}
@@ -273,16 +319,24 @@
           <!-- PROJECTS -->
           <router-link
             to="/projects"
-            class="mobile-link"
+            class="mobile-nav-link"
             active-class="active"
             @click="closeSidebar"
           >
 
-            <i class="bi bi-gear"></i>
+            <span class="mobile-left">
 
-            <span>
-              Projects / Automation
+              <span class="mobile-icon">
+                <i class="bi bi-gear"></i>
+              </span>
+
+              <span>
+                Projects / Automation
+              </span>
+
             </span>
+
+            <i class="bi bi-arrow-right"></i>
 
           </router-link>
 
@@ -290,32 +344,40 @@
           <!-- ABOUT -->
           <router-link
             to="/about"
-            class="mobile-link"
+            class="mobile-nav-link"
             active-class="active"
             @click="closeSidebar"
           >
 
-            <i class="bi bi-info-circle"></i>
+            <span class="mobile-left">
 
-            <span>
-              About
+              <span class="mobile-icon">
+                <i class="bi bi-info-circle"></i>
+              </span>
+
+              <span>
+                About
+              </span>
+
             </span>
+
+            <i class="bi bi-arrow-right"></i>
 
           </router-link>
 
 
           <!-- CONTACT -->
           <router-link
-            to="/contact"
+            to="/contact#contact-form"
             class="mobile-contact"
             @click="closeSidebar"
           >
 
             <span>
-              Contact / Enquiry
+              Discuss Your Requirement
             </span>
 
-            <i class="bi bi-arrow-right"></i>
+            <i class="bi bi-arrow-up-right"></i>
 
           </router-link>
 
@@ -331,13 +393,20 @@
 
 <script setup>
 
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import { getAllCompany } from "@/publicApis/company.api";
+import {
+  ref,
+  onMounted,
+  onBeforeUnmount
+} from "vue";
+
+import {
+  getAllCompany
+} from "@/publicApis/company.api";
 
 
-/* =====================================================
-   STATE
-===================================================== */
+// =========================
+// STATE
+// =========================
 
 const companies = ref([]);
 
@@ -348,9 +417,9 @@ const sidebarOpen = ref(false);
 const mobileBrandsOpen = ref(false);
 
 
-/* =====================================================
-   LOAD COMPANIES
-===================================================== */
+// =========================
+// LOAD COMPANIES
+// =========================
 
 const loadCompanies = async () => {
 
@@ -362,7 +431,10 @@ const loadCompanies = async () => {
 
   } catch (error) {
 
-    console.error("Error loading companies:", error);
+    console.error(
+      "Error loading companies:",
+      error
+    );
 
     companies.value = [];
 
@@ -371,22 +443,24 @@ const loadCompanies = async () => {
 };
 
 
-/* =====================================================
-   OPEN SIDEBAR
-===================================================== */
+// =========================
+// OPEN SIDEBAR
+// =========================
 
 const openSidebar = () => {
 
   sidebarOpen.value = true;
 
-  document.body.classList.add("menu-open");
+  document.body.classList.add(
+    "menu-open"
+  );
 
 };
 
 
-/* =====================================================
-   CLOSE SIDEBAR
-===================================================== */
+// =========================
+// CLOSE SIDEBAR
+// =========================
 
 const closeSidebar = () => {
 
@@ -394,18 +468,23 @@ const closeSidebar = () => {
 
   mobileBrandsOpen.value = false;
 
-  document.body.classList.remove("menu-open");
+  document.body.classList.remove(
+    "menu-open"
+  );
 
 };
 
 
-/* =====================================================
-   ESC KEY
-===================================================== */
+// =========================
+// ESCAPE KEY
+// =========================
 
 const handleEscape = (event) => {
 
-  if (event.key === "Escape" && sidebarOpen.value) {
+  if (
+    event.key === "Escape" &&
+    sidebarOpen.value
+  ) {
 
     closeSidebar();
 
@@ -414,24 +493,32 @@ const handleEscape = (event) => {
 };
 
 
-/* =====================================================
-   LIFECYCLE
-===================================================== */
+// =========================
+// LIFECYCLE
+// =========================
 
 onMounted(() => {
 
   loadCompanies();
 
-  document.addEventListener("keydown", handleEscape);
+  document.addEventListener(
+    "keydown",
+    handleEscape
+  );
 
 });
 
 
 onBeforeUnmount(() => {
 
-  document.removeEventListener("keydown", handleEscape);
+  document.removeEventListener(
+    "keydown",
+    handleEscape
+  );
 
-  document.body.classList.remove("menu-open");
+  document.body.classList.remove(
+    "menu-open"
+  );
 
 });
 
@@ -445,197 +532,152 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .public-navbar {
-
   position: sticky;
-
   top: 0;
-
   z-index: 1000;
 
   width: 100%;
+  height: 80px;
 
-  height: 82px;
+  background: rgba(255, 255, 255, 0.98);
 
-  background: #ffffff;
+  border-bottom: 1px solid #e5e9ee;
 
-  border-bottom: 1px solid #e5eaf0;
+  box-shadow:
+    0 4px 25px rgba(11, 23, 38, 0.06);
 
-  box-shadow: 0 3px 15px rgba(15, 23, 42, 0.06);
-
-}
-
-
-.navbar-container {
-
-  height: 100%;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: space-between;
-
+  backdrop-filter: blur(14px);
 }
 
 
 /* =====================================================
-   BRAND
+   NAVBAR INNER
 ===================================================== */
 
-.navbar-brand {
+.navbar-inner {
+  width: min(
+    1380px,
+    calc(100% - 64px)
+  );
 
-  text-decoration: none;
+  height: 100%;
 
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 
-.brand-wrapper {
+/* =====================================================
+   LOGO
+===================================================== */
 
+.navbar-brand {
   display: flex;
-
   align-items: center;
 
-  gap: 11px;
+  flex-shrink: 0;
 
+  height: 100%;
+
+  text-decoration: none;
 }
 
 
 .brand-logo {
-
-  width: 55px;
-
-  height: 55px;
+  width: 125px;
+  height: 76px;
 
   object-fit: contain;
 
-}
-
-
-.brand-text {
-
-  display: flex;
-
-  flex-direction: column;
-
-}
-
-
-.brand-name {
-
-  color: #101820;
-
-  font-size: 18px;
-
-  font-weight: 800;
-
-  line-height: 1.2;
-
-  white-space: nowrap;
-
-}
-
-
-.brand-subtitle {
-
-  margin-top: 4px;
-
-  color: #75808b;
-
-  font-size: 11px;
-
-  font-weight: 700;
-
-  letter-spacing: 2px;
-
+  display: block;
 }
 
 
 /* =====================================================
-   DESKTOP MENU
+   DESKTOP NAVIGATION
 ===================================================== */
 
-.desktop-menu {
+.desktop-navigation {
+  height: 100%;
 
   display: flex;
-
   align-items: center;
 
-  gap: 3px;
-
+  gap: 4px;
 }
 
 
-.desktop-link {
+/* =====================================================
+   NAV LINKS
+===================================================== */
 
+.nav-link {
   position: relative;
 
-  display: flex;
+  height: 100%;
 
+  display: flex;
   align-items: center;
 
-  gap: 7px;
-
-  padding: 30px 14px;
+  padding: 0 17px;
 
   border: 0;
 
   background: transparent;
 
-  color: #4b5965;
+  color: #4d5b69;
 
-  font-size: 14px;
+  font-family: inherit;
 
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 650;
 
   text-decoration: none;
 
-  cursor: pointer;
-
   white-space: nowrap;
 
-  transition: color 0.2s ease;
+  cursor: pointer;
 
+  transition:
+    color 0.25s ease;
 }
 
 
-.desktop-link:hover,
-
-.desktop-link.active {
-
-  color: #1b5e8c;
-
-}
-
-
-.desktop-link::after {
-
+.nav-link::after {
   content: "";
 
   position: absolute;
 
-  left: 14px;
+  left: 17px;
+  right: 17px;
 
-  right: 14px;
-
-  bottom: 17px;
+  bottom: 0;
 
   height: 2px;
 
-  background: #1b5e8c;
+  background: #c58a24;
 
   transform: scaleX(0);
 
-  transition: transform 0.2s ease;
+  transform-origin: center;
 
+  transition:
+    transform 0.25s ease;
 }
 
 
-.desktop-link:hover::after,
+.nav-link:hover,
+.nav-link.active {
+  color: #0b1726;
+}
 
-.desktop-link.active::after {
 
+.nav-link:hover::after,
+.nav-link.active::after {
   transform: scaleX(1);
-
 }
 
 
@@ -643,256 +685,337 @@ onBeforeUnmount(() => {
    BRANDS
 ===================================================== */
 
-.desktop-brands {
-
+.brands-wrapper {
   position: relative;
 
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+}
+
+
+.brands-button {
+  gap: 8px;
 }
 
 
 .brands-button i {
+  font-size: 9px;
 
-  font-size: 10px;
-
-  transition: transform 0.2s ease;
-
+  transition:
+    transform 0.25s ease;
 }
 
 
 .rotate {
-
   transform: rotate(180deg);
+}
+
+
+/* =====================================================
+   BRANDS DROPDOWN
+===================================================== */
+
+.brands-dropdown {
+  position: absolute;
+
+  top: calc(100% + 1px);
+
+  left: 50%;
+
+  width: 390px;
+
+  transform: translateX(-50%);
+
+  background: #ffffff;
+
+  border: 1px solid #e3e8ed;
+
+  box-shadow:
+    0 22px 55px rgba(11, 23, 38, 0.15);
+
+  overflow: hidden;
+
+  animation:
+    dropdown-enter 0.2s ease;
+}
+
+
+@keyframes dropdown-enter {
+
+  from {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translate(-50%, 0);
+  }
 
 }
 
 
 /* =====================================================
-   DROPDOWN
+   DROPDOWN HEADER
 ===================================================== */
 
-.brands-dropdown {
+.dropdown-top {
+  padding: 22px;
 
-  position: absolute;
+  background: #f8fafc;
 
-  top: calc(100% - 1px);
-
-  right: 0;
-
-  width: 360px;
-
-  background: #ffffff;
-
-  border: 1px solid #e1e7ed;
-
-  border-radius: 8px;
-
-  overflow: hidden;
-
-  box-shadow: 0 15px 40px rgba(15, 23, 42, 0.14);
-
-  animation: dropdownShow 0.18s ease;
-
+  border-bottom: 1px solid #e6ebef;
 }
 
 
-@keyframes dropdownShow {
-
-  from {
-
-    opacity: 0;
-
-    transform: translateY(-6px);
-
-  }
-
-  to {
-
-    opacity: 1;
-
-    transform: translateY(0);
-
-  }
-
-}
-
-
-.brands-dropdown-header {
-
-  padding: 15px 18px;
-
-  background: #f7f9fb;
-
-  border-bottom: 1px solid #e7ecf1;
-
-  color: #162536;
-
-  font-size: 10px;
-
-  font-weight: 800;
-
-  letter-spacing: 1.5px;
-
-}
-
-
-.brands-list {
-
-  max-height: 350px;
-
-  overflow-y: auto;
-
-}
-
-
-.brand-link {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 11px;
-
-  padding: 13px 17px;
-
-  color: #526273;
-
-  text-decoration: none;
-
-  font-size: 14px;
-
-  font-weight: 600;
-
-  transition: background 0.2s ease, color 0.2s ease;
-
-}
-
-
-.brand-link:hover {
-
-  background: #f5f9fc;
+.dropdown-label {
+  display: block;
 
   color: #1b5e8c;
 
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.8px;
 }
 
 
-.brand-icon {
+.dropdown-description {
+  display: block;
 
-  width: 34px;
+  margin-top: 5px;
 
-  height: 34px;
+  color: #788594;
 
+  font-size: 12px;
+}
+
+
+/* =====================================================
+   BRAND LIST
+===================================================== */
+
+.brands-list {
+  max-height: 360px;
+
+  overflow-y: auto;
+}
+
+
+.brand-item {
   display: flex;
-
   align-items: center;
 
+  gap: 13px;
+
+  padding: 15px 18px;
+
+  color: #243444;
+
+  text-decoration: none;
+
+  border-bottom: 1px solid #edf0f3;
+
+  transition:
+    background 0.2s ease,
+    padding-left 0.2s ease;
+}
+
+
+.brand-item:last-child {
+  border-bottom: 0;
+}
+
+
+.brand-item:hover {
+  background: #f7fafc;
+
+  padding-left: 22px;
+}
+
+
+.brand-item-icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
   justify-content: center;
 
   flex-shrink: 0;
 
-  border-radius: 7px;
-
-  background: #edf5fc;
+  background: #eef5f9;
 
   color: #1b5e8c;
 
+  border: 1px solid #dce8ef;
 }
 
 
-.brand-link > i {
-
-  margin-left: auto;
-
-  font-size: 18px;
-
+.brand-item-icon i {
+  font-size: 17px;
 }
 
 
-.no-brands {
+.brand-item-content {
+  flex: 1;
 
-  padding: 25px;
+  min-width: 0;
 
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
 
-  color: #7b8794;
 
+.brand-item-content span {
+  color: #1c2c3b;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+
+.brand-item-content small {
+  margin-top: 3px;
+
+  color: #84909c;
+
+  font-size: 10px;
+}
+
+
+.brand-item > i {
+  color: #8a96a2;
+
+  font-size: 15px;
+
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+
+.brand-item:hover > i {
+  color: #1b5e8c;
+
+  transform:
+    translate(2px, -2px);
 }
 
 
 /* =====================================================
-   CONTACT
+   NO BRANDS
 ===================================================== */
 
-.desktop-contact {
+.no-brands {
+  padding: 30px;
 
+  text-align: center;
+
+  color: #7d8995;
+
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   CONTACT CTA
+===================================================== */
+
+.nav-cta {
   display: flex;
-
   align-items: center;
 
-  gap: 9px;
+  gap: 10px;
 
-  margin-left: 10px;
+  margin-left: 14px;
 
-  padding: 12px 19px;
+  padding: 13px 19px;
 
-  border-radius: 7px;
+  background: #0b1726;
 
+  color: #ffffff;
+
+  text-decoration: none;
+
+  font-size: 12px;
+  font-weight: 750;
+
+  white-space: nowrap;
+
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.nav-cta i {
+  font-size: 13px;
+
+  transition:
+    transform 0.25s ease;
+}
+
+
+.nav-cta:hover {
   background: #1b5e8c;
 
   color: #ffffff;
 
-  font-size: 13px;
+  transform: translateY(-1px);
 
-  font-weight: 700;
-
-  text-decoration: none;
-
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
+  box-shadow:
+    0 9px 25px rgba(11, 23, 38, 0.18);
 }
 
 
-.desktop-contact:hover {
-
-  color: #ffffff;
-
-  transform: translateY(-2px);
-
-  box-shadow: 0 7px 20px rgba(27, 94, 140, 0.25);
-
+.nav-cta:hover i {
+  transform:
+    translate(2px, -2px);
 }
 
 
 /* =====================================================
-   MOBILE BUTTON
+   MOBILE MENU BUTTON
 ===================================================== */
 
 .mobile-menu-button {
-
   display: none;
 
-  align-items: center;
-
-  justify-content: center;
-
-  width: 44px;
-
+  width: 46px;
   height: 42px;
 
   padding: 0;
 
-  border: 1px solid #dce3ea;
-
-  border-radius: 7px;
+  border: 1px solid #dce3e9;
 
   background: #ffffff;
 
-  color: #162536;
-
-  font-size: 23px;
-
   cursor: pointer;
 
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+}
+
+
+.mobile-menu-button span {
+  display: block;
+
+  width: 20px;
+  height: 1.5px;
+
+  background: #0b1726;
 }
 
 
@@ -901,15 +1024,16 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .mobile-overlay {
-
   position: fixed;
 
   inset: 0;
 
   z-index: 1090;
 
-  background: rgba(15, 23, 42, 0.35);
+  background:
+    rgba(11, 23, 38, 0.45);
 
+  backdrop-filter: blur(3px);
 }
 
 
@@ -918,198 +1042,143 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .mobile-sidebar {
-
   position: fixed;
 
   top: 0;
-
   right: 0;
 
   z-index: 1100;
 
-  width: 320px;
+  width: min(
+    390px,
+    90vw
+  );
 
   height: 100vh;
-
   height: 100dvh;
 
   display: flex;
-
   flex-direction: column;
 
   background: #ffffff;
 
-  box-shadow: -10px 0 35px rgba(15, 23, 42, 0.15);
+  box-shadow:
+    -20px 0 60px rgba(11, 23, 38, 0.2);
 
   overflow-y: auto;
-
 }
 
 
 /* =====================================================
-   SIDEBAR HEADER
+   MOBILE HEADER
 ===================================================== */
 
 .mobile-sidebar-header {
-
   min-height: 82px;
 
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
 
-  padding: 16px 18px;
+  padding: 10px 20px;
 
-  border-bottom: 1px solid #e8edf2;
-
-  background: #ffffff;
-
+  border-bottom: 1px solid #e6ebef;
 }
 
 
+/* =====================================================
+   MOBILE LOGO
+===================================================== */
+
 .mobile-brand {
-
   display: flex;
-
   align-items: center;
 
-  gap: 10px;
+  height: 100%;
 
-  min-width: 0;
-
+  text-decoration: none;
 }
 
 
 .mobile-brand img {
-
-  width: 46px;
-
-  height: 46px;
+  width: 78px;
+  height: 62px;
 
   object-fit: contain;
 
+  display: block;
 }
 
 
-.mobile-brand div {
+/* =====================================================
+   CLOSE BUTTON
+===================================================== */
+
+.mobile-close {
+  width: 38px;
+  height: 38px;
 
   display: flex;
-
-  flex-direction: column;
-
-  min-width: 0;
-
-}
-
-
-.mobile-brand strong {
-
-  color: #162536;
-
-  font-size: 13px;
-
-  font-weight: 800;
-
-  white-space: nowrap;
-
-}
-
-
-.mobile-brand small {
-
-  margin-top: 3px;
-
-  color: #7b8794;
-
-  font-size: 9px;
-
-  font-weight: 700;
-
-  letter-spacing: 1.2px;
-
-}
-
-
-.close-button {
-
-  display: flex;
-
   align-items: center;
-
   justify-content: center;
 
-  width: 36px;
+  border: 1px solid #e1e6eb;
 
-  height: 36px;
+  background: #f8fafb;
 
-  flex-shrink: 0;
-
-  border: 0;
-
-  border-radius: 7px;
-
-  background: #f3f6f9;
-
-  color: #162536;
+  color: #0b1726;
 
   cursor: pointer;
 
+  transition:
+    background 0.2s ease;
 }
 
 
-.close-button:hover {
-
-  background: #e9eef3;
-
-}
-
-
-/* =====================================================
-   SIDEBAR BODY
-===================================================== */
-
-.mobile-sidebar-body {
-
-  padding: 15px;
-
+.mobile-close:hover {
+  background: #eef2f5;
 }
 
 
 /* =====================================================
-   MOBILE LINKS
+   MOBILE CONTENT
 ===================================================== */
 
-.mobile-link {
+.mobile-sidebar-content {
+  padding: 20px;
+}
 
+
+/* =====================================================
+   MOBILE NAV LINKS
+===================================================== */
+
+.mobile-nav-link {
   width: 100%;
 
-  display: flex;
+  min-height: 58px;
 
+  display: flex;
   align-items: center;
 
-  gap: 13px;
+  justify-content: space-between;
 
-  min-height: 50px;
+  gap: 12px;
 
-  margin-bottom: 4px;
-
-  padding: 13px 14px;
+  padding: 12px 8px;
 
   border: 0;
 
-  border-radius: 7px;
+  border-bottom: 1px solid #edf0f3;
 
   background: transparent;
 
-  color: #4e5d69;
+  color: #3e4d5b;
 
   font-family: inherit;
 
   font-size: 14px;
-
-  font-weight: 600;
+  font-weight: 650;
 
   text-decoration: none;
 
@@ -1117,37 +1186,57 @@ onBeforeUnmount(() => {
 
   cursor: pointer;
 
-  transition: background 0.2s ease, color 0.2s ease;
-
+  transition:
+    color 0.2s ease,
+    padding-left 0.2s ease;
 }
 
 
-.mobile-link i {
+.mobile-nav-link:hover,
+.mobile-nav-link.active {
+  color: #1b5e8c;
 
-  width: 21px;
+  padding-left: 12px;
+}
+
+
+.mobile-nav-link > i {
+  color: #9aa5af;
+
+  font-size: 13px;
+}
+
+
+.mobile-left {
+  display: flex;
+  align-items: center;
+
+  gap: 13px;
+}
+
+
+/* =====================================================
+   MOBILE ICON
+===================================================== */
+
+.mobile-icon {
+  width: 36px;
+  height: 36px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   flex-shrink: 0;
 
-  font-size: 17px;
+  background: #f2f6f9;
 
+  color: #1b5e8c;
 }
 
 
-.mobile-link:hover {
-
-  background: #f4f8fc;
-
-  color: #1b5e8c;
-
-}
-
-
-.mobile-link.active {
-
-  background: #edf5ff;
-
-  color: #1b5e8c;
-
+.mobile-icon i {
+  font-size: 16px;
 }
 
 
@@ -1155,80 +1244,39 @@ onBeforeUnmount(() => {
    MOBILE BRANDS
 ===================================================== */
 
-.mobile-dropdown-button {
+.mobile-brands {
+  margin: 4px 0 8px 18px;
 
-  justify-content: space-between;
+  padding-left: 15px;
 
+  border-left: 1px solid #dce3e9;
 }
 
 
-.mobile-dropdown-button span {
-
+.mobile-brand-item {
   display: flex;
-
-  align-items: center;
-
-  gap: 13px;
-
-}
-
-
-.mobile-dropdown-button > i {
-
-  width: auto;
-
-  font-size: 11px;
-
-}
-
-
-.mobile-brands-list {
-
-  margin: 0 0 8px 10px;
-
-  padding: 5px 0 5px 15px;
-
-  border-left: 2px solid #e3eaf0;
-
-}
-
-
-.mobile-brand-link {
-
-  display: flex;
-
   align-items: center;
 
   gap: 10px;
 
-  padding: 11px 12px;
+  padding: 12px 8px;
 
-  border-radius: 6px;
-
-  color: #687786;
+  color: #657482;
 
   font-size: 13px;
-
   font-weight: 600;
 
   text-decoration: none;
-
 }
 
 
-.mobile-brand-link:hover {
-
-  background: #f5f9fc;
-
+.mobile-brand-item:hover {
   color: #1b5e8c;
-
 }
 
 
-.mobile-brand-link i {
-
-  font-size: 14px;
-
+.mobile-brand-item i {
+  font-size: 11px;
 }
 
 
@@ -1237,38 +1285,39 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .mobile-contact {
+  margin-top: 28px;
+
+  padding: 18px 20px;
 
   display: flex;
-
   align-items: center;
+  justify-content: space-between;
 
-  justify-content: center;
+  gap: 15px;
 
-  gap: 9px;
-
-  margin-top: 20px;
-
-  padding: 14px;
-
-  border-radius: 7px;
-
-  background: #1b5e8c;
+  background: #0b1726;
 
   color: #ffffff;
 
-  font-size: 14px;
-
-  font-weight: 700;
-
   text-decoration: none;
 
+  font-size: 13px;
+  font-weight: 700;
+
+  transition:
+    background 0.25s ease;
 }
 
 
 .mobile-contact:hover {
+  background: #1b5e8c;
 
   color: #ffffff;
+}
 
+
+.mobile-contact > i {
+  font-size: 18px;
 }
 
 
@@ -1277,29 +1326,21 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .sidebar-enter-active,
-
 .sidebar-leave-active {
-
-  transition: transform 0.25s ease;
-
+  transition:
+    transform 0.3s ease;
 }
 
 
 .sidebar-enter-from,
-
 .sidebar-leave-to {
-
   transform: translateX(100%);
-
 }
 
 
 .sidebar-enter-to,
-
 .sidebar-leave-from {
-
   transform: translateX(0);
-
 }
 
 
@@ -1308,141 +1349,162 @@ onBeforeUnmount(() => {
 ===================================================== */
 
 .fade-enter-active,
-
 .fade-leave-active {
-
-  transition: opacity 0.2s ease;
-
+  transition:
+    opacity 0.25s ease;
 }
 
 
 .fade-enter-from,
-
 .fade-leave-to {
-
   opacity: 0;
-
-}
-
-
-.fade-enter-to,
-
-.fade-leave-from {
-
-  opacity: 1;
-
 }
 
 
 /* =====================================================
-   RESPONSIVE
+   TABLET
 ===================================================== */
 
-@media (max-width: 991.98px) {
+@media (max-width: 1200px) {
 
-  .public-navbar {
+  .navbar-inner {
+    width: min(
+      100% - 40px,
+      1100px
+    );
+  }
 
+
+  .brand-logo {
+    width: 115px;
     height: 72px;
-
   }
 
 
-  .desktop-menu {
+  .nav-link {
+    padding-left: 10px;
+    padding-right: 10px;
 
-    display: none;
-
-  }
-
-
-  .mobile-menu-button {
-
-    display: flex;
-
-  }
-
-}
-
-@media (min-width: 992px) and (max-width: 1199.98px) {
-
-  .desktop-menu {
-    gap: 0;
-  }
-
-  .desktop-link {
-    padding-right: 8px;
-    padding-left: 8px;
     font-size: 12px;
   }
 
-  .desktop-link::after {
-    right: 8px;
-    left: 8px;
+
+  .nav-link::after {
+    left: 10px;
+    right: 10px;
   }
 
-  .desktop-contact {
-    margin-left: 4px;
-    padding-right: 11px;
-    padding-left: 11px;
+
+  .nav-cta {
+    margin-left: 5px;
+
+    padding-left: 12px;
+    padding-right: 12px;
+
     font-size: 11px;
   }
 
 }
 
 
-@media (max-width: 575.98px) {
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 991.98px) {
 
   .public-navbar {
+    height: 72px;
+  }
 
-    height: 66px;
 
+  .navbar-inner {
+    width: calc(100% - 32px);
+  }
+
+
+  .desktop-navigation {
+    display: none;
+  }
+
+
+  .mobile-menu-button {
+    display: flex;
   }
 
 
   .brand-logo {
-
-    width: 45px;
-
-    height: 45px;
-
-  }
-
-
-  .brand-name {
-
-    font-size: 14px;
-
-  }
-
-
-  .brand-subtitle {
-
-    font-size: 9px;
-
-    letter-spacing: 1.4px;
-
-  }
-
-
-  .mobile-sidebar {
-
-    width: min(300px, 88vw);
-
+    width: 100px;
+    height: 66px;
   }
 
 }
 
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 575.98px) {
+
+  .public-navbar {
+    height: 68px;
+  }
+
+
+  .navbar-inner {
+    width: calc(100% - 24px);
+  }
+
+
+  .brand-logo {
+    width: 88px;
+    height: 62px;
+  }
+
+
+  .mobile-menu-button {
+    width: 42px;
+    height: 40px;
+  }
+
+
+  .mobile-sidebar {
+    width: min(
+      350px,
+      92vw
+    );
+  }
+
+
+  .mobile-brand img {
+    width: 70px;
+    height: 58px;
+  }
+
+}
+
+
+/* =====================================================
+   DESKTOP ONLY
+===================================================== */
 
 @media (min-width: 992px) {
 
   .mobile-overlay,
-
   .mobile-sidebar {
-
     display: none !important;
-
   }
 
 }
 
+
+/* =====================================================
+   BODY LOCK
+===================================================== */
+
+:global(body.menu-open) {
+  overflow: hidden;
+}
+
 </style>
-```

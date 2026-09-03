@@ -40,7 +40,7 @@
             </router-link>
 
             <router-link
-              to="/contact"
+              to="/contact#contact-form"
               class="btn public-button hero-btn-outline"
             >
               Discuss Your Project

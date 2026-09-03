@@ -611,7 +611,7 @@
                FORM
           ================================================== -->
 
-          <div class="contact-form-wrapper">
+          <div id="contact-form" class="contact-form-wrapper">
 
             <div class="form-accent"></div>
 

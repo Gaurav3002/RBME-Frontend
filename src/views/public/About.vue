@@ -39,7 +39,7 @@
             </router-link>
 
             <router-link
-              to="/contact"
+              to="/contact#contact-form"
               class="btn public-button hero-btn-outline"
             >
               Discuss Your Requirement
@@ -65,12 +65,12 @@
         <div class="row align-items-center g-5">
 
           <!-- IMAGE -->
-          <div class="col-lg-6">
+          <div class="col-lg-6">  
 
-            <div class="about-image">
+            <div class="about-image"> 
 
               <img
-                src="@/assets/images/bakery-line.png"
+                src="@/assets/images/bakery-line1.png"
                 alt="Ram Bakery Machines and Engineers"
               />
 
@@ -95,9 +95,9 @@
 
 
           <!-- CONTENT -->
-          <div class="col-lg-6">
+          <div id="aboutme" class="col-lg-6">
 
-            <span class="section-label">
+            <span class="section-label">  
               WHO WE ARE
             </span>
 
@@ -107,7 +107,7 @@
             </h2>
 
             <p>
-              Established in <strong>2015</strong>, Ram Bakery Machines &
+              Established in <strong>2021</strong>, Ram Bakery Machines &
               Engineers is a machinery-focused business serving the
               bakery and food-processing equipment segment.
             </p>
@@ -201,7 +201,7 @@
 
             <div>
               <span>Established</span>
-              <strong>2015</strong>
+              <strong>2021</strong>
             </div>
 
           </div>
@@ -215,7 +215,7 @@
             </div>
 
             <div>
-              <span>Company CEO</span>
+              <span>Company Director</span>
               <strong>B Kumar</strong>
             </div>
 
@@ -1014,7 +1014,7 @@
     align-items: center;
 
     background:
-        url("@/assets/images/production1.jpg")
+        url("@/assets/images/RamBanner.png")
         center / cover no-repeat;
 
     color: var(--color-white);
@@ -1360,7 +1360,7 @@
 
     border-radius: 14px;
 
-    background: var(--color-surface);
+    background: #1b5e8c;
 
     transition:
         transform 0.3s ease,
@@ -1404,7 +1404,7 @@
 .fact-card span {
     margin-bottom: 5px;
 
-    color: var(--color-muted);
+    color: #ffffff;
 
     font-family: var(--font-primary);
     font-size: 0.78rem;
@@ -1414,7 +1414,7 @@
 }
 
 .fact-card strong {
-    color: var(--color-heading);
+    color: #ffffff;
 
     font-family: var(--font-heading);
     font-size: 1rem;

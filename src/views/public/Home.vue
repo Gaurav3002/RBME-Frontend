@@ -48,7 +48,7 @@
               </router-link>
 
               <router-link
-                to="/contact"
+                to="/contact#contact-form"
                 class="btn public-button hero-btn-outline"
               >
                 Discuss Your Requirement
@@ -488,7 +488,7 @@
             </p>
 
             <router-link
-              to="/about"
+              to="/about#aboutme"
               class="text-link"
             >
               Learn more about RBME
@@ -619,14 +619,13 @@
                 of bakery machine you are looking for.
               </p>
 
-              <router-link to="/contact" class="process-link">
+              <router-link to="/contact#contact-form" class="process-link">
                 Discuss Requirement
                 <i class="bi bi-arrow-right"></i>
               </router-link>
 
             </div>
           </div>
-
 
           <!-- 02 -->
           <div class="col-md-6 col-lg-3">
@@ -958,7 +957,7 @@
 
         <div class="text-center mt-5">
           <router-link
-            to="/companies"
+            to="/companies/1" 
                 class="btn public-button btn-outline-primary brands-button"
           >
             View All Brands
@@ -2219,7 +2218,7 @@ onUnmounted(() => {
 }
 
 
-/* HOVER ZOOM */
+/* HOVER ZOOM */  
 
 .brand-card:hover .brand-card-logo img {
   transform: scale(1.06);
@@ -2273,6 +2272,7 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  color: var(--icon-primary);
 }
 
 .brands-empty {
