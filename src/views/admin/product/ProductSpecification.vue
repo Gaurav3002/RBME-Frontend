@@ -4146,7 +4146,7 @@ textarea.form-control {
         width: 100%;
 
     }
-
+    
 
     .table-card-header {
 
