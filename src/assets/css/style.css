@@ -154,6 +154,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+.public-layout {
+    min-height: 100vh;
+    color: var(--color-text);
+    background:
+        linear-gradient(180deg, #f8fafc 0%, var(--color-page-bg) 42%, #eef3f7 100%);
+}
+
+.public-layout main {
+    overflow: hidden;
+}
+
 /* Keep responsive content inside its parent, including nested grids. */
 img {
     max-width: 100%;
@@ -246,13 +257,35 @@ table {
     font-size: 0.9rem;
     font-weight: 700;
     text-decoration: none;
+    box-shadow: 0 8px 18px rgba(11, 23, 38, 0.10);
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.public-button:hover {
+    box-shadow: 0 12px 24px rgba(11, 23, 38, 0.16);
+    transform: translateY(-2px);
 }
 
 .public-card {
     border: 1px solid var(--color-border);
     border-radius: 10px;
     background: var(--color-surface);
-    box-shadow: 0 5px 18px var(--color-shadow);
+    box-shadow: 0 8px 24px rgba(11, 23, 38, 0.08);
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.public-card:hover {
+    border-color: rgba(27, 94, 140, 0.28);
+    box-shadow: 0 14px 30px rgba(11, 23, 38, 0.12);
+    transform: translateY(-3px);
 }
 
 
@@ -906,4 +939,121 @@ a:focus-visible {
         );
 
     background-size: 40px 40px;
+}
+
+
+/* =========================================================
+   PUBLIC SITE READING SCALE AND RESPONSIVE POLISH
+========================================================= */
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) {
+    --public-body-size: 1rem;
+    --public-small-size: 0.82rem;
+    --public-label-size: 0.74rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) img,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) video,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) iframe {
+    max-width: 100%;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) input,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) select,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) textarea {
+    max-width: 100%;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(h1, h2, h3, h4, h5, h6, p, a, span, button, label) {
+    overflow-wrap: anywhere;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .table-responsive,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) [class*="table-wrapper"] {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) p {
+    font-size: var(--public-body-size);
+    line-height: 1.75;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .section-description {
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .section-label,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-label,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .text-label {
+    font-size: var(--public-label-size);
+    line-height: 1.5;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) small {
+    font-size: var(--public-small-size);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .container {
+    padding-right: clamp(16px, 3vw, 32px);
+    padding-left: clamp(16px, 3vw, 32px);
+}
+
+@media (max-width: 767.98px) {
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) {
+        --public-body-size: 0.98rem;
+        --public-small-size: 0.78rem;
+        --public-label-size: 0.7rem;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) h1 {
+        font-size: clamp(2.25rem, 10vw, 3.35rem);
+        line-height: 1.08;
+        letter-spacing: -1px;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) h2,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .section-title {
+        font-size: clamp(1.85rem, 7vw, 2.5rem);
+        line-height: 1.15;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-actions,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-actions > * {
+        width: 100%;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-actions .btn {
+        min-height: 50px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) section {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-section,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .about-hero,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .projects-hero {
+        min-height: 560px;
+    }
+}
+
+
+/* =========================================================
+   REDUCE REPETITIVE PUBLIC CONTENT
+========================================================= */
+
+/* These sections repeat information available on dedicated pages. */
+.home-page .customer-section,
+.home-page .service-section,
+.projects-page .automation-intro {
+    display: none;
 }

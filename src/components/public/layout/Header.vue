@@ -160,7 +160,7 @@
 
 .header-contact i {
 
-  color: #0d6efd;
+  color: var(--color-primary);
 
 }
 
@@ -242,9 +242,9 @@
 
 .header-social a:hover {
 
-  background: #0d6efd;
+  background: var(--color-primary);
 
-  border-color: #0d6efd;
+  border-color: var(--color-primary);
 
   color: #ffffff;
 

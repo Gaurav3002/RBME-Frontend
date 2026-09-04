@@ -345,8 +345,8 @@ const companies = [
 
 .social-link:hover {
   transform: translateY(-3px);
-  background: #0d6efd;
-  border-color: #0d6efd;
+  background: var(--color-primary);
+  border-color: var(--color-primary);
   color: #ffffff;
 }
 
@@ -377,7 +377,7 @@ const companies = [
   width: 35px;
   height: 2px;
 
-  background: #0d6efd;
+  background: var(--color-primary);
 }
 
 
@@ -416,7 +416,7 @@ const companies = [
 .footer-links i {
   margin-right: 7px;
   font-size: 0.65rem;
-  color: #0d6efd;
+  color: var(--color-primary);
 }
 
 
@@ -456,7 +456,7 @@ const companies = [
 .contact-icon {
   min-width: 22px;
 
-  color: #0d6efd;
+  color: var(--color-primary);
   font-size: 1rem;
 }
 
