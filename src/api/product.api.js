@@ -2,7 +2,7 @@ import api from "./axios";
 
 export const getProducts = () => {
     return api.get("/admin/products");
-}
+}   
 export const getProductById = (id) => {
     return api.get(`/admin/products/${id}`);
 }

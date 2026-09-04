@@ -436,6 +436,34 @@ const sidebarOpen = ref(false);
 
 const mobileBrandsOpen = ref(false);
 
+const lockBodyScroll = () => {
+
+  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+
+  document.body.style.setProperty(
+    "--scrollbar-width",
+    `${scrollbarWidth}px`
+  );
+
+  document.body.classList.add(
+    "menu-open"
+  );
+
+};
+
+
+const unlockBodyScroll = () => {
+
+  document.body.classList.remove(
+    "menu-open"
+  );
+
+  document.body.style.removeProperty(
+    "--scrollbar-width"
+  );
+
+};
+
 
 // =========================
 // LOAD COMPANIES
@@ -471,9 +499,7 @@ const openSidebar = () => {
 
   sidebarOpen.value = true;
 
-  document.body.classList.add(
-    "menu-open"
-  );
+  lockBodyScroll();
 
 };
 
@@ -488,9 +514,7 @@ const closeSidebar = () => {
 
   mobileBrandsOpen.value = false;
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  unlockBodyScroll();
 
 };
 
@@ -536,9 +560,7 @@ onBeforeUnmount(() => {
     handleEscape
   );
 
-  document.body.classList.remove(
-    "menu-open"
-  );
+  unlockBodyScroll();
 
 });
 
@@ -1661,6 +1683,8 @@ onBeforeUnmount(() => {
 
 :global(body.menu-open) {
   overflow: hidden;
+
+  padding-right: var(--scrollbar-width, 0px);
 }
 
 </style>
