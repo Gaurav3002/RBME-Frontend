@@ -4,22 +4,19 @@ import PublicLayout from "@/layouts/PublicLayout.vue";
 import AuthLayout from "@/layouts/AuthLayout.vue";
 import AdminLayout from "@/layouts/AdminLayout.vue";
 
-import Login from "@/views/admin/auth/Login.vue";
+const Login = () => import("@/views/admin/auth/Login.vue");
+const Dashboard = () => import("@/views/admin/dashboard/Dashboard.vue");
+const Company = () => import("@/views/admin/company/Company.vue");
+const Category = () => import("@/views/admin/category/Category.vue");
+const ProductType = () => import("@/views/admin/productType/ProductType.vue");
+const Product = () => import("@/views/admin/product/Product.vue");
+const ProductSpecification = () => import("@/views/admin/product/ProductSpecification.vue");
 
-import Dashboard from "@/views/admin/dashboard/Dashboard.vue";
-import Company from "@/views/admin/company/Company.vue";
-import Category from "@/views/admin/category/Category.vue";
-import ProductType from "@/views/admin/productType/ProductType.vue";
-import Product from "@/views/admin/product/Product.vue";
-import ProductSpecification from "@/views/admin/product/ProductSpecification.vue";
-
-// Public Views
-import Home from "@/views/public/Home.vue";
-// import PCategory from "@/views/public/Category.vue";
-import Projects from "@/views/public/Project.vue";
-import About from "@/views/public/About.vue";
-import Contact from "@/views/public/Contacts.vue";
-import PProduct from "@/views/public/Products.vue";
+const Home = () => import("@/views/public/Home.vue");
+const Projects = () => import("@/views/public/Project.vue");
+const About = () => import("@/views/public/About.vue");
+const Contact = () => import("@/views/public/Contacts.vue");
+const PProduct = () => import("@/views/public/Products.vue");
 
 
 
