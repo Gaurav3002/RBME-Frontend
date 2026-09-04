@@ -1,18 +1,23 @@
+```vue
 <template>
+
   <nav class="public-navbar">
 
-    <!-- =========================
+    <!-- =========================================================
          NAVBAR INNER
-    ========================== -->
+    ========================================================== -->
+
     <div class="navbar-inner">
 
-      <!-- =========================
+      <!-- =========================================================
            LOGO
-      ========================== -->
+      ========================================================== -->
+
       <router-link
         to="/"
         class="navbar-brand"
       >
+
         <img
           src="@/assets/logo/logos.png"
           alt="RBME Engineers"
@@ -20,6 +25,7 @@
         />
 
         <div class="brand-name">
+
           <span class="brand-name-main">
             Ram Bakery
           </span>
@@ -27,16 +33,20 @@
           <span class="brand-name-sub">
             Machines &amp; Engineers
           </span>
+
         </div>
+
       </router-link>
 
 
-      <!-- =========================
+      <!-- =========================================================
            DESKTOP NAVIGATION
-      ========================== -->
+      ========================================================== -->
+
       <div class="desktop-navigation">
 
         <!-- HOME -->
+
         <router-link
           to="/"
           class="nav-link"
@@ -46,9 +56,10 @@
         </router-link>
 
 
-        <!-- =========================
+        <!-- =======================================================
              OUR BRANDS
-        ========================== -->
+        ======================================================== -->
+
         <div
           class="brands-wrapper"
           @mouseenter="openBrands = true"
@@ -60,16 +71,19 @@
             class="nav-link brands-button"
             :class="{ active: openBrands }"
           >
+
             <span>Our Brands</span>
 
             <i
               class="bi bi-chevron-down"
               :class="{ rotate: openBrands }"
             ></i>
+
           </button>
 
 
           <!-- BRANDS DROPDOWN -->
+
           <div
             v-if="openBrands"
             class="brands-dropdown"
@@ -112,7 +126,7 @@
                   </span>
 
                   <small>
-                    View products & solutions
+                    View products &amp; solutions
                   </small>
 
                 </div>
@@ -137,6 +151,7 @@
 
 
         <!-- PROJECTS -->
+
         <router-link
           to="/projects"
           class="nav-link"
@@ -147,6 +162,7 @@
 
 
         <!-- ABOUT -->
+
         <router-link
           to="/about"
           class="nav-link"
@@ -157,77 +173,94 @@
 
 
         <!-- CONTACT -->
+
         <router-link
           to="/contact#contact-form"
           class="nav-cta"
         >
+
           <span>
             Discuss Your Requirement
           </span>
 
           <i class="bi bi-arrow-up-right"></i>
+
         </router-link>
 
       </div>
 
 
-      <!-- =========================
+      <!-- =========================================================
            MOBILE MENU BUTTON
-      ========================== -->
+      ========================================================== -->
+
       <button
         type="button"
         class="mobile-menu-button"
+        :class="{ active: sidebarOpen }"
         @click="openSidebar"
         aria-label="Open menu"
+        :aria-expanded="sidebarOpen"
       >
+
         <span></span>
         <span></span>
+
       </button>
 
     </div>
 
 
-    <!-- =========================
+    <!-- =========================================================
          MOBILE OVERLAY
-    ========================== -->
+
+         Clicking anywhere outside the sidebar closes the menu.
+    ========================================================== -->
+
     <transition name="fade">
 
       <div
         v-if="sidebarOpen"
         class="mobile-overlay"
-        @click="closeSidebar"
+        @click.self="closeSidebar"
       ></div>
 
     </transition>
 
 
-    <!-- =========================
+    <!-- =========================================================
          MOBILE SIDEBAR
-    ========================== -->
+    ========================================================== -->
+
     <transition name="sidebar">
 
       <aside
         v-if="sidebarOpen"
         class="mobile-sidebar"
+        @click.stop
       >
 
-        <!-- =========================
+        <!-- =====================================================
              SIDEBAR HEADER
-        ========================== -->
+        ====================================================== -->
+
         <div class="mobile-sidebar-header">
 
           <!-- LOGO + NAME -->
+
           <router-link
             to="/"
             class="mobile-brand"
             @click="closeSidebar"
           >
+
             <img
               src="@/assets/logo/logos.png"
               alt="RBME Engineers"
             />
 
             <div class="mobile-brand-name">
+
               <span class="mobile-brand-name-main">
                 Ram Bakery
               </span>
@@ -235,29 +268,36 @@
               <span class="mobile-brand-name-sub">
                 Machines &amp; Engineers
               </span>
+
             </div>
+
           </router-link>
 
 
           <!-- CLOSE -->
+
           <button
             type="button"
             class="mobile-close"
             @click="closeSidebar"
             aria-label="Close menu"
           >
+
             <i class="bi bi-x-lg"></i>
+
           </button>
 
         </div>
 
 
-        <!-- =========================
+        <!-- =====================================================
              SIDEBAR CONTENT
-        ========================== -->
+        ====================================================== -->
+
         <div class="mobile-sidebar-content">
 
           <!-- HOME -->
+
           <router-link
             to="/"
             class="mobile-nav-link"
@@ -282,12 +322,14 @@
           </router-link>
 
 
-          <!-- =========================
+          <!-- ===================================================
                OUR BRANDS
-          ========================== -->
+          ==================================================== -->
+
           <button
             type="button"
             class="mobile-nav-link"
+            :class="{ active: mobileBrandsOpen }"
             @click="mobileBrandsOpen = !mobileBrandsOpen"
           >
 
@@ -312,6 +354,7 @@
 
 
           <!-- MOBILE BRANDS -->
+
           <div
             v-if="mobileBrandsOpen"
             class="mobile-brands"
@@ -337,6 +380,7 @@
 
 
           <!-- PROJECTS -->
+
           <router-link
             to="/projects"
             class="mobile-nav-link"
@@ -362,6 +406,7 @@
 
 
           <!-- ABOUT -->
+
           <router-link
             to="/about"
             class="mobile-nav-link"
@@ -387,6 +432,7 @@
 
 
           <!-- CONTACT -->
+
           <router-link
             to="/contact#contact-form"
             class="mobile-contact"
@@ -408,6 +454,7 @@
     </transition>
 
   </nav>
+
 </template>
 
 
@@ -424,9 +471,9 @@ import {
 } from "@/publicApis/company.api";
 
 
-// =========================
+// =========================================================
 // STATE
-// =========================
+// =========================================================
 
 const companies = ref([]);
 
@@ -436,38 +483,32 @@ const sidebarOpen = ref(false);
 
 const mobileBrandsOpen = ref(false);
 
+
+// =========================================================
+// BODY SCROLL LOCK
+//
+// IMPORTANT:
+// We don't calculate scrollbar width here.
+// That calculation was causing the mobile width jump.
+// =========================================================
+
 const lockBodyScroll = () => {
 
-  const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-  document.body.style.setProperty(
-    "--scrollbar-width",
-    `${scrollbarWidth}px`
-  );
-
-  document.body.classList.add(
-    "menu-open"
-  );
+  document.body.classList.add("menu-open");
 
 };
 
 
 const unlockBodyScroll = () => {
 
-  document.body.classList.remove(
-    "menu-open"
-  );
-
-  document.body.style.removeProperty(
-    "--scrollbar-width"
-  );
+  document.body.classList.remove("menu-open");
 
 };
 
 
-// =========================
+// =========================================================
 // LOAD COMPANIES
-// =========================
+// =========================================================
 
 const loadCompanies = async () => {
 
@@ -491,9 +532,9 @@ const loadCompanies = async () => {
 };
 
 
-// =========================
+// =========================================================
 // OPEN SIDEBAR
-// =========================
+// =========================================================
 
 const openSidebar = () => {
 
@@ -504,9 +545,9 @@ const openSidebar = () => {
 };
 
 
-// =========================
+// =========================================================
 // CLOSE SIDEBAR
-// =========================
+// =========================================================
 
 const closeSidebar = () => {
 
@@ -519,9 +560,9 @@ const closeSidebar = () => {
 };
 
 
-// =========================
+// =========================================================
 // ESCAPE KEY
-// =========================
+// =========================================================
 
 const handleEscape = (event) => {
 
@@ -537,9 +578,9 @@ const handleEscape = (event) => {
 };
 
 
-// =========================
+// =========================================================
 // LIFECYCLE
-// =========================
+// =========================================================
 
 onMounted(() => {
 
@@ -569,16 +610,20 @@ onBeforeUnmount(() => {
 
 <style scoped>
 
-/* =====================================================
+/* =========================================================
    NAVBAR
-===================================================== */
+========================================================= */
 
 .public-navbar {
+
   position: sticky;
+
   top: 0;
+
   z-index: 1000;
 
   width: 100%;
+
   height: 80px;
 
   background: rgba(255, 255, 255, 0.98);
@@ -589,14 +634,18 @@ onBeforeUnmount(() => {
     0 4px 25px rgba(11, 23, 38, 0.06);
 
   backdrop-filter: blur(14px);
+
+  -webkit-backdrop-filter: blur(14px);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    NAVBAR INNER
-===================================================== */
+========================================================= */
 
 .navbar-inner {
+
   width: min(
     1380px,
     calc(100% - 64px)
@@ -607,17 +656,22 @@ onBeforeUnmount(() => {
   margin: 0 auto;
 
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    LOGO
-===================================================== */
+========================================================= */
 
 .navbar-brand {
+
   display: flex;
+
   align-items: center;
 
   flex-shrink: 0;
@@ -625,89 +679,109 @@ onBeforeUnmount(() => {
   height: 100%;
 
   text-decoration: none;
+
 }
 
 
 .brand-logo {
+
   width: 125px;
+
   height: 76px;
 
   object-fit: contain;
 
   display: block;
+
 }
 
 
-/* =====================================================
-   BRAND NAME (DESKTOP)
-===================================================== */
+/* =========================================================
+   BRAND NAME DESKTOP
+========================================================= */
 
 .brand-name {
+
   display: flex;
+
   flex-direction: column;
 
   justify-content: center;
 
   margin-left: 14px;
+
   padding-left: 14px;
 
   border-left: 1px solid #e1e7ec;
 
   white-space: nowrap;
+
 }
 
 
 .brand-name-main {
+
   color: var(--color-dark);
 
   font-size: 18px;
+
   font-weight: 800;
 
   line-height: 1.2;
 
   letter-spacing: 0.3px;
+
 }
 
 
 .brand-name-sub {
+
   margin-top: 3px;
 
   color: var(--color-primary);
 
   font-size: 10.5px;
+
   font-weight: 700;
 
   line-height: 1;
 
   letter-spacing: 1.6px;
+
   text-transform: uppercase;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    DESKTOP NAVIGATION
-===================================================== */
+========================================================= */
 
 .desktop-navigation {
+
   height: 100%;
 
   display: flex;
+
   align-items: center;
 
   gap: 4px;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    NAV LINKS
-===================================================== */
+========================================================= */
 
 .nav-link {
+
   position: relative;
 
   height: 100%;
 
   display: flex;
+
   align-items: center;
 
   padding: 0 17px;
@@ -721,6 +795,7 @@ onBeforeUnmount(() => {
   font-family: inherit;
 
   font-size: 13.5px;
+
   font-weight: 650;
 
   text-decoration: none;
@@ -731,15 +806,18 @@ onBeforeUnmount(() => {
 
   transition:
     color 0.25s ease;
+
 }
 
 
 .nav-link::after {
+
   content: "";
 
   position: absolute;
 
   left: 17px;
+
   right: 17px;
 
   bottom: 0;
@@ -754,58 +832,73 @@ onBeforeUnmount(() => {
 
   transition:
     transform 0.25s ease;
+
 }
 
 
 .nav-link:hover,
 .nav-link.active {
+
   color: var(--color-dark);
+
 }
 
 
 .nav-link:hover::after,
 .nav-link.active::after {
+
   transform: scaleX(1);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    BRANDS
-===================================================== */
+========================================================= */
 
 .brands-wrapper {
+
   position: relative;
 
   height: 100%;
 
   display: flex;
+
   align-items: center;
+
 }
 
 
 .brands-button {
+
   gap: 8px;
+
 }
 
 
 .brands-button i {
+
   font-size: 9px;
 
   transition:
     transform 0.25s ease;
+
 }
 
 
 .rotate {
+
   transform: rotate(180deg);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    BRANDS DROPDOWN
-===================================================== */
+========================================================= */
 
 .brands-dropdown {
+
   position: absolute;
 
   top: calc(100% + 1px);
@@ -813,6 +906,8 @@ onBeforeUnmount(() => {
   left: 50%;
 
   width: 390px;
+
+  max-width: 90vw;
 
   transform: translateX(-50%);
 
@@ -827,54 +922,65 @@ onBeforeUnmount(() => {
 
   animation:
     dropdown-enter 0.2s ease;
+
 }
 
 
 @keyframes dropdown-enter {
 
   from {
+
     opacity: 0;
 
     transform:
       translate(-50%, -8px);
+
   }
 
   to {
+
     opacity: 1;
 
     transform:
       translate(-50%, 0);
+
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    DROPDOWN HEADER
-===================================================== */
+========================================================= */
 
 .dropdown-top {
+
   padding: 22px;
 
   background: #f8fafc;
 
   border-bottom: 1px solid #e6ebef;
+
 }
 
 
 .dropdown-label {
+
   display: block;
 
   color: var(--color-primary);
 
   font-size: 10px;
+
   font-weight: 800;
 
   letter-spacing: 1.8px;
+
 }
 
 
 .dropdown-description {
+
   display: block;
 
   margin-top: 5px;
@@ -882,22 +988,27 @@ onBeforeUnmount(() => {
   color: #788594;
 
   font-size: 12px;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    BRAND LIST
-===================================================== */
+========================================================= */
 
 .brands-list {
+
   max-height: 360px;
 
   overflow-y: auto;
+
 }
 
 
 .brand-item {
+
   display: flex;
+
   align-items: center;
 
   gap: 13px;
@@ -913,27 +1024,36 @@ onBeforeUnmount(() => {
   transition:
     background 0.2s ease,
     padding-left 0.2s ease;
+
 }
 
 
 .brand-item:last-child {
+
   border-bottom: 0;
+
 }
 
 
 .brand-item:hover {
+
   background: #f7fafc;
 
   padding-left: 22px;
+
 }
 
 
 .brand-item-icon {
+
   width: 38px;
+
   height: 38px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   flex-shrink: 0;
@@ -943,42 +1063,54 @@ onBeforeUnmount(() => {
   color: var(--color-primary);
 
   border: 1px solid #dce8ef;
+
 }
 
 
 .brand-item-icon i {
+
   font-size: 17px;
+
 }
 
 
 .brand-item-content {
+
   flex: 1;
 
   min-width: 0;
 
   display: flex;
+
   flex-direction: column;
+
 }
 
 
 .brand-item-content span {
+
   color: #1c2c3b;
 
   font-size: 13px;
+
   font-weight: 700;
+
 }
 
 
 .brand-item-content small {
+
   margin-top: 3px;
 
   color: #84909c;
 
   font-size: 10px;
+
 }
 
 
 .brand-item > i {
+
   color: #8a96a2;
 
   font-size: 15px;
@@ -986,22 +1118,26 @@ onBeforeUnmount(() => {
   transition:
     color 0.2s ease,
     transform 0.2s ease;
+
 }
 
 
 .brand-item:hover > i {
+
   color: var(--color-primary);
 
   transform:
     translate(2px, -2px);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    NO BRANDS
-===================================================== */
+========================================================= */
 
 .no-brands {
+
   padding: 30px;
 
   text-align: center;
@@ -1009,15 +1145,18 @@ onBeforeUnmount(() => {
   color: #7d8995;
 
   font-size: 13px;
+
 }
 
 
-/* =====================================================
-   CONTACT CTA
-===================================================== */
+/* =========================================================
+   CONTACT CTA DESKTOP
+========================================================= */
 
 .nav-cta {
+
   display: flex;
+
   align-items: center;
 
   gap: 10px;
@@ -1033,6 +1172,7 @@ onBeforeUnmount(() => {
   text-decoration: none;
 
   font-size: 12px;
+
   font-weight: 750;
 
   white-space: nowrap;
@@ -1041,18 +1181,22 @@ onBeforeUnmount(() => {
     background 0.25s ease,
     transform 0.25s ease,
     box-shadow 0.25s ease;
+
 }
 
 
 .nav-cta i {
+
   font-size: 13px;
 
   transition:
     transform 0.25s ease;
+
 }
 
 
 .nav-cta:hover {
+
   background: var(--color-primary);
 
   color: #ffffff;
@@ -1061,23 +1205,28 @@ onBeforeUnmount(() => {
 
   box-shadow:
     0 9px 25px rgba(11, 23, 38, 0.18);
+
 }
 
 
 .nav-cta:hover i {
+
   transform:
     translate(2px, -2px);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE MENU BUTTON
-===================================================== */
+========================================================= */
 
 .mobile-menu-button {
+
   display: none;
 
   width: 46px;
+
   height: 42px;
 
   padding: 0;
@@ -1091,30 +1240,49 @@ onBeforeUnmount(() => {
   flex-direction: column;
 
   align-items: center;
+
   justify-content: center;
 
   gap: 6px;
+
 }
 
 
 .mobile-menu-button span {
+
   display: block;
 
   width: 20px;
+
   height: 1.5px;
 
   background: var(--color-dark);
+
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE OVERLAY
-===================================================== */
+========================================================= */
 
 .mobile-overlay {
+
   position: fixed;
 
-  inset: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  width: 100vw;
+  max-width: 100vw;
+
+  height: 100vh;
+  height: 100dvh;
 
   z-index: 1090;
 
@@ -1122,18 +1290,27 @@ onBeforeUnmount(() => {
     rgba(11, 23, 38, 0.45);
 
   backdrop-filter: blur(3px);
+
+  -webkit-backdrop-filter: blur(3px);
+
+  overflow: hidden;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE SIDEBAR
-===================================================== */
+========================================================= */
 
 .mobile-sidebar {
+
   position: fixed;
 
   top: 0;
+
   right: 0;
+
+  bottom: 0;
 
   z-index: 1100;
 
@@ -1142,10 +1319,14 @@ onBeforeUnmount(() => {
     90vw
   );
 
-  height: 100vh;
+  max-width: 100%;
+
+  height: 100%;
+
   height: 100dvh;
 
   display: flex;
+
   flex-direction: column;
 
   background: #ffffff;
@@ -1153,107 +1334,149 @@ onBeforeUnmount(() => {
   box-shadow:
     -20px 0 60px rgba(11, 23, 38, 0.2);
 
+  overflow-x: hidden;
+
   overflow-y: auto;
+
+  overscroll-behavior: contain;
+
+  -webkit-overflow-scrolling: touch;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE HEADER
-===================================================== */
+========================================================= */
 
 .mobile-sidebar-header {
+
   min-height: 82px;
 
+  flex-shrink: 0;
+
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
   padding: 10px 20px;
 
   border-bottom: 1px solid #e6ebef;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE LOGO
-===================================================== */
+========================================================= */
 
 .mobile-brand {
+
   display: flex;
+
   align-items: center;
+
+  min-width: 0;
 
   height: 100%;
 
   text-decoration: none;
+
 }
 
 
 .mobile-brand img {
+
   width: 78px;
+
   height: 62px;
 
   object-fit: contain;
 
   display: block;
+
+  flex-shrink: 0;
+
 }
 
 
-/* =====================================================
-   BRAND NAME (MOBILE)
-===================================================== */
+/* =========================================================
+   BRAND NAME MOBILE
+========================================================= */
 
 .mobile-brand-name {
+
   display: flex;
+
   flex-direction: column;
 
   justify-content: center;
 
+  min-width: 0;
+
   margin-left: 12px;
+
   padding-left: 12px;
 
   border-left: 1px solid #e1e7ec;
 
   white-space: nowrap;
+
 }
 
 
 .mobile-brand-name-main {
+
   color: var(--color-dark);
 
   font-size: 14px;
+
   font-weight: 800;
 
   line-height: 1.2;
 
   letter-spacing: 0.2px;
+
 }
 
 
 .mobile-brand-name-sub {
+
   margin-top: 2px;
 
   color: var(--color-primary);
 
   font-size: 9px;
+
   font-weight: 700;
 
   line-height: 1;
 
   letter-spacing: 1.1px;
+
   text-transform: uppercase;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    CLOSE BUTTON
-===================================================== */
+========================================================= */
 
 .mobile-close {
+
   width: 38px;
+
   height: 38px;
 
+  flex-shrink: 0;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   border: 1px solid #e1e6eb;
@@ -1265,34 +1488,51 @@ onBeforeUnmount(() => {
   cursor: pointer;
 
   transition:
-    background 0.2s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
+
 }
 
 
 .mobile-close:hover {
+
   background: #eef2f5;
+
 }
 
 
-/* =====================================================
+.mobile-close:active {
+
+  transform: scale(0.94);
+
+}
+
+
+/* =========================================================
    MOBILE CONTENT
-===================================================== */
+========================================================= */
 
 .mobile-sidebar-content {
+
   padding: 20px;
+
+  flex: 1;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE NAV LINKS
-===================================================== */
+========================================================= */
 
 .mobile-nav-link {
+
   width: 100%;
 
   min-height: 58px;
 
   display: flex;
+
   align-items: center;
 
   justify-content: space-between;
@@ -1312,6 +1552,7 @@ onBeforeUnmount(() => {
   font-family: inherit;
 
   font-size: 14px;
+
   font-weight: 650;
 
   text-decoration: none;
@@ -1322,43 +1563,69 @@ onBeforeUnmount(() => {
 
   transition:
     color 0.2s ease,
-    padding-left 0.2s ease;
+    padding-left 0.2s ease,
+    background 0.2s ease;
+
 }
 
 
 .mobile-nav-link:hover,
 .mobile-nav-link.active {
+
   color: var(--color-primary);
 
   padding-left: 12px;
+
 }
 
 
 .mobile-nav-link > i {
+
   color: #9aa5af;
 
   font-size: 13px;
+
 }
 
 
 .mobile-left {
+
+  min-width: 0;
+
   display: flex;
+
   align-items: center;
 
   gap: 13px;
+
 }
 
 
-/* =====================================================
+.mobile-left > span:last-child {
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
+
+}
+
+
+/* =========================================================
    MOBILE ICON
-===================================================== */
+========================================================= */
 
 .mobile-icon {
+
   width: 36px;
+
   height: 36px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: center;
 
   flex-shrink: 0;
@@ -1366,29 +1633,36 @@ onBeforeUnmount(() => {
   background: #f2f6f9;
 
   color: var(--color-primary);
+
 }
 
 
 .mobile-icon i {
+
   font-size: 16px;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE BRANDS
-===================================================== */
+========================================================= */
 
 .mobile-brands {
+
   margin: 4px 0 8px 18px;
 
   padding-left: 15px;
 
   border-left: 1px solid #dce3e9;
+
 }
 
 
 .mobile-brand-item {
+
   display: flex;
+
   align-items: center;
 
   gap: 10px;
@@ -1398,33 +1672,48 @@ onBeforeUnmount(() => {
   color: #657482;
 
   font-size: 13px;
+
   font-weight: 600;
 
   text-decoration: none;
+
+  transition:
+    color 0.2s ease,
+    padding-left 0.2s ease;
+
 }
 
 
 .mobile-brand-item:hover {
+
   color: var(--color-primary);
+
+  padding-left: 12px;
+
 }
 
 
 .mobile-brand-item i {
+
   font-size: 11px;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE CONTACT
-===================================================== */
+========================================================= */
 
 .mobile-contact {
+
   margin-top: 28px;
 
   padding: 18px 20px;
 
   display: flex;
+
   align-items: center;
+
   justify-content: space-between;
 
   gap: 15px;
@@ -1436,255 +1725,538 @@ onBeforeUnmount(() => {
   text-decoration: none;
 
   font-size: 13px;
+
   font-weight: 700;
 
   transition:
-    background 0.25s ease;
+    background 0.25s ease,
+    transform 0.2s ease;
+
 }
 
 
 .mobile-contact:hover {
+
   background: var(--color-primary);
 
   color: #ffffff;
+
+}
+
+
+.mobile-contact:active {
+
+  transform: scale(0.98);
+
 }
 
 
 .mobile-contact > i {
+
   font-size: 18px;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    SIDEBAR ANIMATION
-===================================================== */
+========================================================= */
 
 .sidebar-enter-active,
 .sidebar-leave-active {
+
   transition:
     transform 0.3s ease;
+
 }
 
 
 .sidebar-enter-from,
 .sidebar-leave-to {
+
   transform: translateX(100%);
+
 }
 
 
 .sidebar-enter-to,
 .sidebar-leave-from {
+
   transform: translateX(0);
+
 }
 
 
-/* =====================================================
+/* =========================================================
    OVERLAY ANIMATION
-===================================================== */
+========================================================= */
 
 .fade-enter-active,
 .fade-leave-active {
+
   transition:
     opacity 0.25s ease;
+
 }
 
 
 .fade-enter-from,
 .fade-leave-to {
+
   opacity: 0;
+
 }
 
 
-/* =====================================================
+/* =========================================================
    TABLET
-===================================================== */
+========================================================= */
 
 @media (max-width: 1200px) {
 
   .navbar-inner {
+
     width: min(
-      100% - 40px,
+      calc(100% - 40px),
       1100px
     );
+
   }
 
 
   .brand-logo {
+
     width: 115px;
+
     height: 72px;
+
   }
 
 
   .brand-name {
+
     margin-left: 10px;
+
     padding-left: 10px;
+
   }
 
 
   .brand-name-main {
+
     font-size: 15px;
+
   }
 
 
   .brand-name-sub {
+
     font-size: 9px;
 
     letter-spacing: 1.2px;
+
   }
 
 
   .nav-link {
+
     padding-left: 10px;
+
     padding-right: 10px;
 
     font-size: 12px;
+
   }
 
 
   .nav-link::after {
+
     left: 10px;
+
     right: 10px;
+
   }
 
 
   .nav-cta {
+
     margin-left: 5px;
 
     padding-left: 12px;
+
     padding-right: 12px;
 
     font-size: 11px;
+
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    MOBILE
-===================================================== */
+========================================================= */
 
 @media (max-width: 991.98px) {
 
+  :global(html),
+  :global(body) {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: hidden;
+
+  }
+
+
+  :global(body.menu-open) {
+
+    overflow: hidden;
+
+    width: 100%;
+
+    max-width: 100%;
+
+  }
+
+
   .public-navbar {
+
+    width: 100%;
+
+    max-width: 100%;
+
     height: 72px;
+
+    overflow: visible;
+
   }
 
 
   .navbar-inner {
+
     width: calc(100% - 32px);
+
+    max-width: 100%;
+
   }
 
 
   .desktop-navigation {
+
     display: none;
+
   }
 
 
   .mobile-menu-button {
+
     display: flex;
+
   }
 
 
   .brand-logo {
+
     width: 100px;
+
     height: 66px;
+
   }
 
 
   .brand-name-main {
+
     font-size: 14px;
+
   }
 
 
   .brand-name-sub {
+
     font-size: 8.5px;
-  }
 
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 575.98px) {
-
-  .public-navbar {
-    height: 68px;
   }
 
 
-  .navbar-inner {
-    width: calc(100% - 24px);
-  }
+  .mobile-overlay {
 
+    width: 100vw;
 
-  .brand-logo {
-    width: 88px;
-    height: 62px;
-  }
+    max-width: 100vw;
 
-
-  .mobile-menu-button {
-    width: 42px;
-    height: 40px;
   }
 
 
   .mobile-sidebar {
-    width: min(
-      350px,
-      92vw
-    );
-  }
 
+    max-width: 92vw;
 
-  .mobile-brand img {
-    width: 70px;
-    height: 58px;
-  }
-
-
-  .mobile-brand-name {
-    margin-left: 10px;
-    padding-left: 10px;
-  }
-
-
-  .mobile-brand-name-main {
-    font-size: 13px;
-  }
-
-
-  .mobile-brand-name-sub {
-    font-size: 8px;
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 575.98px) {
+
+  .public-navbar {
+
+    height: 68px;
+
+  }
+
+
+  .navbar-inner {
+
+    width: calc(100% - 24px);
+
+  }
+
+
+  .brand-logo {
+
+    width: 88px;
+
+    height: 62px;
+
+  }
+
+
+  .brand-name {
+
+    margin-left: 8px;
+
+    padding-left: 8px;
+
+  }
+
+
+  .brand-name-main {
+
+    font-size: 12px;
+
+  }
+
+
+  .brand-name-sub {
+
+    font-size: 7px;
+
+    letter-spacing: 0.8px;
+
+  }
+
+
+  .mobile-menu-button {
+
+    width: 42px;
+
+    height: 40px;
+
+  }
+
+
+  .mobile-sidebar {
+
+    width: min(
+      350px,
+      92vw
+    );
+
+    max-width: 92vw;
+
+  }
+
+
+  .mobile-sidebar-header {
+
+    padding-left: 14px;
+
+    padding-right: 14px;
+
+  }
+
+
+  .mobile-brand img {
+
+    width: 70px;
+
+    height: 58px;
+
+  }
+
+
+  .mobile-brand-name {
+
+    margin-left: 10px;
+
+    padding-left: 10px;
+
+  }
+
+
+  .mobile-brand-name-main {
+
+    font-size: 13px;
+
+  }
+
+
+  .mobile-brand-name-sub {
+
+    font-size: 8px;
+
+  }
+
+
+  .mobile-sidebar-content {
+
+    padding: 16px;
+
+  }
+
+
+  .mobile-nav-link {
+
+    min-height: 54px;
+
+  }
+
+
+  .mobile-contact {
+
+    padding: 16px;
+
+  }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+  .navbar-inner {
+
+    width: calc(100% - 18px);
+
+  }
+
+
+  .brand-logo {
+
+    width: 76px;
+
+    height: 58px;
+
+  }
+
+
+  .brand-name {
+
+    margin-left: 6px;
+
+    padding-left: 7px;
+
+  }
+
+
+  .brand-name-main {
+
+    font-size: 11px;
+
+  }
+
+
+  .brand-name-sub {
+
+    font-size: 6.5px;
+
+    letter-spacing: 0.5px;
+
+  }
+
+
+  .mobile-menu-button {
+
+    width: 40px;
+
+    height: 38px;
+
+  }
+
+
+  .mobile-sidebar {
+
+    width: 90vw;
+
+    max-width: 90vw;
+
+  }
+
+
+  .mobile-brand-name-main {
+
+    font-size: 12px;
+
+  }
+
+
+  .mobile-brand-name-sub {
+
+    font-size: 7px;
+
+    letter-spacing: 0.8px;
+
+  }
+
+}
+
+
+/* =========================================================
    DESKTOP ONLY
-===================================================== */
+========================================================= */
 
 @media (min-width: 992px) {
 
   .mobile-overlay,
   .mobile-sidebar {
+
     display: none !important;
+
   }
 
 }
 
 
-/* =====================================================
+/* =========================================================
    BODY LOCK
-===================================================== */
+=========================================================
+
+   IMPORTANT:
+   No padding-right is added here.
+
+   Adding scrollbar width to body was causing the
+   temporary horizontal width jump on mobile.
+========================================================= */
 
 :global(body.menu-open) {
+
   overflow: hidden;
 
-  padding-right: var(--scrollbar-width, 0px);
+  width: 100%;
+
+  max-width: 100%;
+
 }
 
 </style>
+```
