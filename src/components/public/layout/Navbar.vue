@@ -18,6 +18,16 @@
           alt="RBME Engineers"
           class="brand-logo"
         />
+
+        <div class="brand-name">
+          <span class="brand-name-main">
+            Ram Bakery
+          </span>
+
+          <span class="brand-name-sub">
+            Machines &amp; Engineers
+          </span>
+        </div>
       </router-link>
 
 
@@ -206,7 +216,7 @@
         ========================== -->
         <div class="mobile-sidebar-header">
 
-          <!-- ONLY LOGO -->
+          <!-- LOGO + NAME -->
           <router-link
             to="/"
             class="mobile-brand"
@@ -216,6 +226,16 @@
               src="@/assets/logo/logos.png"
               alt="RBME Engineers"
             />
+
+            <div class="mobile-brand-name">
+              <span class="mobile-brand-name-main">
+                Ram Bakery
+              </span>
+
+              <span class="mobile-brand-name-sub">
+                Machines &amp; Engineers
+              </span>
+            </div>
           </router-link>
 
 
@@ -597,6 +617,52 @@ onBeforeUnmount(() => {
 
 
 /* =====================================================
+   BRAND NAME (DESKTOP)
+===================================================== */
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  margin-left: 14px;
+  padding-left: 14px;
+
+  border-left: 1px solid #e1e7ec;
+
+  white-space: nowrap;
+}
+
+
+.brand-name-main {
+  color: var(--color-dark);
+
+  font-size: 18px;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.3px;
+}
+
+
+.brand-name-sub {
+  margin-top: 3px;
+
+  color: var(--color-primary);
+
+  font-size: 10.5px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+}
+
+
+/* =====================================================
    DESKTOP NAVIGATION
 ===================================================== */
 
@@ -658,7 +724,7 @@ onBeforeUnmount(() => {
 
   height: 2px;
 
-  background: #c58a24;
+  background: var(--color-accent);
 
   transform: scaleX(0);
 
@@ -671,7 +737,7 @@ onBeforeUnmount(() => {
 
 .nav-link:hover,
 .nav-link.active {
-  color: #0b1726;
+  color: var(--color-dark);
 }
 
 
@@ -777,7 +843,7 @@ onBeforeUnmount(() => {
 .dropdown-label {
   display: block;
 
-  color: #1b5e8c;
+  color: var(--color-primary);
 
   font-size: 10px;
   font-weight: 800;
@@ -852,7 +918,7 @@ onBeforeUnmount(() => {
 
   background: #eef5f9;
 
-  color: #1b5e8c;
+  color: var(--color-primary);
 
   border: 1px solid #dce8ef;
 }
@@ -902,7 +968,7 @@ onBeforeUnmount(() => {
 
 
 .brand-item:hover > i {
-  color: #1b5e8c;
+  color: var(--color-primary);
 
   transform:
     translate(2px, -2px);
@@ -938,7 +1004,7 @@ onBeforeUnmount(() => {
 
   padding: 13px 19px;
 
-  background: #0b1726;
+  background: var(--color-dark);
 
   color: #ffffff;
 
@@ -965,7 +1031,7 @@ onBeforeUnmount(() => {
 
 
 .nav-cta:hover {
-  background: #1b5e8c;
+  background: var(--color-primary);
 
   color: #ffffff;
 
@@ -1015,7 +1081,7 @@ onBeforeUnmount(() => {
   width: 20px;
   height: 1.5px;
 
-  background: #0b1726;
+  background: var(--color-dark);
 }
 
 
@@ -1111,6 +1177,52 @@ onBeforeUnmount(() => {
 
 
 /* =====================================================
+   BRAND NAME (MOBILE)
+===================================================== */
+
+.mobile-brand-name {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+
+  margin-left: 12px;
+  padding-left: 12px;
+
+  border-left: 1px solid #e1e7ec;
+
+  white-space: nowrap;
+}
+
+
+.mobile-brand-name-main {
+  color: var(--color-dark);
+
+  font-size: 14px;
+  font-weight: 800;
+
+  line-height: 1.2;
+
+  letter-spacing: 0.2px;
+}
+
+
+.mobile-brand-name-sub {
+  margin-top: 2px;
+
+  color: var(--color-primary);
+
+  font-size: 9px;
+  font-weight: 700;
+
+  line-height: 1;
+
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+
+/* =====================================================
    CLOSE BUTTON
 ===================================================== */
 
@@ -1126,7 +1238,7 @@ onBeforeUnmount(() => {
 
   background: #f8fafb;
 
-  color: #0b1726;
+  color: var(--color-dark);
 
   cursor: pointer;
 
@@ -1194,7 +1306,7 @@ onBeforeUnmount(() => {
 
 .mobile-nav-link:hover,
 .mobile-nav-link.active {
-  color: #1b5e8c;
+  color: var(--color-primary);
 
   padding-left: 12px;
 }
@@ -1231,7 +1343,7 @@ onBeforeUnmount(() => {
 
   background: #f2f6f9;
 
-  color: #1b5e8c;
+  color: var(--color-primary);
 }
 
 
@@ -1271,7 +1383,7 @@ onBeforeUnmount(() => {
 
 
 .mobile-brand-item:hover {
-  color: #1b5e8c;
+  color: var(--color-primary);
 }
 
 
@@ -1295,7 +1407,7 @@ onBeforeUnmount(() => {
 
   gap: 15px;
 
-  background: #0b1726;
+  background: var(--color-dark);
 
   color: #ffffff;
 
@@ -1310,7 +1422,7 @@ onBeforeUnmount(() => {
 
 
 .mobile-contact:hover {
-  background: #1b5e8c;
+  background: var(--color-primary);
 
   color: #ffffff;
 }
@@ -1381,6 +1493,24 @@ onBeforeUnmount(() => {
   }
 
 
+  .brand-name {
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+
+
+  .brand-name-main {
+    font-size: 15px;
+  }
+
+
+  .brand-name-sub {
+    font-size: 9px;
+
+    letter-spacing: 1.2px;
+  }
+
+
   .nav-link {
     padding-left: 10px;
     padding-right: 10px;
@@ -1438,6 +1568,16 @@ onBeforeUnmount(() => {
     height: 66px;
   }
 
+
+  .brand-name-main {
+    font-size: 14px;
+  }
+
+
+  .brand-name-sub {
+    font-size: 8.5px;
+  }
+
 }
 
 
@@ -1480,6 +1620,22 @@ onBeforeUnmount(() => {
   .mobile-brand img {
     width: 70px;
     height: 58px;
+  }
+
+
+  .mobile-brand-name {
+    margin-left: 10px;
+    padding-left: 10px;
+  }
+
+
+  .mobile-brand-name-main {
+    font-size: 13px;
+  }
+
+
+  .mobile-brand-name-sub {
+    font-size: 8px;
   }
 
 }

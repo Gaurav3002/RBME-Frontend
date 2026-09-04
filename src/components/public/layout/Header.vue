@@ -98,7 +98,7 @@
 
 .public-header {
 
-  background: #101820;
+  background: var(--color-surface-dark);
 
   color: #ffffff;
 

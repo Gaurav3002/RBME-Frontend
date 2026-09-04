@@ -288,7 +288,7 @@ const companies = [
 
 .footer-main {
   padding: 75px 0 65px;
-  background: #101820;
+  background: var(--color-surface-dark);
 }
 
 
@@ -479,7 +479,7 @@ const companies = [
 .footer-bottom {
   padding: 20px 0;
 
-  background: #0b1117;
+  background: var(--color-dark);
 
   border-top: 1px solid #26303a;
 }

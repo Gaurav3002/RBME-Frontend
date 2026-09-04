@@ -2186,7 +2186,7 @@ const submitForm = async () => {
       title: "Enquiry Submitted!",
       text: "Thank you for contacting RBM Engineers. Our engineering team will review your requirement and contact you shortly.",
       confirmButtonText: "Done",
-      confirmButtonColor: "#1b5e8c"
+      confirmButtonColor: "#176b73"
     });
 
 
@@ -2202,7 +2202,7 @@ const submitForm = async () => {
       title: "Submission Failed",
       text: "Unable to submit your enquiry. Please try again.",
       confirmButtonText: "Try Again",
-      confirmButtonColor: "#1b5e8c"
+      confirmButtonColor: "#176b73"
     });
 
 
@@ -2225,7 +2225,7 @@ const submitForm = async () => {
         title: "Submission Failed",
         text: "Unable to submit your enquiry. Please try again.",
         confirmButtonText: "Try Again",
-        confirmButtonColor: "#1b5e8c"
+        confirmButtonColor: "#176b73"
       });
 
     }
@@ -2249,29 +2249,29 @@ const submitForm = async () => {
 
 .contact-page {
 
-  --dark: #071521;
+  --dark: #142a30;
 
-  --dark-two: #0d2233;
+  --dark-two: #1d3b41;
 
-  --heading: #122536;
+  --heading: #172b31;
 
-  --text: #526576;
+  --text: #52666b;
 
-  --muted: #82919d;
+  --muted: #718286;
 
-  --primary: #1b5e8c;
+  --primary: #176b73;
 
-  --primary-dark: #124665;
+  --primary-dark: #0f5057;
 
-  --accent: #c58a24;
+  --accent: #d4773a;
 
-  --border: #dce4ea;
+  --border: #d7e3e4;
 
   --light: #f4f7f9;
 
   --white: #ffffff;
 
-  --green: #159447;
+  --green: #2d7a63;
 
   --shadow:
     0 20px 60px rgba(7, 21, 33, .08);

@@ -8,15 +8,15 @@
    PAGE / SURFACE COLORS
 ===================================================== */
 
---color-page-bg: #F2F5F8;
+--color-page-bg: #F3F7F7;
 
---color-page-bg-soft: #F7F9FB;
+--color-page-bg-soft: #F9FBFB;
 
 --color-surface: #FFFFFF;
 
 --color-surface-soft: #F8FAFC;
 
---color-surface-dark: #102235;
+--color-surface-dark: #142A30;
 
 --color-surface-muted: #EEF2F6;
 
@@ -48,17 +48,17 @@
 
     --color-dark: #0B1726;
 
-    --color-heading: #162536;
+    --color-heading: #172B31;
 
-    --color-text: #526273;
+    --color-text: #52666B;
 
-    --color-text-light: #718092;
+    --color-text-light: #718286;
 
     --color-muted: #8C99A8;
 
-    --color-border: #DCE3EA;
+    --color-border: #D7E3E4;
 
-    --color-light-bg: #F4F7FA;
+    --color-light-bg: #F1F6F6;
 
     --color-white: #FFFFFF;
 
@@ -67,22 +67,22 @@
        BRAND COLORS
     ===================================================== */
 
-    --color-primary: #1B5E8C;
+    --color-primary: #176B73;
 
-    --color-primary-dark: #124568;
+    --color-primary-dark: #0F5057;
 
-    --color-primary-light: #EAF3F9;
+    --color-primary-light: #E7F3F2;
 
-    --color-accent: #C58A24;
+    --color-accent: #D4773A;
 
-    --color-accent-dark: #9F6D18;
+    --color-accent-dark: #B85B24;
 
 
     /* =====================================================
        STATUS COLORS
     ===================================================== */
 
-    --color-success: #287A5A;
+    --color-success: #2D7A63;
 
     --color-danger: #B84A4A;
 
@@ -91,15 +91,15 @@
        ICON COLORS
     ===================================================== */
 
-    --icon-primary: #1B5E8C;
+    --icon-primary: #176B73;
 
-    --icon-accent: #C58A24;
+    --icon-accent: #D4773A;
 
     --icon-success: #287A5A;
 
     --icon-danger: #B84A4A;
 
-    --icon-dark: #162536;
+    --icon-dark: #172B31;
 
     --icon-muted: #8C99A8;
 
@@ -108,7 +108,7 @@
        ADDITIONAL UI COLORS
     ===================================================== */
 
-    --color-overlay: rgba(11, 23, 38, 0.78);
+    --color-overlay: rgba(20, 42, 48, 0.78);
 
     --color-shadow: rgba(11, 23, 38, 0.10);
 
@@ -193,10 +193,15 @@ table {
 ========================================================= */
 
 .admin-card {
-    border: 0;
-    border-radius: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
     background: var(--color-surface);
-    box-shadow: 0 2px 8px var(--color-shadow);
+    box-shadow: 0 6px 20px rgba(20, 42, 48, 0.07);
+}
+
+.admin-card .card-header {
+    border-bottom-color: var(--color-border);
+    background: var(--color-surface-soft);
 }
 
 .admin-table th {
@@ -748,7 +753,7 @@ a:focus-visible {
 
 :root {
     --bs-primary: var(--color-primary);
-    --bs-primary-rgb: 27, 94, 140;
+    --bs-primary-rgb: 23, 107, 115;
 
     --bs-success: var(--color-success);
     --bs-success-rgb: 40, 122, 90;
@@ -757,10 +762,10 @@ a:focus-visible {
     --bs-danger-rgb: 184, 74, 74;
 
     --bs-warning: var(--color-accent);
-    --bs-warning-rgb: 197, 138, 36;
+    --bs-warning-rgb: 212, 119, 58;
 
     --bs-dark: var(--color-dark);
-    --bs-dark-rgb: 11, 23, 38;
+    --bs-dark-rgb: 20, 42, 48;
 
     --bs-body-font-family: var(--font-primary);
 
@@ -868,6 +873,93 @@ a:focus-visible {
     .btn {
         max-width: 100%;
         white-space: normal;
+    }
+}
+
+
+/* =========================================================
+   REDUCE DECORATIVE CARD ICONS
+========================================================= */
+
+/* Keep action and navigation icons; remove repeated decoration from content cards. */
+.public-layout main :where(
+    .equipment-icon,
+    .benefit-icon,
+    .process-icon,
+    .business-icon,
+    .service-icon,
+    .why-icon,
+    .production-icon,
+    .india-stat-icon,
+    .flow-item > i,
+    .setup-capacity > i
+) {
+    display: none;
+}
+
+
+/* =========================================================
+   SHARED ADMIN READING SCALE
+========================================================= */
+
+.admin-layout {
+    font-size: 1rem;
+}
+
+.admin-layout :where(.admin-card, .card) {
+    color: var(--color-text);
+}
+
+.admin-layout :where(.card-body, .admin-card-body) {
+    padding: 1.35rem;
+}
+
+.admin-layout :where(.form-control, .form-select, input, select, textarea) {
+    min-height: 44px;
+    font-size: 0.95rem !important;
+}
+
+.admin-layout :where(label, .form-label, .filter-label, .form-check-label) {
+    font-size: 0.92rem !important;
+}
+
+.admin-layout :where(p, .page-subtitle, .filter-description, .table-subtitle) {
+    font-size: 0.95rem !important;
+    line-height: 1.6;
+}
+
+.admin-layout :where(table, .admin-table) {
+    font-size: 0.92rem;
+}
+
+.admin-layout :where(th, .admin-table thead th) {
+    font-size: 0.84rem !important;
+}
+
+.admin-layout :where(td, .admin-table tbody td) {
+    font-size: 0.9rem !important;
+}
+
+.admin-layout :where(.badge, .status-badge, .filter-tag, .product-type-badge, .model-number) {
+    font-size: 0.78rem !important;
+}
+
+.admin-layout :where(.btn, button) {
+    min-height: 42px;
+    font-size: 0.92rem;
+}
+
+@media (max-width: 767.98px) {
+    .admin-layout :where(.card-body, .admin-card-body) {
+        padding: 1rem;
+    }
+
+    .admin-layout :where(.page-title, h1, h2, h3) {
+        line-height: 1.2;
+    }
+
+    .admin-layout :where(.btn, button) {
+        min-height: 44px;
     }
 }
 
@@ -1048,6 +1140,90 @@ a:focus-visible {
 
 
 /* =========================================================
+   MOBILE PUBLIC VISUAL POLISH
+========================================================= */
+
+@media (max-width: 767.98px) {
+    .public-layout {
+        background: #f4f7fa;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) {
+        color: #445464;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) p {
+        color: #536474;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) section:not(
+        .hero-section,
+        .about-hero,
+        .projects-hero,
+        .products-header,
+        .contact-hero
+    ) {
+        background-color: #f8fafc;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .container {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .row {
+        --bs-gutter-x: 1.25rem;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .card,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) [class*="-card"] {
+        border-color: #dbe4eb;
+        box-shadow: 0 6px 18px rgba(11, 23, 38, 0.07);
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-content,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .projects-hero-content,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .products-header-content {
+        max-width: 100%;
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-description,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-content p,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .projects-hero p {
+        color: rgba(255, 255, 255, 0.86);
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .public-button {
+        min-height: 52px;
+        border-radius: 8px;
+        padding: 13px 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .public-navbar {
+        box-shadow: 0 3px 16px rgba(11, 23, 38, 0.10);
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) h1 {
+        font-size: clamp(2rem, 11vw, 2.75rem);
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) h2,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .section-title {
+        font-size: clamp(1.75rem, 8vw, 2.2rem);
+    }
+
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .section-label,
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-label {
+        letter-spacing: 1.35px;
+    }
+}
+
+
+/* =========================================================
    REDUCE REPETITIVE PUBLIC CONTENT
 ========================================================= */
 
@@ -1056,4 +1232,214 @@ a:focus-visible {
 .home-page .service-section,
 .projects-page .automation-intro {
     display: none;
+}
+
+
+/* =========================================================
+   STANDARD PUBLIC CARD AND SECTION COLORS
+========================================================= */
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) {
+    color: var(--color-text);
+    background: var(--color-page-bg);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(h1, h2, h3, h4, h5, h6) {
+    color: var(--color-heading);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(p, li) {
+    color: var(--color-text);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(a, .text-link, .equipment-link, .process-link, .service-link) {
+    color: var(--color-primary);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(a, .text-link, .equipment-link, .process-link, .service-link):hover {
+    color: var(--color-primary-dark);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    [class*="-card"],
+    .public-card,
+    .fact-card,
+    .benefit-item,
+    .flow-item,
+    .planning-item,
+    .production-card,
+    .setup-card,
+    .service-card,
+    .why-card,
+    .equipment-card,
+    .process-card,
+    .company-card,
+    .product-card
+) {
+    border-color: var(--color-border);
+    background-color: var(--color-surface);
+    color: var(--color-text);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .card-title,
+    .equipment-content h3,
+    .process-card h3,
+    .production-card h3,
+    .setup-card h3,
+    .service-card h4,
+    .why-card h5,
+    .fact-card strong,
+    .company-card h3,
+    .product-card h3
+) {
+    color: var(--color-heading);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .card-text,
+    .equipment-content p,
+    .process-card p,
+    .production-card p,
+    .setup-card p,
+    .service-card p,
+    .why-card p,
+    .fact-card span,
+    .company-card p,
+    .product-card p
+) {
+    color: var(--color-text-light);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .section-label,
+    .hero-label,
+    .text-label,
+    .equipment-tag,
+    .setup-badge,
+    .production-step
+) {
+    color: var(--color-primary);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .icon-primary,
+    .equipment-icon.icon-primary,
+    .equipment-small-icon.icon-primary,
+    .service-icon,
+    .fact-icon
+) {
+    color: var(--color-primary);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .public-button.btn-primary,
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-btn {
+    color: var(--color-white) !important;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .hero-btn-outline {
+    color: var(--color-white) !important;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .equipment-content p,
+    .process-card p,
+    .production-card p,
+    .setup-card p,
+    .service-card p,
+    .why-card p,
+    .fact-card span,
+    .company-card p,
+    .product-card p,
+    .section-description,
+    .section-subtitle
+) {
+    font-size: 0.95rem !important;
+    line-height: 1.7;
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) .public-button {
+    font-size: 0.95rem;
+}
+
+
+/* =========================================================
+   SHARED CARD STANDARD
+========================================================= */
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .equipment-card,
+    .process-card,
+    .brand-card,
+    .fact-card,
+    .business-card,
+    .service-card,
+    .why-card,
+    .contact-detail-card,
+    .production-card,
+    .setup-card,
+    .level-card,
+    .product-card,
+    .planning-item
+) {
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    background: var(--color-surface);
+    box-shadow: 0 7px 22px rgba(20, 42, 48, 0.08);
+}
+
+:is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+    .equipment-card,
+    .process-card,
+    .brand-card,
+    .fact-card,
+    .business-card,
+    .service-card,
+    .why-card,
+    .contact-detail-card,
+    .production-card,
+    .setup-card,
+    .level-card,
+    .product-card
+):hover {
+    border-color: rgba(23, 107, 115, 0.30);
+    box-shadow: 0 12px 28px rgba(20, 42, 48, 0.12);
+}
+
+@media (max-width: 767.98px) {
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+        .equipment-card,
+        .process-card,
+        .brand-card,
+        .fact-card,
+        .business-card,
+        .service-card,
+        .why-card,
+        .contact-detail-card,
+        .production-card,
+        .setup-card,
+        .level-card,
+        .product-card
+    ) {
+        border-radius: 12px;
+        box-shadow: 0 5px 16px rgba(20, 42, 48, 0.07);
+    }
+}
+
+@media (max-width: 767.98px) {
+    :is(.home-page, .about-page, .projects-page, .products-page, .contacts-page) :where(
+        .equipment-content p,
+        .process-card p,
+        .production-card p,
+        .setup-card p,
+        .service-card p,
+        .why-card p,
+        .fact-card span,
+        .company-card p,
+        .product-card p,
+        .section-description,
+        .section-subtitle
+    ) {
+        font-size: 0.92rem !important;
+    }
 }

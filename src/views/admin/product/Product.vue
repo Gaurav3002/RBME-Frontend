@@ -2338,21 +2338,21 @@ onMounted(async () => {
 .product-management-page {
 
     --color-white: #ffffff;
-    --color-light-bg: #f7f9fb;
-    --color-heading: #162536;
-    --color-text: #4e5d69;
-    --color-text-light: #687786;
+    --color-light-bg: #f1f6f6;
+    --color-heading: #172b31;
+    --color-text: #52666b;
+    --color-text-light: #718286;
 
-    --color-primary: #1b5e8c;
-    --color-primary-light: #edf5fc;
+    --color-primary: #176b73;
+    --color-primary-light: #e7f3f2;
 
-    --color-accent: #c58a24;
+    --color-accent: #d4773a;
 
-    --color-dark: #0b1726;
+    --color-dark: #142a30;
 
-    --color-border: #e1e7ed;
+    --color-border: #d7e3e4;
 
-    --color-surface-soft: #f3f6f9;
+    --color-surface-soft: #f1f6f6;
 
     --color-shadow:
         0 4px 18px rgba(15, 23, 42, 0.06);
@@ -4027,6 +4027,196 @@ onMounted(async () => {
 
     }
 
+}
+
+
+/* ============================================================
+   PRODUCT MANAGEMENT POLISH
+============================================================ */
+
+.product-management-page {
+    padding-top: 24px;
+    padding-bottom: 40px;
+}
+
+.product-management-page .admin-card {
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(20, 42, 48, 0.07);
+}
+
+.filter-card .card-body {
+    padding: 24px;
+}
+
+.search-card .card-body {
+    padding: 16px 18px;
+}
+
+.filter-title,
+.table-title {
+    font-size: 18px;
+}
+
+.filter-description,
+.table-subtitle,
+.page-subtitle {
+    font-size: 13px;
+}
+
+.filter-label,
+.form-label {
+    font-size: 14px;
+}
+
+.filter-select,
+.search-input,
+.form-control,
+.form-select {
+    min-height: 46px;
+    font-size: 14px;
+}
+
+.admin-table thead th {
+    padding: 15px 14px;
+    font-size: 12px;
+}
+
+.admin-table tbody td {
+    padding: 13px 14px;
+    font-size: 13px;
+}
+
+.product-table-image,
+.no-product-image {
+    width: 64px;
+    height: 64px;
+}
+
+.product-title-cell,
+.company-cell,
+.category-cell {
+    font-size: 14px;
+}
+
+.product-type-badge,
+.model-number,
+.status-badge {
+    font-size: 12px;
+}
+
+:deep(#productModal .modal-dialog) {
+    max-width: 920px;
+    margin: 1.5rem auto;
+}
+
+:deep(#productModal .modal-content) {
+    max-height: calc(100vh - 3rem);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(20, 42, 48, 0.22);
+}
+
+:deep(#productModal .modal-header) {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface-soft);
+}
+
+:deep(#productModal .modal-title) {
+    color: var(--color-heading);
+    font-size: 20px;
+    font-weight: 700;
+}
+
+:deep(#productModal .modal-body) {
+    max-height: calc(100vh - 190px);
+    padding: 24px;
+    overflow-y: auto;
+}
+
+:deep(#productModal .modal-footer) {
+    gap: 10px;
+    padding: 16px 24px;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-surface-soft);
+}
+
+:deep(#productModal .form-control),
+:deep(#productModal .form-select) {
+    min-height: 46px;
+    font-size: 14px;
+}
+
+:deep(#productModal textarea.form-control) {
+    min-height: 112px;
+}
+
+.product-preview-image,
+.existing-product-image {
+    height: 150px;
+}
+
+@media (max-width: 768px) {
+    .product-management-page {
+        padding: 18px 12px 32px;
+    }
+
+    .filter-card .card-body {
+        padding: 18px;
+    }
+
+    .product-table-responsive {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .admin-table {
+        min-width: 760px;
+    }
+
+    :deep(#productModal .modal-dialog) {
+        margin: 0.75rem;
+    }
+
+    :deep(#productModal .modal-content) {
+        max-height: calc(100vh - 1.5rem);
+        border-radius: 12px;
+    }
+
+    :deep(#productModal .modal-header),
+    :deep(#productModal .modal-footer) {
+        padding: 14px 16px;
+    }
+
+    :deep(#productModal .modal-body) {
+        max-height: calc(100vh - 150px);
+        padding: 16px;
+    }
+
+    :deep(#productModal .modal-footer .btn) {
+        flex: 1 1 0;
+        min-height: 44px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 25px;
+    }
+
+    .page-subtitle {
+        font-size: 14px;
+    }
+
+    .admin-table {
+        min-width: 700px;
+    }
+
+    .product-preview-image,
+    .existing-product-image {
+        height: 125px;
+    }
 }
 
 </style>
