@@ -211,9 +211,9 @@
     <!-- =========================
          TABLE
     ========================== -->
-    <div v-else class="table-wrap">
+    <div v-else class="table-wrap admin-shared-card admin-shared-table-wrap">
 
-      <table class="enquiry-table">
+      <table class="enquiry-table admin-shared-table">
 
         <thead>
           <tr>

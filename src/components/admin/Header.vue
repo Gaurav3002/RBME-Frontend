@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="admin-details">
-                    <h6>{{ admin.name }}</h6>
+                    <h6>{{ admin.fullName}}</h6>
                     <small>{{ admin.role }}</small>
                 </div>
 

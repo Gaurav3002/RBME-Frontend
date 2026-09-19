@@ -20,11 +20,7 @@
                     </div>
                 </div>
 
-                <button
-                    type="button"
-                    class="btn btn-primary add-company-btn"
-                    @click="openCreateModal"
-                >
+                <button v-if="hasPermission('COMPANY_CREATE')" type="button" class="btn btn-primary add-company-btn" @click="openCreateModal">
                     <i class="bi bi-plus-circle me-2"></i>
                     Add Company
                 </button>
@@ -54,12 +50,7 @@
                     />
 
                     <button
-                        v-if="search"
-                        type="button"
-                        class="search-clear"
-                        @click="search = ''"
-                        title="Clear search"
-                    >
+                        v-if="search" type="button" class="search-clear" @click="search = ''" title="Clear search">
                         <i class="bi bi-x-circle"></i>
                     </button>
 
@@ -73,16 +64,16 @@
         <!-- =========================================================
              TABLE CARD
         ========================================================== -->
-        <div class="card admin-card company-table-card">
+        <div class="card admin-card admin-shared-card company-table-card">
 
-            <div class="card-header admin-card-header">
+            <div class="card-header admin-card-header admin-shared-card-header">
 
                 <div>
-                    <h5 class="admin-card-title">
+                    <h5 class="admin-card-title admin-shared-card-title">
                         Companies
                     </h5>
 
-                    <span class="admin-card-count">
+                    <span class="admin-card-count admin-shared-card-count">
                         {{ filteredCompanies.length }}
                         {{ filteredCompanies.length === 1 ? 'company' : 'companies' }}
                     </span>
@@ -93,9 +84,9 @@
 
             <div class="card-body p-0">
 
-                <div class="table-responsive">
+                <div class="table-responsive admin-shared-table-wrap">
 
-                    <table class="table admin-table align-middle mb-0">
+                    <table class="table admin-table admin-shared-table align-middle mb-0">
 
                         <!-- =================================================
                              TABLE HEADER
@@ -120,7 +111,7 @@
                                     Status
                                 </th>
 
-                                <th class="col-action">
+                                <th v-if="hasPermission('COMPANY_EDIT') || hasPermission('COMPANY_DELETE')" class="col-action">
                                     Action
                                 </th>
                             </tr>
@@ -141,48 +132,25 @@
                                 <!-- LOGO -->
                                 <td class="image-column">
 
-                                    <div
-                                        v-if="company.logo"
-                                        class="image-preview"
-                                        @click="openImage(company.logo)"
-                                    >
-                                        <img
-                                            :src="getImageUrl(company.logo)"
-                                            :alt="company.name + ' logo'"
-                                            class="company-image"
-                                        />
+                                    <div v-if="company.logo" class="image-preview" @click="openImage(company.logo)">
+                                        <img :src="getImageUrl(company.logo)" :alt="company.name + ' logo'" class="company-image"/>
                                     </div>
 
-                                    <div
-                                        v-else
-                                        class="image-placeholder"
-                                    >
+                                    <div v-else class="image-placeholder">
                                         <i class="bi bi-image"></i>
                                         <span>No Logo</span>
                                     </div>
-
                                 </td>
 
 
                                 <!-- BANNER -->
                                 <td class="image-column">
 
-                                    <div
-                                        v-if="company.banner"
-                                        class="image-preview banner-preview"
-                                        @click="openImage(company.banner)"
-                                    >
-                                        <img
-                                            :src="getImageUrl(company.banner)"
-                                            :alt="company.name + ' banner'"
-                                            class="company-image"
-                                        />
+                                    <div v-if="company.banner" class="image-preview banner-preview" @click="openImage(company.banner)">
+                                        <img :src="getImageUrl(company.banner)" :alt="company.name + ' banner'" class="company-image"/>
                                     </div>
 
-                                    <div
-                                        v-else
-                                        class="image-placeholder"
-                                    >
+                                    <div v-else class="image-placeholder">
                                         <i class="bi bi-card-image"></i>
                                         <span>No Banner</span>
                                     </div>
@@ -228,25 +196,15 @@
 
 
                                 <!-- ACTION -->
-                                <td>
+                                <td  v-if="hasPermission('COMPANY_EDIT') || hasPermission('COMPANY_DELETE')">
 
                                     <div class="action-buttons">
 
-                                        <button
-                                            type="button"
-                                            class="action-btn edit-btn"
-                                            @click="editCompany(company)"
-                                            title="Edit Company"
-                                        >
+                                        <button  v-if="hasPermission('COMPANY_EDIT')"  type="button"  class="action-btn edit-btn" @click="editCompany(company)" title="Edit Company" >
                                             <i class="bi bi-pencil"></i>
                                         </button>
 
-                                        <button
-                                            type="button"
-                                            class="action-btn delete-btn"
-                                            @click="deleteCompany(company.id)"
-                                            title="Delete Company"
-                                        >
+                                        <button v-if="hasPermission('COMPANY_DELETE')" type="button" class="action-btn delete-btn" @click="deleteCompany(company.id)" title="Delete Company">
                                             <i class="bi bi-trash"></i>
                                         </button>
 
@@ -707,6 +665,10 @@ import {
 
 import BaseModal from "@/components/admin/common/BaseModal.vue";
 
+import {
+    hasPermission
+} from "@/utils/permission.js";
+import Message from "@/utils/Message.js";
 
 /* ================================================================
    CONFIG
@@ -1033,9 +995,7 @@ async function deleteCompany(id) {
 
         await deleteCompanyApi(id);
 
-        alert(
-            "Company deleted successfully."
-        );
+        Message.warning("Company deleted successfully.");
 
         await loadCompanies();
 
@@ -1139,9 +1099,7 @@ async function saveCompany() {
                 formData
             );
 
-            alert(
-                "Company added successfully."
-            );
+            Message.success("Company added successfully.");
 
         }
 

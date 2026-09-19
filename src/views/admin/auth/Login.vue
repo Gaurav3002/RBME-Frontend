@@ -7,33 +7,37 @@
 
         <form @submit.prevent="loginUser">
 
+            <!-- Username -->
             <div class="mb-3">
-
-                <label>Email</label>
+                <label class="form-label">Username</label>
 
                 <input
-                    type="email"
+                    type="text"
                     class="form-control"
-                    v-model="form.email"
+                    v-model.trim="form.username"
+                    placeholder="Enter username"
+                    autocomplete="username"
                     required
                 />
-
             </div>
 
+            <!-- Password -->
             <div class="mb-3">
-
-                <label>Password</label>
+                <label class="form-label">Password</label>
 
                 <input
                     type="password"
                     class="form-control"
                     v-model="form.password"
+                    placeholder="Enter password"
+                    autocomplete="current-password"
                     required
                 />
-
             </div>
 
+            <!-- Login Button -->
             <button
+                type="submit"
                 class="btn btn-primary w-100"
                 :disabled="loading"
             >
@@ -57,31 +61,47 @@ const router = useRouter();
 const loading = ref(false);
 
 const form = reactive({
-    email: "",
+    username: "",
     password: "",
 });
 
 const loginUser = async () => {
 
+    if (!form.username || !form.password) {
+        alert("Please enter username and password.");
+        return;
+    }
+
     loading.value = true;
 
     try {
 
-        const { data } = await loginAdmin(form);
+        const { data } = await loginAdmin({
+            username: form.username,
+            password: form.password
+        });
 
+        // Save JWT token
         saveToken(data.token);
+
+        // Save logged-in user information
         saveAdmin(data);
 
+        // Redirect to dashboard
         router.push("/admin/dashboard");
 
     } catch (error) {
 
-        alert(error.response?.data?.message || "Login Failed");
+        console.error("Login error:", error);
+
+        alert(
+            error.response?.data?.message ||
+            "Invalid username or password."
+        );
 
     } finally {
 
         loading.value = false;
-
     }
 };
 </script>
