@@ -23,7 +23,7 @@
             </div>
 
 
-            <button
+            <button v-if="hasPermission('PRODUCT_TYPE_CREATE')"
                 type="button"
                 class="btn btn-primary add-button"
                 @click="openCreateModal"
@@ -362,11 +362,11 @@
         <!-- =====================================================
              PRODUCT TYPE TABLE
         ====================================================== -->
-        <div class="card admin-card shadow-sm">
+        <div class="card admin-card admin-shared-card shadow-sm">
 
 
             <!-- TABLE HEADER -->
-            <div class="table-card-header">
+            <div class="table-card-header admin-shared-card-header">
 
                 <div>
 
@@ -402,9 +402,9 @@
             <!-- =================================================
                  TABLE
             ================================================== -->
-            <div class="card-body table-responsive">
+            <div class="card-body table-responsive admin-shared-table-wrap">
 
-                <table class="table admin-table table-hover align-middle">
+                <table class="table admin-table admin-shared-table table-hover align-middle">
 
                     <thead>
 
@@ -430,7 +430,7 @@
                             Status
                         </th>
 
-                        <th width="150">
+                        <th v-if="hasPermission('PRODUCT_TYPE_EDIT') || hasPermission('PRODUCT_TYPE_DELETE') " width="150">
                             Action
                         </th>
 
@@ -539,13 +539,13 @@
 
 
                         <!-- ACTION -->
-                        <td>
+                        <td v-if="hasPermission('PRODUCT_TYPE_EDIT') || hasPermission('PRODUCT_TYPE_DELETE')">
 
-                            <div class="action-buttons">
+                            <div class="action-buttons admin-shared-actions">
 
 
                                 <!-- EDIT -->
-                                <button
+                                <button v-if="hasPermission('PRODUCT_TYPE_EDIT')"
                                     type="button"
                                     class="btn admin-action-button edit-button"
                                     @click="editProductType(productType)"
@@ -558,7 +558,7 @@
 
 
                                 <!-- DELETE -->
-                                <button
+                                <button v-if="hasPermission('PRODUCT_TYPE_DELETE')"
                                     type="button"
                                     class="btn admin-action-button delete-button"
                                     @click="
@@ -875,6 +875,9 @@ import {
     getProductTypes,
     deleteProductType
 } from "@/api/productType.api";
+import {
+    hasPermission
+} from "@/utils/permission.js";
 
 
 import {

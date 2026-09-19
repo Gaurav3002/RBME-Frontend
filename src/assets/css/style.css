@@ -1443,3 +1443,104 @@ a:focus-visible {
         font-size: 0.92rem !important;
     }
 }
+
+/* =========================================================
+   SHARED ADMIN DATA SURFACES
+========================================================= */
+
+.admin-shared-card {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    background: var(--color-surface);
+    box-shadow: 0 3px 12px rgba(15, 35, 55, 0.04);
+    overflow: hidden;
+}
+
+.admin-shared-card-header {
+    min-height: 66px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--color-border);
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.admin-shared-card-title {
+    margin: 0 0 3px;
+    color: var(--color-heading);
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.admin-shared-card-count {
+    color: var(--color-text-light);
+    font-size: 12px;
+}
+
+.admin-shared-table-wrap {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-shared-table {
+    width: 100%;
+    margin: 0;
+    color: var(--color-text);
+    font-size: 13px;
+}
+
+.admin-shared-table thead th {
+    padding: 13px 16px;
+    background: var(--color-surface-soft);
+    border-bottom: 1px solid var(--color-border);
+    color: #566575;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.admin-shared-table tbody td {
+    padding: 13px 16px;
+    border-bottom: 1px solid #edf0f3;
+    vertical-align: middle;
+}
+
+.admin-shared-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.admin-shared-table tbody tr:hover {
+    background: #fbfcfd;
+}
+
+/* Keep page-specific table rules from changing the shared table treatment. */
+.admin-shared-table thead th {
+    background: var(--color-surface-soft) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+    color: #566575 !important;
+    padding: 13px 16px !important;
+}
+
+.admin-shared-table tbody td {
+    border-bottom: 1px solid #edf0f3 !important;
+    color: var(--color-text) !important;
+    padding: 13px 16px !important;
+}
+
+.admin-shared-table tbody tr:hover {
+    background: #fbfcfd !important;
+}
+
+.admin-shared-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}

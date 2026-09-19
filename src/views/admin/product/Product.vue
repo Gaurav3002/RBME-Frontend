@@ -20,7 +20,7 @@
                 </p>
             </div>
 
-            <button
+            <button v-if="hasPermission('PRODUCT_CREATE')"
                 type="button"
                 class="btn btn-primary add-product-btn"
                 @click="openCreateModal"
@@ -282,10 +282,10 @@
         <!-- =====================================================
              PRODUCT TABLE CARD
         ====================================================== -->
-        <div class="card admin-card shadow-sm">
+        <div class="card admin-card admin-shared-card">
 
             <!-- TABLE HEADER -->
-            <div class="product-table-header">
+            <div class="product-table-header admin-shared-card-header">
 
                 <div>
 
@@ -321,9 +321,9 @@
 
             <div class="card-body p-0">
 
-                <div class="table-responsive product-table-responsive">
+                <div class="table-responsive admin-shared-table-wrap product-table-responsive">
 
-                    <table class="table admin-table table-hover align-middle mb-0">
+                    <table class="table admin-table admin-shared-table table-hover align-middle mb-0">
 
                         <thead>
 
@@ -361,7 +361,7 @@
                                     Status
                                 </th>
 
-                                <th class="action-column">
+                                <th v-if="hasPermission('PRODUCT_EDIT') || hasPermission('PRODUCT_DELETE')" class="action-column">
                                     Action
                                 </th>
 
@@ -495,11 +495,11 @@
 
 
                                 <!-- ACTIONS -->
-                                <td>
+                                <td v-if="hasPermission('PRODUCT_EDIT') || hasPermission('PRODUCT_DELETE')">
 
-                                    <div class="action-buttons">
+                                    <div class="action-buttons admin-shared-actions">
 
-                                        <button
+                                        <button v-if="hasPermission('PRODUCT_EDIT')"
                                             type="button"
                                             class="btn admin-action-button edit-button"
                                             @click="editProduct(product)"
@@ -509,7 +509,7 @@
                                         </button>
 
 
-                                        <button
+                                        <button v-if="hasPermission('PRODUCT_DELETE')"
                                             type="button"
                                             class="btn admin-action-button delete-button"
                                             @click="deleteProductById(product.id)"
@@ -995,6 +995,9 @@ import {
     getProducts,
     deleteProduct
 } from "@/api/product.api";
+import {
+    hasPermission
+} from "@/utils/permission.js";
 
 import {
     getCompanies
@@ -2465,14 +2468,10 @@ onMounted(async () => {
 
 .admin-card {
 
-    border:
-        1px solid var(--color-border);
-
+     border: 1px solid var(--color-border, #e1e7ed);
     border-radius: 12px;
-
-    background:
-        var(--color-white);
-
+    background: var(--color-white, #ffffff);
+    box-shadow: 0 3px 12px rgba(15, 35, 55, 0.04);
     overflow: hidden;
 
 }
@@ -3025,47 +3024,34 @@ onMounted(async () => {
 
 
 .admin-table {
-
+    width: 100%;
     margin: 0;
-
-    color:
-        var(--color-text);
+    color: var(--color-text, #4e5d69);
+    font-size: 13px;
 
 }
 
 
 .admin-table thead th {
 
-    background:
-        var(--color-dark);
-
-    color:
-        var(--color-white);
-
-    border: 0;
-
-    padding: 13px 12px;
-
+    padding: 13px 16px;
+    background: var(--color-surface-soft, #f3f6f9);
+    border-bottom: 1px solid var(--color-border, #e1e7ed);
+    color: #566575;
     font-size: 11px;
-
-    font-weight: 650;
-
-    letter-spacing: 0.2px;
-
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     white-space: nowrap;
+    vertical-align: middle;
 
 }
 
 
 .admin-table tbody td {
 
-    padding: 10px 12px;
-
-    border-color:
-        var(--color-border);
-
-    font-size: 12px;
-
+    padding: 13px 16px;
+    border-bottom: 1px solid #edf0f3;
     vertical-align: middle;
 
 }

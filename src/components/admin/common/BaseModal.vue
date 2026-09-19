@@ -199,6 +199,19 @@ onMounted(() => {
 .modal-dialog{
     transition:none !important;
 }
+.modal-header {
+    padding: 6px 14px !important;
+    min-height: 38px;
+    background :var(--color-primary);
+}
+
+.modal-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
 
 .draggable{
     cursor:move;

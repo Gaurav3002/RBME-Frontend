@@ -1,3 +1,4 @@
+
 import axios from "axios";
 
 
@@ -7,6 +8,9 @@ import axios from "axios";
 
 const api = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
+    headers: {
+        "Content-Type": "application/json"
+    }
 });
 
 
@@ -15,20 +19,32 @@ const api = axios.create({
 // ============================================================
 
 api.interceptors.request.use(
+
     (config) => {
 
-        // Get admin JWT token from sessionStorage
+        // ======================================================
+        // GET ADMIN JWT TOKEN
+        // ======================================================
+
         const token = sessionStorage.getItem("adminToken");
 
-        // Attach token to request if available
+
+        // ======================================================
+        // ATTACH JWT
+        // ======================================================
+
         if (token) {
-            config.headers.Authorization = `Bearer ${token}`;
+
+            config.headers.Authorization =
+                `Bearer ${token}`;
         }
+
 
         return config;
     },
 
     (error) => {
+
         return Promise.reject(error);
     }
 );
@@ -40,21 +56,32 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
 
-    // Successful response
+    // ========================================================
+    // SUCCESS
+    // ========================================================
+
     (response) => {
+
         return response;
     },
 
-    // Error response
+
+    // ========================================================
+    // ERROR
+    // ========================================================
+
     (error) => {
 
-        const status = error.response?.status;
-        const currentPath = window.location.pathname;
+        const status =
+            error.response?.status;
+
+        const currentPath =
+            window.location.pathname;
 
 
-        // ========================================================
+        // ====================================================
         // ADMIN AUTHENTICATION ERROR
-        // ========================================================
+        // ====================================================
 
         if (
             status === 401 &&
@@ -62,36 +89,69 @@ api.interceptors.response.use(
             currentPath !== "/admin/login"
         ) {
 
-            // Remove expired/invalid admin session
+            // -----------------------------------------------
+            // Remove invalid session
+            // -----------------------------------------------
+
             sessionStorage.removeItem("adminToken");
+
             sessionStorage.removeItem("admin");
 
 
-            // Redirect admin user to login page
-            window.location.href = "/admin/login";
+            // -----------------------------------------------
+            // Redirect to login
+            // -----------------------------------------------
+
+            window.location.href =
+                "/admin/login";
         }
 
 
-        // ========================================================
+        // ====================================================
         // PUBLIC WEBSITE
-        // ========================================================
-        //
-        // If a public API returns 401:
-        //
-        // /           -> Stay on page
-        // /about      -> Stay on page
-        // /products   -> Stay on page
-        // /projects   -> Stay on page
-        // /contact    -> Stay on page
-        //
-        // No redirect is performed here.
-        //
-        // ========================================================
+        // ====================================================
+
+        // Do NOT redirect public website users
+        // when their API request returns 401.
 
 
         return Promise.reject(error);
     }
 );
+
+
+// ============================================================
+// AUTH APIs
+// ============================================================
+
+export const loginAdmin = (payload) => {
+
+    return api.post(
+        "/admin/auth/login",
+        payload
+    );
+};
+
+
+// ============================================================
+// LOGOUT
+// ============================================================
+
+export const logoutAdmin = () => {
+
+    // There is currently NO logout endpoint
+    // in the new Spring Boot AuthController.
+    //
+    // Logout is handled on frontend by
+    // removing the JWT.
+
+    sessionStorage.removeItem("adminToken");
+
+    sessionStorage.removeItem("admin");
+
+    window.location.href =
+        "/admin/login";
+};
 
 
 // ============================================================

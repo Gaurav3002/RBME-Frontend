@@ -1,703 +1,914 @@
-```vue
 <template>
-  <aside class="sidebar">
+    <aside class="sidebar">
 
-    <!-- =========================
-         LOGO
-    ========================== -->
-    <div class="logo">
+        <!-- =====================================================
+             LOGO
+        ====================================================== -->
+        <div class="logo">
 
-      <button
-        type="button"
-        class="sidebar-close"
-        aria-label="Close sidebar"
-        @click="$emit('close-sidebar')"
-      >
-        <i class="bi bi-x-lg"></i>
-      </button>
+            <!-- Mobile close -->
+            <button
+                type="button"
+                class="sidebar-close"
+                aria-label="Close sidebar"
+                @click="$emit('close-sidebar')"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
 
-      <h4 class="mb-0">
-        RBME
-      </h4>
-
-      <small>
-        Admin Panel
-      </small>
-
-    </div>
-
-
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
-    <nav class="menu">
-
-      <!-- Dashboard -->
-      <router-link
-        to="/admin/dashboard"
-        class="menu-item"
-      >
-        <i class="bi bi-speedometer2"></i>
-
-        <span>
-          Dashboard
-        </span>
-      </router-link>
-
-
-      <!-- =========================
-           WEBSITE MANAGEMENT
-      ========================== -->
-
-      <div
-        class="menu-item menu-toggle"
-        @click="catalogOpen = !catalogOpen"
-      >
-
-        <div class="menu-toggle-left">
-
-          <i class="bi bi-folder2-open"></i>
-
-          <span>
-            Website Management
-          </span>
+            <div class="logo-content">
+                <h4>RBME</h4>
+                <small>Admin Panel</small>
+            </div>
 
         </div>
 
-        <i
-          class="bi toggle-icon"
-          :class="
-            catalogOpen
-              ? 'bi-chevron-up'
-              : 'bi-chevron-down'
-          "
-        ></i>
 
-      </div>
+        <!-- =====================================================
+             NAVIGATION
+        ====================================================== -->
+        <nav class="menu">
 
-
-      <!-- =========================
-           WEBSITE SUBMENU
-      ========================== -->
-
-      <div
-        v-show="catalogOpen"
-        class="submenu"
-      >
-
-        <!-- Companies -->
-        <router-link
-          to="/admin/company"
-          class="submenu-item"
-        >
-          <i class="bi bi-building"></i>
-
-          <span>
-            Companies
-          </span>
-        </router-link>
+            <!-- =================================================
+                 LOADING
+            ================================================== -->
+            <div
+                v-if="loading"
+                class="menu-loading"
+            >
+                <i class="bi bi-arrow-repeat spin"></i>
+                <span>Loading menu...</span>
+            </div>
 
 
-        <!-- Categories -->
-        <router-link
-          to="/admin/category"
-          class="submenu-item"
-        >
-          <i class="bi bi-grid"></i>
+            <!-- =================================================
+                 DYNAMIC MENU
+            ================================================== -->
+            <template
+                v-else
+                v-for="menu in menus"
+                :key="menu.id"
+            >
 
-          <span>
-            Categories
-          </span>
-        </router-link>
+                <!-- =============================================
+                     MENU WITH CHILDREN
+                ============================================== -->
+                <div
+                    v-if="
+                        menu.children &&
+                        menu.children.length > 0
+                    "
+                    class="menu-group"
+                >
 
+                    <!-- Parent menu -->
+                    <button
+                        type="button"
+                        class="menu-item menu-toggle"
+                        :class="{
+                            'menu-open': isMenuOpen(menu.id)
+                        }"
+                        @click="toggleMenu(menu.id)"
+                    >
 
-        <!-- Product Types -->
-        <router-link
-          to="/admin/productType"
-          class="submenu-item"
-        >
-          <i class="bi bi-diagram-3"></i>
+                        <span class="menu-toggle-left">
 
-          <span>
-            Product Types
-          </span>
-        </router-link>
+                            <i
+                                :class="
+                                    menu.icon ||
+                                    'bi bi-folder'
+                                "
+                            ></i>
 
+                            <span class="menu-label">
+                                {{ menu.name }}
+                            </span>
 
-        <!-- Products -->
-        <router-link
-          to="/admin/product"
-          class="submenu-item"
-        >
-          <i class="bi bi-box-seam"></i>
-
-          <span>
-            Products
-          </span>
-        </router-link>
-
-
-        <!-- Product Specifications -->
-        <router-link
-          to="/admin/product-specification"
-          class="submenu-item"
-        >
-          <i class="bi bi-list-check"></i>
-
-          <span>
-            Product Specifications
-          </span>
-        </router-link>
-
-      </div>
+                        </span>
 
 
-      <!-- =========================
-           STATIC MANAGEMENT ITEMS
-      ========================== -->
+                        <i
+                            class="bi toggle-icon"
+                            :class="
+                                isMenuOpen(menu.id)
+                                    ? 'bi-chevron-up'
+                                    : 'bi-chevron-down'
+                            "
+                        ></i>
 
-      <div class="menu-item static-menu-item">
-
-        <i class="bi bi-boxes"></i>
-
-        <span>
-          Stock Management
-        </span>
-
-        <span class="coming-soon">
-          Soon
-        </span>
-
-      </div>
+                    </button>
 
 
-      <div class="menu-item static-menu-item">
+                    <!-- =========================================
+                         SUBMENU
+                    ========================================== -->
+                    <div
+                        v-show="isMenuOpen(menu.id)"
+                        class="submenu"
+                    >
 
-        <i class="bi bi-tools"></i>
+                        <router-link
+                            v-for="child in menu.children"
+                            :key="child.id"
+                            :to="child.route"
+                            class="submenu-item"
+                            active-class="submenu-active"
+                            @click="$emit('close-sidebar')"
+                        >
 
-        <span>
-          Accessories Management
-        </span>
+                            <i
+                                :class="
+                                    child.icon ||
+                                    'bi bi-circle'
+                                "
+                            ></i>
 
-        <span class="coming-soon">
-          Soon
-        </span>
+                            <span>
+                                {{ child.name }}
+                            </span>
 
-      </div>
+                        </router-link>
+
+                    </div>
+
+                </div>
 
 
-      <!-- =========================
-           ACCOUNT
-      ========================== -->
+                <!-- =============================================
+                     SINGLE MENU
+                ============================================== -->
+                <router-link
+                    v-else-if="menu.route"
+                    :to="menu.route"
+                    class="menu-item"
+                    active-class="menu-active"
+                    @click="$emit('close-sidebar')"
+                >
 
-      <div class="menu-title">
-        Account
-      </div>
+                    <i
+                        :class="
+                            menu.icon ||
+                            'bi bi-circle'
+                        "
+                    ></i>
 
-    </nav>
+                    <span class="menu-label">
+                        {{ menu.name }}
+                    </span>
 
-  </aside>
+                </router-link>
+
+            </template>
+
+
+            <!-- =================================================
+                 NO MENU
+            ================================================== -->
+            <div
+                v-if="
+                    !loading &&
+                    menus.length === 0
+                "
+                class="menu-empty"
+            >
+                <i class="bi bi-menu-button-wide"></i>
+                <span>No menu available</span>
+            </div>
+
+        </nav>
+
+    </aside>
 </template>
 
 
 <script setup>
 
-import { ref } from "vue";
+import {
+    ref,
+    onMounted
+} from "vue";
 
-const catalogOpen = ref(true);
+import {
+    getMenuTree
+} from "@/api/menu.api";
+
+
+// ============================================================
+// EMITS
+// ============================================================
+
+defineEmits([
+    "close-sidebar"
+]);
+
+
+// ============================================================
+// STATE
+// ============================================================
+
+const menus = ref([]);
+
+const loading = ref(false);
+
+const openMenus = ref([]);
+
+
+// ============================================================
+// LOAD MENU
+// ============================================================
+
+const loadMenus = async () => {
+
+    loading.value = true;
+
+    try {
+
+        const { data } = await getMenuTree();
+
+        menus.value = Array.isArray(data)
+            ? data
+            : [];
+
+
+        /*
+         * Open all parent menus initially.
+         */
+        openMenus.value = menus.value
+            .filter(
+                menu =>
+                    Array.isArray(menu.children) &&
+                    menu.children.length > 0
+            )
+            .map(menu => menu.id);
+
+    } catch (error) {
+
+        console.error(
+            "Failed to load admin menus:",
+            error
+        );
+
+        menus.value = [];
+
+        openMenus.value = [];
+
+    } finally {
+
+        loading.value = false;
+
+    }
+};
+
+
+// ============================================================
+// TOGGLE MENU
+// ============================================================
+
+const toggleMenu = (menuId) => {
+
+    if (!menuId) {
+        return;
+    }
+
+
+    const index =
+        openMenus.value.indexOf(menuId);
+
+
+    if (index !== -1) {
+
+        /*
+         * Close menu
+         */
+        openMenus.value.splice(index, 1);
+
+    } else {
+
+        /*
+         * Open menu
+         */
+        openMenus.value.push(menuId);
+
+    }
+};
+
+
+// ============================================================
+// CHECK MENU OPEN
+// ============================================================
+
+const isMenuOpen = (menuId) => {
+
+    return openMenus.value.includes(menuId);
+
+};
+
+
+// ============================================================
+// INITIAL LOAD
+// ============================================================
+
+onMounted(() => {
+
+    loadMenus();
+
+});
 
 </script>
-
-
 <style scoped>
 
-/* =========================================
+/* ================================
    SIDEBAR
-========================================= */
+================================ */
 
 .sidebar {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 1050;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
-  overflow-y: auto;
-  overflow-x: hidden;
+    background: var(--color-white);
+    color: var(--color-heading);
 
-  background:
-    linear-gradient(
-      180deg,
-      #0b1726 0%,
-      #111f30 50%,
-      #162536 100%
-    );
+    border-right: 1px solid var(--color-border);
+    box-shadow: 4px 0 18px rgba(11, 23, 38, 0.06);
 
-  color: #ffffff;
+    overflow-x: hidden;
+    overflow-y: auto;
 
-  box-shadow:
-    4px 0 20px rgba(0, 0, 0, 0.12);
+    z-index: 1050;
+    -webkit-overflow-scrolling: touch;
 }
 
 
-/* =========================================
+/* ================================
    LOGO
-========================================= */
+================================ */
 
 .logo {
-  position: relative;
+    position: relative;
 
-  padding: 28px 20px 24px;
+    min-height: 88px;
+    padding: 18px 20px;
 
-  text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  border-bottom:
-    1px solid rgba(255, 255, 255, 0.08);
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-border);
 
-  background:
-    rgba(255, 255, 255, 0.02);
+    flex-shrink: 0;
 }
 
-
-.sidebar-close {
-  display: none;
+.logo-content {
+    text-align: center;
 }
-
-
-:global(.desktop-sidebar.collapsed) .logo {
-  padding-right: 8px;
-  padding-left: 8px;
-}
-
-
-:global(.desktop-sidebar.collapsed) .logo small,
-:global(.desktop-sidebar.collapsed) .menu-item span,
-:global(.desktop-sidebar.collapsed) .menu-title,
-:global(.desktop-sidebar.collapsed) .menu-toggle-left span,
-:global(.desktop-sidebar.collapsed) .toggle-icon {
-  display: none;
-}
-
-
-:global(.desktop-sidebar.collapsed) .menu-item,
-:global(.desktop-sidebar.collapsed) .menu-toggle {
-  justify-content: center;
-  padding-right: 10px;
-  padding-left: 10px;
-}
-
-
-:global(.desktop-sidebar.collapsed) .submenu {
-  display: none !important;
-}
-
 
 .logo h4 {
-  margin: 0;
+    margin: 0;
 
-  font-size: 26px;
-  font-weight: 800;
-  letter-spacing: 1.5px;
+    color: var(--color-primary);
 
-  color: #ffffff;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
 }
-
 
 .logo small {
-  display: block;
+    display: block;
+    margin-top: 5px;
 
-  margin-top: 6px;
+    color: var(--color-text-light);
 
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-
-  color: #8fa1b3;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 
-/* =========================================
-   MENU
-========================================= */
+/* ================================
+   MOBILE CLOSE
+================================ */
 
-.menu {
-  display: flex;
-  flex-direction: column;
+.sidebar-close {
+    display: none;
 
-  padding: 16px 0 30px;
-}
-
-
-/* =========================================
-   MENU TITLE
-========================================= */
-
-.menu-title {
-  padding: 28px 22px 10px;
-
-  font-size: 10px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-
-  color: #718096;
-}
-
-
-/* =========================================
-   MAIN MENU ITEM
-========================================= */
-
-.menu-item {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-
-  min-height: 50px;
-
-  padding: 13px 20px;
-
-  color: #b9c4cf;
-
-  text-decoration: none;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  cursor: pointer;
-
-  border-left:
-    3px solid transparent;
-
-  transition:
-    background 0.25s ease,
-    color 0.25s ease,
-    border-color 0.25s ease;
-}
-
-
-.menu-item i {
-  width: 22px;
-
-  flex-shrink: 0;
-
-  font-size: 18px;
-
-  text-align: center;
-}
-
-
-/* =========================================
-   HOVER
-========================================= */
-
-.menu-item:hover {
-  background:
-    rgba(255, 255, 255, 0.06);
-
-  color: #ffffff;
-}
-
-
-/* =========================================
-   ACTIVE ROUTE
-========================================= */
-
-.menu-item.router-link-active {
-  background:
-    linear-gradient(
-      90deg,
-      rgba(27, 94, 140, 0.95),
-      rgba(27, 94, 140, 0.45)
-    );
-
-  border-left-color:
-    #c58a24;
-
-  color: #ffffff;
-}
-
-
-.menu-item.router-link-active::after {
-  content: "";
-
-  position: absolute;
-
-  right: 14px;
-
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: #c58a24;
-
-  box-shadow:
-    0 0 10px rgba(197, 138, 36, 0.8);
-}
-
-
-/* =========================================
-   STATIC MENU ITEMS
-========================================= */
-
-.static-menu-item {
-  cursor: default;
-}
-
-
-.static-menu-item:hover {
-  background:
-    rgba(255, 255, 255, 0.04);
-
-  color: #d5dde5;
-}
-
-
-/* =========================================
-   COMING SOON BADGE
-========================================= */
-
-.coming-soon {
-  margin-left: auto;
-
-  padding: 3px 7px;
-
-  border:
-    1px solid rgba(197, 138, 36, 0.25);
-
-  border-radius: 4px;
-
-  background:
-    rgba(197, 138, 36, 0.10);
-
-  color: #c58a24;
-
-  font-size: 9px;
-  font-weight: 700;
-
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-
-/* =========================================
-   TOGGLE
-========================================= */
-
-.menu-toggle {
-  justify-content: space-between;
-
-  user-select: none;
-}
-
-
-.menu-toggle-left {
-  display: flex;
-  align-items: center;
-
-  gap: 13px;
-}
-
-
-.toggle-icon {
-  width: auto !important;
-
-  font-size: 13px !important;
-
-  opacity: 0.7;
-}
-
-
-/* =========================================
-   SUBMENU
-========================================= */
-
-.submenu {
-  margin: 4px 0 6px;
-
-  padding: 5px 0;
-
-  background:
-    rgba(0, 0, 0, 0.16);
-
-  border-top:
-    1px solid rgba(255, 255, 255, 0.03);
-
-  border-bottom:
-    1px solid rgba(255, 255, 255, 0.03);
-}
-
-
-/* =========================================
-   SUBMENU ITEM
-========================================= */
-
-.submenu-item {
-  position: relative;
-
-  display: flex;
-  align-items: center;
-
-  gap: 12px;
-
-  min-height: 44px;
-
-  padding:
-    11px
-    20px
-    11px
-    52px;
-
-  color: #8fa1b3;
-
-  text-decoration: none;
-
-  font-size: 13px;
-  font-weight: 500;
-
-  transition:
-    background 0.2s ease,
-    color 0.2s ease;
-}
-
-
-.submenu-item i {
-  width: 18px;
-
-  font-size: 15px;
-
-  text-align: center;
-}
-
-
-/* =========================================
-   SUBMENU HOVER
-========================================= */
-
-.submenu-item:hover {
-  background:
-    rgba(255, 255, 255, 0.05);
-
-  color: #ffffff;
-}
-
-
-/* =========================================
-   SUBMENU ACTIVE
-========================================= */
-
-.submenu-item.router-link-active {
-  color: #ffffff;
-
-  background:
-    rgba(197, 138, 36, 0.12);
-}
-
-
-.submenu-item.router-link-active::before {
-  content: "";
-
-  position: absolute;
-
-  left: 28px;
-
-  width: 5px;
-  height: 5px;
-
-  border-radius: 50%;
-
-  background: #c58a24;
-}
-
-
-/* =========================================
-   SCROLLBAR
-========================================= */
-
-.sidebar::-webkit-scrollbar {
-  width: 5px;
-}
-
-
-.sidebar::-webkit-scrollbar-thumb {
-  background:
-    rgba(255, 255, 255, 0.18);
-
-  border-radius: 20px;
-}
-
-
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background:
-    rgba(255, 255, 255, 0.3);
-}
-
-
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-
-/* =========================================
-   TABLET / MOBILE
-========================================= */
-
-@media (max-width: 991px) {
-
-  .sidebar {
-    width: 250px;
-  }
-
-
-  .sidebar-close {
     position: absolute;
-
     top: 12px;
     right: 12px;
 
-    display: flex;
+    width: 34px;
+    height: 34px;
 
     align-items: center;
     justify-content: center;
 
-    width: 32px;
-    height: 32px;
+    border: 1px solid var(--color-border);
+    border-radius: 7px;
 
-    border: 0;
-    border-radius: 6px;
-
-    background:
-      rgba(255, 255, 255, 0.1);
-
-    color: #ffffff;
+    background: var(--color-white);
+    color: var(--color-text);
 
     cursor: pointer;
-  }
 
+    transition: 0.2s ease;
+}
 
-  .coming-soon {
-    font-size: 8px;
-  }
+.sidebar-close:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-white);
+}
 
+.sidebar-close i {
+    font-size: 14px;
 }
 
 
-/* =========================================
+/* ================================
+   MENU
+================================ */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+    min-height: 0;
+
+    padding: 12px 10px 24px;
+}
+
+
+/* ================================
+   LOADING
+================================ */
+
+.menu-loading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 12px 14px;
+
+    color: var(--color-text-light);
+    font-size: 13px;
+}
+
+.menu-loading i {
+    color: var(--color-primary);
+    font-size: 16px;
+}
+
+.spin {
+    animation: sidebar-spin 1s linear infinite;
+}
+
+@keyframes sidebar-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ================================
+   MENU GROUP
+================================ */
+
+.menu-group {
+    width: 100%;
+    margin: 2px 0;
+}
+
+
+/* ================================
+   MENU ITEM
+================================ */
+
+.menu-item {
+    width: 100%;
+    min-height: 48px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 11px 13px;
+    margin: 2px 0;
+
+    border: 1px solid transparent;
+    border-radius: 8px;
+
+    background: transparent;
+    color: var(--color-text);
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+
+    cursor: pointer;
+    text-align: left;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* ================================
+   MENU ICON
+================================ */
+
+.menu-item > i {
+    width: 21px;
+    min-width: 21px;
+
+    color: var(--icon-primary);
+
+    font-size: 17px;
+    text-align: center;
+
+    transition: color 0.2s ease;
+}
+
+
+/* ================================
+   MENU LABEL
+================================ */
+
+.menu-label {
+    flex: 1;
+    min-width: 0;
+    color:var(--color-heading, #162536);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ================================
+   MENU HOVER
+================================ */
+
+.menu-item:hover {
+    background: var(--color-primary-light);
+    border-color: rgba(23, 107, 115, 0.12);
+
+    color: var(--color-primary);
+}
+
+.menu-item:hover > i {
+    color: var(--color-primary);
+}
+
+
+/* ================================
+   ACTIVE SINGLE MENU
+================================ */
+
+.menu-item.menu-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+
+    color: var(--color-white);
+
+    box-shadow: 0 4px 12px rgba(23, 107, 115, 0.18);
+}
+
+.menu-item.menu-active > i {
+    color: var(--color-white);
+}
+
+.menu-item.menu-active:hover {
+    background: var(--color-primary-dark);
+    border-color: var(--color-primary-dark);
+
+    color: var(--color-white);
+}
+
+.menu-item.menu-active:hover > i {
+    color: var(--color-white);
+}
+
+
+/* ================================
+   MENU TOGGLE
+================================ */
+
+.menu-toggle {
+    justify-content: space-between;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    font-family: inherit;
+    user-select: none;
+}
+
+.menu-toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* ================================
+   TOGGLE ARROW
+================================ */
+
+.toggle-icon {
+    width: auto !important;
+    min-width: auto !important;
+
+    flex-shrink: 0;
+
+    color: var(--color-muted) !important;
+    font-size: 12px !important;
+}
+
+.menu-toggle:hover .toggle-icon {
+    color: var(--color-primary) !important;
+}
+
+
+/* ================================
+   SUBMENU
+================================ */
+
+.submenu {
+    display: flex;
+    flex-direction: column;
+
+    margin: 2px 0 5px;
+    padding: 4px 0;
+
+    background: var(--color-white);
+
+    border-left: 2px solid var(--color-primary-light);
+}
+
+
+/* ================================
+   SUBMENU ITEM
+================================ */
+
+.submenu-item {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    min-height: 42px;
+
+    margin: 1px 0 1px 10px;
+    padding: 9px 12px 9px 20px;
+
+    border-radius: 7px;
+
+    background: transparent;
+    color: var(--color-text-light);
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease,
+        padding-left 0.2s ease;
+}
+
+
+/* ================================
+   SUBMENU ICON
+================================ */
+
+.submenu-item i {
+    width: 17px;
+    min-width: 17px;
+
+    color: var(--icon-muted);
+
+    font-size: 13px;
+    text-align: center;
+
+    transition: color 0.2s ease;
+}
+
+
+/* ================================
+   SUBMENU HOVER
+================================ */
+
+.submenu-item:hover {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+
+    padding-left: 24px;
+}
+
+.submenu-item:hover i {
+    color: var(--color-primary);
+}
+
+
+/* ================================
+   ACTIVE SUBMENU
+================================ */
+
+.submenu-item.submenu-active {
+    background: var(--color-primary);
+
+    color: var(--color-white);
+
+    font-weight: 600;
+
+    box-shadow: 0 3px 9px rgba(23, 107, 115, 0.15);
+}
+
+.submenu-item.submenu-active i {
+    color: var(--color-white);
+}
+
+
+/* ================================
+   EMPTY MENU
+================================ */
+
+.menu-empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 15px;
+
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.menu-empty i {
+    color: var(--color-primary);
+}
+
+
+/* ================================
+   SCROLLBAR
+================================ */
+
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: var(--color-white);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(23, 107, 115, 0.20);
+    border-radius: 20px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+
+/* ================================
+   DESKTOP COLLAPSED
+================================ */
+
+:global(.desktop-sidebar.collapsed) .logo {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+:global(.desktop-sidebar.collapsed) .logo-content,
+:global(.desktop-sidebar.collapsed) .menu-label,
+:global(.desktop-sidebar.collapsed) .toggle-icon {
+    display: none;
+}
+
+:global(.desktop-sidebar.collapsed) .menu {
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+:global(.desktop-sidebar.collapsed) .menu-item {
+    justify-content: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+:global(.desktop-sidebar.collapsed) .menu-toggle-left {
+    justify-content: center;
+}
+
+:global(.desktop-sidebar.collapsed) .submenu {
+    display: none !important;
+}
+
+
+/* ================================
+   TABLET / MOBILE
+================================ */
+
+@media (max-width: 991px) {
+
+    .sidebar {
+        width: 250px;
+        min-width: 250px;
+        max-width: 250px;
+    }
+
+    .sidebar-close {
+        display: flex;
+    }
+
+    .logo {
+        min-height: 76px;
+
+        padding: 16px 50px 16px 16px;
+
+        justify-content: flex-start;
+    }
+
+    .logo-content {
+        text-align: left;
+    }
+
+    .logo h4 {
+        font-size: 22px;
+    }
+
+    .menu {
+        padding: 10px 8px 24px;
+    }
+
+    /* Keep mobile sidebar expanded */
+    :global(.desktop-sidebar.collapsed) .logo-content {
+        display: block;
+    }
+
+    :global(.desktop-sidebar.collapsed) .menu-label {
+        display: inline;
+    }
+
+    :global(.desktop-sidebar.collapsed) .toggle-icon {
+        display: block !important;
+    }
+
+    :global(.desktop-sidebar.collapsed) .menu-item {
+        justify-content: flex-start;
+
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    :global(.desktop-sidebar.collapsed) .menu-toggle-left {
+        justify-content: flex-start;
+    }
+
+    :global(.desktop-sidebar.collapsed) .submenu {
+        display: flex !important;
+    }
+}
+
+
+/* ================================
    SMALL MOBILE
-========================================= */
+================================ */
 
 @media (max-width: 480px) {
 
-  .coming-soon {
-    display: none;
-  }
+    .sidebar {
+        width: 240px;
+        min-width: 240px;
+        max-width: 240px;
+    }
 
+    .menu-item {
+        min-height: 46px;
+        font-size: 13px;
+    }
+
+    .submenu-item {
+        min-height: 40px;
+        font-size: 12.5px;
+    }
 }
 
 </style>
-```

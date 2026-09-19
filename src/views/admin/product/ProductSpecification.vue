@@ -26,7 +26,7 @@
             </div>
 
 
-            <button
+            <button v-if="hasPermission('PRODUCT_SPECIFICATION_CREATE')"
                 type="button"
                 class="btn btn-primary add-button"
                 @click="openCreateModal"
@@ -460,12 +460,12 @@
              SPECIFICATION TABLE
         ====================================================== -->
 
-        <div class="card admin-card shadow-sm">
+        <div class="card admin-card admin-shared-card shadow-sm">
 
 
             <!-- TABLE HEADER -->
 
-            <div class="table-card-header">
+            <div class="table-card-header admin-shared-card-header">
 
                 <div>
 
@@ -502,9 +502,9 @@
                  TABLE
             ================================================== -->
 
-            <div class="card-body table-responsive">
+            <div class="card-body table-responsive admin-shared-table-wrap">
 
-                <table class="table admin-table table-hover align-middle">
+                <table class="table admin-table admin-shared-table table-hover align-middle">
 
                     <thead>
 
@@ -526,7 +526,7 @@
                             Specification Value
                         </th>
 
-                        <th width="150">
+                        <th  v-if="hasPermission('PRODUCT_SPECIFICATION_EDIT') || hasPermission('PRODUCT_SPECIFICATION_DELETE') " width="150">
                             Action
                         </th>
 
@@ -642,14 +642,14 @@
 
                         <!-- ACTION -->
 
-                        <td>
+                        <td v-if="hasPermission('PRODUCT_SPECIFICATION_EDIT') || hasPermission('PRODUCT_SPECIFICATION_DELETE') ">
 
-                            <div class="action-buttons">
+                            <div class="action-buttons admin-shared-actions">
 
 
                                 <!-- EDIT -->
 
-                                <button
+                                <button v-if="hasPermission('PRODUCT_SPECIFICATION_EDIT')"
                                     type="button"
                                     class="btn admin-action-button edit-button"
                                     title="Edit Specification"
@@ -667,7 +667,7 @@
 
                                 <!-- DELETE -->
 
-                                <button
+                                <button v-if="hasPermission('PRODUCT_SPECIFICATION_DELETE')"
                                     type="button"
                                     class="btn admin-action-button delete-button"
                                     title="Delete Specification"
@@ -1327,7 +1327,9 @@ import {
     updateSpecification,
     deleteSpecification
 } from "@/api/specification.api";
-
+import {
+    hasPermission
+} from "@/utils/permission.js";
 
 import {
     getProducts
