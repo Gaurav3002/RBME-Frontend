@@ -82,7 +82,7 @@
 
 
               <a
-                href="tel:+919999999999"
+                href="tel:+919017137794"
                 class="hero-secondary"
               >
 
@@ -253,7 +253,7 @@
         <div class="quick-contact-grid">
 
           <a
-            href="tel:+919999999999"
+            href="tel:+919017137794"
             class="quick-contact-item"
           >
 
@@ -1881,7 +1881,7 @@
 
 
             <a
-              href="tel:+919999999999"
+              href="tel:+919017137794"
               class="map-button"
             >
 
@@ -1900,58 +1900,20 @@
 
           <div class="map-wrapper">
 
-            <div class="map-grid"></div>
-
-            <div class="map-route route-one"></div>
-
-            <div class="map-route route-two"></div>
-
-            <div class="map-route route-three"></div>
-
-
-            <div class="map-pin">
-
-              <div class="map-pin-pulse"></div>
-
-              <div class="map-pin-icon">
-
-                <i class="bi bi-geo-alt-fill"></i>
-
-              </div>
-
-            </div>
-
-
-            <div class="map-label-card">
-
-              <span>
-                RBM ENGINEERS
-              </span>
-
-              <strong>
-                India
-              </strong>
-
-              <small>
-                Contact our team for exact office location
-              </small>
-
-            </div>
-
-
-            <div class="map-coordinates">
-
-              <span>
-                PROJECT OFFICE
-              </span>
-
-              <strong>
-                INDIA
-              </strong>
-
-            </div>
+            <iframe
+              src="https://www.google.com/maps?q=22.5082734,88.4217276&z=16&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Ram Bakery Machines & Engineers Location"
+            ></iframe>
 
           </div>
+
+
 
         </div>
 
@@ -4806,304 +4768,29 @@ const submitForm = async () => {
     translateY(-2px);
 
 }
-
-
 /* =========================================================
-   MAP
+   GOOGLE MAP
 ========================================================= */
 
 .map-wrapper {
-
-  position: relative;
-
-  min-height: 470px;
-
+  width: 100%;
+  height: 420px;
   overflow: hidden;
-
-  background:
-    #dfe7ec;
-
-  border:
-    1px solid #cfd9e0;
-
+  border-radius: 18px;
+  background: #e9eef2;
 }
 
-
-.map-grid {
-
-  position: absolute;
-
-  inset: 0;
-
-  opacity: .65;
-
-  background-image:
-
-    linear-gradient(
-      90deg,
-      rgba(27,94,140,.09) 1px,
-      transparent 1px
-    ),
-
-    linear-gradient(
-      rgba(27,94,140,.09) 1px,
-      transparent 1px
-    );
-
-  background-size:
-    50px 50px;
-
-}
-
-
-.map-route {
-
-  position: absolute;
-
-  height: 2px;
-
-  background:
-    rgba(255,255,255,.85);
-
-  transform-origin: left center;
-
-}
-
-
-.route-one {
-
-  width: 80%;
-
-  left: -5%;
-
-  top: 42%;
-
-  transform:
-    rotate(18deg);
-
-}
-
-
-.route-two {
-
-  width: 70%;
-
-  left: 25%;
-
-  top: 60%;
-
-  transform:
-    rotate(-32deg);
-
-}
-
-
-.route-three {
-
-  width: 65%;
-
-  left: 5%;
-
-  top: 72%;
-
-  transform:
-    rotate(-8deg);
-
-}
-
-
-.map-pin {
-
-  position: absolute;
-
-  left: 58%;
-
-  top: 43%;
-
-  width: 60px;
-
-  height: 60px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-}
-
-
-.map-pin-pulse {
-
-  position: absolute;
-
-  width: 60px;
-
-  height: 60px;
-
-  border-radius: 50%;
-
-  background:
-    rgba(27,94,140,.15);
-
-  animation:
-    mapPulse 2s infinite;
-
-}
-
-
-.map-pin-icon {
-
-  position: relative;
-
-  z-index: 2;
-
-  width: 43px;
-
-  height: 43px;
-
-  display: flex;
-
-  align-items: center;
-
-  justify-content: center;
-
-  border-radius: 50%;
-
-  background:
-    var(--primary);
-
-  color: white;
-
-  font-size: 18px;
-
-  box-shadow:
-    0 8px 20px rgba(27,94,140,.3);
-
-}
-
-
-@keyframes mapPulse {
-
-  0% {
-    transform: scale(.7);
-    opacity: .7;
-  }
-
-  70% {
-    transform: scale(1.4);
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 0;
-  }
-
-}
-
-
-.map-label-card {
-
-  position: absolute;
-
-  left: 35px;
-
-  bottom: 35px;
-
-  max-width: 260px;
-
-  padding:
-    18px 20px;
-
-  background:
-    rgba(255,255,255,.96);
-
-  box-shadow:
-    0 15px 35px rgba(7,21,33,.1);
-
-}
-
-
-.map-label-card span {
-
+.map-wrapper iframe {
   display: block;
-
-  margin-bottom: 6px;
-
-  color: var(--primary);
-
-  font-size: 8px;
-
-  font-weight: 850;
-
-  letter-spacing: 1.7px;
-
+  width: 100%;
+  height: 100%;
+  border: 0;
 }
 
 
-.map-label-card strong {
-
-  display: block;
-
-  margin-bottom: 5px;
-
-  color: var(--heading);
-
-  font-size: 18px;
-
-}
 
 
-.map-label-card small {
 
-  color: var(--text);
-
-  font-size: 9px;
-
-  line-height: 1.5;
-
-}
-
-
-.map-coordinates {
-
-  position: absolute;
-
-  right: 25px;
-
-  top: 25px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  align-items: flex-end;
-
-  gap: 4px;
-
-}
-
-
-.map-coordinates span {
-
-  color: #758792;
-
-  font-size: 7px;
-
-  font-weight: 850;
-
-  letter-spacing: 1.3px;
-
-}
-
-
-.map-coordinates strong {
-
-  color: var(--heading);
-
-  font-size: 10px;
-
-}
 
 
 /* =========================================================
